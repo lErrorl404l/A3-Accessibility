@@ -1,5 +1,5 @@
 name = "A3 Accessibility";
-author = "UKSF Taskforce Alpha Team";
+author = "lErrorl404l";
 picture = "";
 logoSmall = "";
 logo = "";

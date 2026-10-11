@@ -7,7 +7,7 @@ class CfgPatches {
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
         requiredAddons[] = {"A3ACC_main", "cba_common", "cba_events", "cba_settings"};
-        authors[] = {"UKSF Taskforce Alpha Team"};
+        authors[] = {"lErrorl404l"};
         VERSION_CONFIG;
     };
 };

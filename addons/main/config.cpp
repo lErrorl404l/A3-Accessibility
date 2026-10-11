@@ -7,8 +7,8 @@ class CfgPatches {
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
         requiredAddons[] = {};
-        authors[] = {"UKSF Taskforce Alpha Team"};
-        author = "UKSF Taskforce Alpha Team";
+        authors[] = {"lErrorl404l"};
+        author = "lErrorl404l";
         VERSION_CONFIG;
     };
 };
@@ -18,7 +18,7 @@ class CfgMods {
         dir = "@A3-Accessibility";
         name = "A3 Accessibility";
 
-        author = "UKSF Taskforce Alpha Team";
+        author = "lErrorl404l";
 
         picture = "";
         hideName = "false";

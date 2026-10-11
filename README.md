@@ -38,4 +38,4 @@ Report problems at the [GitHub repository](https://github.com/lErrorl404l/A3-Acc
 
 ## Credits
 
-Made by UKSF Taskforce Alpha Team.
+Made by lErrorl404l.
