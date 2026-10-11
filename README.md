@@ -10,9 +10,8 @@ apply a screen filter, so the rest of the picture stays as it is.
 
 - Five modes: Off, Protan, Deutan, Tritan and Achromatopsia.
 - Remaps the named map marker colours.
-- Works in the editor, in single player and in multiplayer.
+- Works in the editor and in single player.
 - No filter and no post-process effect.
-- The setting is saved in your profile.
 
 ## How to use
 
@@ -31,6 +30,8 @@ apply a screen filter, so the rest of the picture stays as it is.
 - The mod remaps the marker colour palette. If a mission sets a raw colour value on a marker, that
   marker keeps its value.
 - The modes separate colours by brightness as well as by hue, so they stay clear in poor light.
+- This addon is addon-scoped. It cannot change Arma 3 itself, and it cannot add a shape or a text cue
+  where the game uses colour alone. See [ACCESSIBILITY.md](ACCESSIBILITY.md).
 
 ## Feedback
 
