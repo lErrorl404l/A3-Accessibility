@@ -8,3 +8,5 @@ keys/*
 /keys
 /.hemttout
 /.omo
+__pycache__/
+*.pyc
