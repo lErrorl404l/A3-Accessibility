@@ -18,7 +18,7 @@ path = "addons/main/script_version.hpp"
 git_hash = 0
 
 [hemtt.publish]
-description = "workshop_description.md"
+description = "README.md"
 changelog = "CHANGELOG.md"
 
 [hemtt.launch.default]
