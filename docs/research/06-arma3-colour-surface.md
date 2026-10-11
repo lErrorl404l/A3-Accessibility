@@ -84,3 +84,48 @@ not by the colour override.
 
 Items 1 and 4 are the highest value and are deferred, not blocked: the AEE prior art already gives
 a verified working `CfgMarkerColors` shape to build against now.
+
+## 7. BIKI retrieval (Wayback Machine, 2026-10-12)
+
+The live BIKI returns 403 to automated fetches. Snapshots were read through the Wayback CDX API
+and a retrieval proxy.
+
+### `Arma_3:_CfgMarkerColors` - RETRIEVED (snapshot 2025-04-18)
+
+Field semantics confirmed: `color[] = {r, g, b, a}` (RGBA), `name` (display name in UIs),
+`scope = 1` means public and `scope = 0` means private.
+
+The full vanilla palette is now known (RGBA, alpha 1):
+
+- `Default` {0,0,0,1}, `ColorBlack` {0,0,0,1}, `ColorGrey` {0.5,0.5,0.5,1}, `ColorRed` {0.9,0,0,1},
+  `ColorBrown` {0.5,0.25,0,1}, `ColorOrange` {0.85,0.4,0,1}, `ColorYellow` {0.85,0.85,0,1},
+  `ColorKhaki` {0.5,0.6,0.4,1}, `ColorGreen` {0,0.8,0,1}, `ColorBlue` {0,0,1,1},
+  `ColorPink` {1,0.3,0.4,1}, `ColorWhite` {1,1,1,1}.
+- Side classes: `ColorWEST` {0,0.3,0.6,1}, `ColorEAST` {0.5,0,0,1}, `ColorGUER` {0,0.5,0,1},
+  `ColorCIV` {0.4,0,0.5,1}, `ColorUNKNOWN` {0.7,0.6,0,1}. Lower-case aliases `colorBLUFOR`,
+  `colorOPFOR`, `colorIndependent`, `colorCivilian` carry the same values.
+
+This confirms the five engine class names used by the plan (`ColorWEST`, `ColorEAST`, `ColorGUER`,
+`ColorCIV`, `ColorUNKNOWN`) and their current values.
+
+### `Class_Inheritance` - RETRIEVED (snapshot 2025-03-24)
+
+- An external base class needs a skeleton declaration first: `class externalBaseClass;`.
+- `delete ClassName;` removes an existing class. A parent cannot be deleted before its children.
+- `requiredAddons[]` sets load order. `A3_Data_F_Decade_Loadorder` is the last vanilla `CfgPatches`
+  entry as of Arma 3 2.14, so it can be used to overwrite some vanilla configs.
+
+### `PreProcessor_Commands` (`__has_include`) - RETRIEVED (snapshot 2025-05-05)
+
+- `__has_include` returns 1 if a file exists, else 0, and was introduced in Arma 3 2.02.
+- The path must start with a backslash, or it fails silently and returns 0.
+- A config that changes with loaded mods must not be binarized.
+
+### Still UNVERIFIED from BIKI (no capture exists)
+
+`CfgMarkerClasses` fields, every `CfgInGameUI` colour key, `RscStructuredText` colour keys and the
+inline text colour tag, and the `Mod.cpp` fields. For these, the AEE prior art and the engine-config
+surface docs remain the authority.
+
+Net effect on the plan: the five engine class names and their current values are now confirmed, so
+the plan's section 2.2 no longer relies on inference for those five.

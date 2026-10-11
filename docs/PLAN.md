@@ -76,18 +76,18 @@ Gated pairs, by the WCAG 2.2 relative-luminance formula: friendly vs enemy 3.39:
 Gated pairs: friendly vs enemy 4.37:1, neutral vs civilian 6.89:1, objective vs friendly 5.22:1, enemy vs civilian 7.63:1. The objective gate is required because `01` section 1 names "yellow vs red" as a tritan confusion.
 ### 2.5 Achromatopsia values
 
-`01` section 3: hue-free, distinguish by luminance, outline weight and shape only. Three luminance tiers sit exactly 3:1 apart, which is the physical maximum for greys: grey 0.250 (L 0.051), grey 0.537 (L 0.250), grey 0.931 (L 0.850).
+`01` section 3: hue-free, distinguish by luminance, outline weight and shape only. Three grey tiers are used. The offline gate `tests/verify_palette.py` recomputes every gated pair, so these are the corrected values that clear 3:1: grey 0.25 (L 0.051), grey 0.56 (L 0.274), grey 0.98 (L 0.955).
 
 | Class | RGBA | Hex | Luminance | Extra carrier |
 |---|---|---|---|---|
-| friendly | 0.931, 0.931, 0.931, 1 | #EDEDED | 0.850 | shape |
-| enemy | 0.250, 0.250, 0.250, 1 | #404040 | 0.051 | shape |
-| neutral | 0.537, 0.537, 0.537, 1 | #898989 | 0.250 | shape |
-| unknown | 0.537, 0.537, 0.537, 1 | #898989 | 0.250 | dashed outline |
-| civilian | 0.931, 0.931, 0.931, 1 | #EDEDED | 0.850 | thin outline |
+| friendly | 0.98, 0.98, 0.98, 1 | #FAFAFA | 0.955 | shape |
+| enemy | 0.25, 0.25, 0.25, 1 | #404040 | 0.051 | shape |
+| neutral | 0.56, 0.56, 0.56, 1 | #8F8F8F | 0.274 | shape |
+| unknown | 0.56, 0.56, 0.56, 1 | #8F8F8F | 0.274 | dashed outline |
+| civilian | 0.98, 0.98, 0.98, 1 | #FAFAFA | 0.955 | thin outline |
 | objective | 1.000, 1.000, 1.000, 1 | #FFFFFF | 1.000 | text tag |
 
-Gated pairs: friendly vs enemy 8.92:1, friendly vs neutral 3.00:1, enemy vs neutral 3.00:1, objective vs enemy 10.41:1, objective vs neutral 3.50:1.
+Gated pairs, recomputed by `tests/verify_palette.py`: friendly vs enemy 9.96:1, friendly vs neutral 3.10:1, enemy vs neutral 3.21:1, objective vs enemy 10.41:1, objective vs neutral 3.24:1.
 Stated limitation: six classes cannot all sit 3:1 apart in greyscale. Unknown shares the neutral grey and civilian shares the friendly grey. `01` section 3 makes outline weight and shape a carrier for this mode, so those two pairs depend on the shape layer, which is deferred (section 12).
 
 ## 3. The pure mapping function
@@ -229,11 +229,11 @@ CBA owns it. The setting is registered with `_isGlobal = 0`, so CBA stores the c
 ### 7.2 Layer 2, config assertions
 `hemtt check`, then the in-engine `test_config.sqf`. Proves the config classes and values survive preprocessing and rapify.
 ### 7.3 Layer 3a, offline unit test
-Runner SQF-VM on the two pure functions. Decision: run the pure tests under SQF-VM AND as CBA in-engine assertions, because `03-testing.md` section 3 says the highest-value automated test is the pure function, SQF-VM runs it in CI without the game, and CBA `TEST_OP` runs it in the real engine. The two runners cover different risks, so both are kept.
+Offline tier: a Python verifier on the two pure functions plus the config. Decision: run the pure tests offline in CI AND as CBA in-engine assertions, because `03-testing.md` section 3 says the highest-value automated test is the pure function. The offline verifier covers the data and the sync; CBA `TEST_OP` covers the real engine.
 
-File `tests/sqfvm/run_palette.sqf`, self-contained, with no CBA macros, because CBA's `TEST_*` macros are not guaranteed under SQF-VM. It uses the `_pass` and `_fail` counter idiom from `08-example-mods.md`, prints one `[A3ACC-SQFVM] [PASS|FAIL]` line per case, and prints `[A3ACC-SQFVM] DONE` last. The CI step greps for `[FAIL]` and for the DONE marker, in the style of the AEE `verify.py` in `05-aee-prior-art.md` section 4, because the SQF-VM exit code is UNVERIFIED (`03` section 6).
+Pivot: SQF-VM is old and unreliable (it hung on this project), so the offline tier is `tests/verify_palette.py`. It reads the real SQF function and the real `CfgMarkerColors.hpp`, checks the 24 function entries and the 20 config classes are in sync, and recomputes every gated WCAG contrast ratio. It needs no game and no SQF interpreter. `hemtt check` stays the authoritative static gate, and `sqflint` is advisory only.
 
-Cases: every mode 1..4 and every class returns an array of length 4. Every element is a number in the closed range 0..1. Element 4 is 1. Mode 0 returns `[]` for every class. An unknown class returns `[]`. An out-of-range mode returns `[]`. The eight gated pairs of section 2 keep their minimum ratio, recomputed in SQF from the returned values, which makes the WCAG rule a machine gate and not a comment.
+Cases the verifier checks: 24 well-formed entries; alpha 1 and values in 0..1; the 20 config classes equal the function output; and every gated pair of section 2 meets its 3:1 floor, recomputed in Python, which makes the WCAG rule a machine gate and not a comment.
 ### 7.4 Layer 3b, in-engine smoke test
 Entry point `addons/colourblind/test.sqf`. It reads `A3ACC_Tests` from `configFile`, `execVM`s each path, and `waitUntil { scriptDone _test }`, per `03-testing.md` section 1. It returns `true` when all files pass, per `07-mod-quality-standards.md`. Run it two ways: direct from the debug console as `execVM "z\a3acc\addons\colourblind\test.sqf"`, which is the shared floor that `07` describes, and as `[nil, "colourblind"] call CBA_fnc_test` for convenience. Whether CBA resolves the `z\a3acc` path is UNVERIFIED (section 11 item 7).
 
@@ -276,7 +276,7 @@ File `.github/workflows/ci.yml`, job `build`, on push and pull request. Steps fr
 3. `hemtt check -p -e`.
 4. `.hemtt/scripts/check_prefixes.rhai`, from `08-example-mods.md` item 9, which catches a missing `$PBOPREFIX$`.
 5. `arma-actions/bom-check`.
-6. Fetch and run SQF-VM on `tests/sqfvm/run_palette.sqf`, then grep for `[FAIL]` and for `[A3ACC-SQFVM] DONE`.
+6. Run `python3 tests/verify_palette.py` and require exit 0.
 7. `hemtt build`.
 8. `actions/upload-artifact` with `include-hidden-files: true`.
 
@@ -298,7 +298,7 @@ addons/colourblind/test.sqf                           in-engine entry point, ite
 addons/colourblind/test_palette.sqf                   CBA assertions on the two pure functions
 addons/colourblind/test_config.sqf                    CBA assertions on configFile and the sync gate
 addons/colourblind/test_setting.sqf                   CBA assertions on the setting and the palette global
-tests/sqfvm/run_palette.sqf                           self-contained SQF-VM runner for the pure functions
+tests/verify_palette.py                              offline palette and sync verifier
 .hemtt/lints.toml                                     enables sqf.undefined and sqf.not_private
 .hemtt/scripts/check_prefixes.rhai                    fails CI when a $PBOPREFIX$ is missing
 .github/workflows/ci.yml                              lint, prefix check, BOM check, SQF-VM, build, artifact
@@ -343,7 +343,7 @@ Task 1 has no dependency. Tasks 2 and 3 depend on 1. Task 4 depends on 1. Task 5
   - QA: `execVM "z\a3acc\addons\colourblind\test.sqf"` in the debug console, then read the RPT for `TEST_SUCCESS` lines and for zero failures.
   - Commit: `colourblind: add in-engine test suite`.
 - [ ] 8. Write the SQF-VM runner.
-  - Acceptance: `tests/sqfvm/run_palette.sqf` covers every case of section 7.3 and prints `[A3ACC-SQFVM] DONE` last.
+  - Acceptance: `python3 tests/verify_palette.py` exits 0 and reports the 24 entries, the 20 classes in sync, and every gated pair at or above 3:1.
   - QA: run SQF-VM locally with the include path set to `include/`. The output has no `[FAIL]` line. Evidence is the local output and the CI log.
   - Commit: `tests: add offline palette runner`.
 - [ ] 9. Add the CI workflow, the lint config, and the prefix check.

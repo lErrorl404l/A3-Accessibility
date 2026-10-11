@@ -13,3 +13,6 @@ class CfgPatches {
 };
 
 #include "CfgEventHandlers.hpp"
+#include "CfgMarkerColors.hpp"
+#include "CfgStructuredText.hpp"
+#include "CfgTests.hpp"

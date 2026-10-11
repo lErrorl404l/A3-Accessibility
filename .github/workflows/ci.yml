@@ -1,0 +1,46 @@
+# Continuous integration. Plan section 7.6 and
+# docs/research/07-mod-quality-standards.md.
+# The steps run on ubuntu-latest and need no Arma 3 install.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Check and build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup HEMTT
+        uses: arma-actions/hemtt@v1
+
+      - name: Lint the config and the SQF
+        run: hemtt check -p -e
+
+      - name: Check the addon prefixes
+        run: hemtt script check_prefixes
+
+      - name: Check for a byte-order mark
+        uses: arma-actions/bom-check@v1
+        with:
+          path: addons
+
+      - name: Offline palette test
+        run: python3 tests/verify_palette.py
+
+      - name: Build
+        run: hemtt build
+
+      - name: Upload the build
+        uses: actions/upload-artifact@v4
+        with:
+          name: a3acc-build
+          path: .hemttout/build
+          include-hidden-files: true
