@@ -1,0 +1,15 @@
+name = "A3 Accessibility";
+author = "UKSF Taskforce Alpha Team";
+picture = "";
+logoSmall = "";
+logo = "";
+logoOver = "";
+tooltip = "A3 Accessibility";
+tooltipOwned = "A3 Accessibility";
+overview = "Colour-blind accessibility modes for Arma 3.";
+description = "Selectable colour-vision-deficiency modes that recolour map markers, HUD and UI so colour-blind players can tell friend, foe and objective colours apart.";
+action = "";
+actionName = "";
+hideName = 0;
+hidePicture = 0;
+dlcColor[] = {0.4, 0.6, 0.8, 1};

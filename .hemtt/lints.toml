@@ -1,0 +1,17 @@
+[sqf.undefined]
+enabled = true
+options.check_orphan_code = false
+
+[sqf.unused]
+enabled = true
+options.check_params = true
+
+[sqf.banned_macros]
+options.always = [
+    "FREEZE_GAME",
+]
+options.release = [
+    "DEBUG_MODE_FULL",
+    "DISABLE_COMPILE_CACHE",
+    "ENABLE_PERFORMANCE_COUNTERS",
+]

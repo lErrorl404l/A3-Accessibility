@@ -1,0 +1,42 @@
+name = "A3 Accessibility"
+prefix = "A3ACC"
+author = "UKSF Taskforce Alpha Team"
+mainprefix = "z"
+
+[files]
+include = [
+    "mod.cpp",
+    "*.paa",
+]
+
+exclude = [
+    "*.png",
+]
+
+[version]
+path = "addons/main/script_version.hpp"
+git_hash = 0
+
+[hemtt.publish]
+description = "workshop_description.md"
+changelog = "CHANGELOG.md"
+
+[hemtt.launch.default]
+workshop = [
+    "450814997", # CBA_A3
+]
+
+dlc = []
+
+optionals = []
+
+parameters = [
+    "-skipIntro",
+    "-noSplash",
+    "-showScriptErrors",
+    "-debug",
+    "-filePatching",
+    "-window",
+]
+
+executable = "arma3_x64"        # Default: "arma3_x64"
