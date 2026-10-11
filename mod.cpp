@@ -1,9 +1,9 @@
 name = "A3 Accessibility";
 author = "lErrorl404l";
-picture = "";
-logoSmall = "";
-logo = "";
-logoOver = "";
+picture = "logo_a3acc_ca.paa";
+logoSmall = "logo_a3acc_ca.paa";
+logo = "logo_a3acc_ca.paa";
+logoOver = "logo_a3acc_ca.paa";
 tooltip = "A3 Accessibility";
 tooltipOwned = "A3 Accessibility";
 overview = "Colour-blind accessibility modes for Arma 3.";

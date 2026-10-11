@@ -14,13 +14,14 @@
 
 missionNamespace setVariable ["A3ACC_testResults", []];
 
+private _entries = configProperties [configFile >> "A3ACC_Tests", "true"];
 {
     private _handle = execVM getText _x;
     waitUntil { scriptDone _handle };
-} forEach (configProperties [configFile >> "A3ACC_Tests", "true"]);
+} forEach _entries;
 
 private _results = missionNamespace getVariable ["A3ACC_testResults", []];
-private _allPassed = ((count _results) > 0) && {(_results find false) == -1};
+private _allPassed = ((count _results) == (count _entries)) && {(_results find false) == -1};
 
 if (_allPassed) then {
     diag_log text "[A3ACC] all tests passed";

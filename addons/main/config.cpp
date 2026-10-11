@@ -20,7 +20,7 @@ class CfgMods {
 
         author = "lErrorl404l";
 
-        picture = "";
+        picture = "\z\a3acc\addons\main\data\logo_a3acc_ca.paa";
         hideName = "false";
         hidePicture = "false";
 

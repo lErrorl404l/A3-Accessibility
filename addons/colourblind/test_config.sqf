@@ -38,5 +38,25 @@ private _classNames = ["friendly", "enemy", "neutral", "unknown", "civilian"];
     } forEach _engineNames;
 } forEach [1, 2, 3, 4];
 
+// The vanilla structured-text base must still resolve, and the addon copy must be well formed.
+if (isNull (configFile >> "RscStructuredText")) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] RscStructuredText is missing";
+};
+private _addonText = configFile >> "A3ACC_RscStructuredText";
+if (isNull _addonText) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] A3ACC_RscStructuredText is missing";
+} else {
+    if ((count (getArray (_addonText >> "colorBackground"))) != 4) then {
+        _fail = _fail + 1;
+        diag_log text "[A3ACC] A3ACC_RscStructuredText colorBackground is not four values";
+    };
+    if ((count (getArray (_addonText >> "colorText"))) != 4) then {
+        _fail = _fail + 1;
+        diag_log text "[A3ACC] A3ACC_RscStructuredText colorText is not four values";
+    };
+};
+
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] config tests passed"; };
