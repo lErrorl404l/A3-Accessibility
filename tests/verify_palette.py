@@ -63,9 +63,16 @@ GATED_PAIRS = {
 MIN_RATIO = 3.0
 
 HUD_CONFIG = ROOT / "addons" / "colourblind" / "CfgInGameUI.hpp"
-MARKER_CONFIGS = [ROOT / "addons" / "colourblind" / "CfgMarkers.hpp", ROOT / "addons" / "colourblind" / "CfgGroupIcons.hpp",
-    ROOT / "addons" / "colourblind" / "CfgLocationTypes.hpp"]
-MARKER_SIDES = [("b_unknown", "friendly"), ("o_unknown", "enemy"), ("n_unknown", "neutral")]
+MARKER_CONFIGS = [
+    ROOT / "addons" / "colourblind" / "CfgMarkers.hpp",
+    ROOT / "addons" / "colourblind" / "CfgGroupIcons.hpp",
+    ROOT / "addons" / "colourblind" / "CfgLocationTypes.hpp",
+]
+MARKER_SIDES = [
+    ("b_unknown", "friendly"),
+    ("o_unknown", "enemy"),
+    ("n_unknown", "neutral"),
+]
 HUD_PAIRS = [
     ("colorFriendly", "colorEnemy"),
     ("colorFriendly", "colorNeutral"),
@@ -205,19 +212,24 @@ def main() -> int:
                 f"HUD {hud_name} = {hud[hud_name][:3]}, protan {cls} = {table[1][cls][:3]}"
             )
 
-
     # Gate 5: the marker and group-icon side colours carry the universal palette.
     for cls, expected in MARKER_SIDES:
         for cfg in MARKER_CONFIGS:
             text = cfg.read_text(encoding="utf-8")
-            match = re.search(rf"class {cls}\s*\{{[^}}]*color\[\]\s*=\s*\{{([^}}]+)\}}", text, re.S)
+            match = re.search(
+                rf"class {cls}(?:\s*:\s*\w+)?\s*\{{[^}}]*color\[\]\s*=\s*\{{([^}}]+)\}}",
+                text,
+                re.S,
+            )
             if match is None:
                 failures.append(f"{cfg.name} {cls}: no color")
                 continue
             rgba = tuple(float(v.strip()) for v in match.group(1).split(","))
             want = table[1][expected]
             if rgba[:3] != want[:3]:
-                failures.append(f"{cfg.name} {cls} = {rgba[:3]}, protan {expected} = {want[:3]}")
+                failures.append(
+                    f"{cfg.name} {cls} = {rgba[:3]}, protan {expected} = {want[:3]}"
+                )
 
     if failures:
         print("\nFAILURES:")

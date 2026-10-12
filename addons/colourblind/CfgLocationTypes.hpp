@@ -1,15 +1,15 @@
-// Map location side colours, mirroring CfgMarkers. The vanilla entries are
-// profile-driven, so a literal override replaces the user's own map colour
-// choice with a colour-vision-safe one. Same universal palette.
+// Map location side colours, mirroring CfgMarkers. The parent is restated so a
+// bare reopen cannot clear the vanilla inheritance.
 
 class CfgLocationTypes {
-    class b_unknown {
+    class Flag;
+    class b_unknown: Flag {
         color[] = {0.00, 0.35, 0.85, 1};
     };
-    class o_unknown {
+    class o_unknown: b_unknown {
         color[] = {1.00, 0.70, 0.00, 1};
     };
-    class n_unknown {
+    class n_unknown: b_unknown {
         color[] = {0.00, 0.80, 0.80, 1};
     };
 };
