@@ -34,6 +34,12 @@ subtitle commands. Run through `tests/ingame`.
   The reduced-clutter feature is viable and is shipped.
 - `setGroupIconsVisible` and `enableSentences` are accepted.
 
+## Third probe
+
+On confirmed land, with live units and 30 rounds loaded, `fire` still produced no
+`Fired` event. The engine did not report a shot from a spawned unit on a headless
+server. The directional cue remains unverified and is not built.
+
 ## UNVERIFIED
 
 - Why `FiredNear` did not fire. The spawned units may not have been aware of each
