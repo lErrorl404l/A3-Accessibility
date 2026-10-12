@@ -19,4 +19,5 @@ class CfgPatches {
 #include "CfgNotifications.hpp"
 #include "CfgMarkers.hpp"
 #include "CfgGroupIcons.hpp"
+#include "CfgRscInGameUI.hpp"
 #include "CfgTests.hpp"

@@ -98,5 +98,13 @@ if (!isClass (configFile >> "A3ACC_RscDisplayAccessibility")) then {
     diag_log text "[A3ACC] accessibility help display not found";
 };
 
+
+// The vehicle optic HUD must carry the universal palette, not the side red.
+private _opticRed = configFile >> "RscInGameUI" >> "RscOptics_crows" >> "CA_IGUI_elements_group" >> "controls" >> "CA_TurretIndicator" >> "color";
+if ((getArray _opticRed) isNotEqualTo [1, 0.7, 0, 1]) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] RscInGameUI optic colour not overridden";
+};
+
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] config tests passed"; };
