@@ -125,5 +125,13 @@ if (isNil "BIS_fnc_taskCurrent") then {
     diag_log text "[A3ACC] BIS_fnc_taskCurrent not found";
 };
 
+
+// The Eden editor draw colours must carry the universal palette.
+private _edenTrigger = configFile >> "Cfg3DEN" >> "Trigger" >> "Draw" >> "2D" >> "color";
+if ((getArray _edenTrigger) isNotEqualTo [0, 0.8, 0.8, 1]) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] Cfg3DEN trigger colour not overridden";
+};
+
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] config tests passed"; };
