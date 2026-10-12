@@ -13,7 +13,7 @@
 private _fail = 0;
 
 // Functions live in their own component addons; resolve them by name.
-private _fnNames = ["A3ACC_motion_fnc_applyMotion", "A3ACC_hearing_fnc_applyCaptions", "A3ACC_cognitive_fnc_applyClutter", "A3ACC_lowvision_fnc_applyLegibility"];
+private _fnNames = ["A3ACC_motion_fnc_applyMotion", "A3ACC_hearing_fnc_applyCaptions", "A3ACC_cognitive_fnc_applyClutter", "A3ACC_lowvision_fnc_applyLegibility", "A3ACC_motor_fnc_applyWalk"];
 {
     if (isNil {missionNamespace getVariable [_x, nil]}) then {
         _fail = _fail + 1;
@@ -24,6 +24,7 @@ private _applyMotion = missionNamespace getVariable ["A3ACC_motion_fnc_applyMoti
 private _applyCaptions = missionNamespace getVariable ["A3ACC_hearing_fnc_applyCaptions", {}];
 private _applyClutter = missionNamespace getVariable ["A3ACC_cognitive_fnc_applyClutter", {}];
 private _applyLegibility = missionNamespace getVariable ["A3ACC_lowvision_fnc_applyLegibility", {}];
+private _applyWalk = missionNamespace getVariable ["A3ACC_motor_fnc_applyWalk", {}];
 
 if (isNil "A3ACC_CVDMode") then {
     _fail = _fail + 1;
@@ -161,6 +162,14 @@ if (_afterCycle == _beforeCycle) then {
     diag_log text "[A3ACC] cycleMode did not change the mode";
 };
 ["A3ACC_CVDMode", _beforeCycle] call CBA_settings_fnc_set;
+
+// The motor walk toggle must be registered and must not error.
+if (isNil "A3ACC_ForceWalk") then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] setting A3ACC_ForceWalk not found";
+};
+[true] call _applyWalk;
+[false] call _applyWalk;
 
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] setting tests passed"; };
