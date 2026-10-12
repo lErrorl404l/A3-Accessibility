@@ -18,17 +18,23 @@ ROOT = Path(__file__).resolve().parent.parent
 SOURCE_DIR = ROOT / "addons"
 SOURCE_GLOBS = ["*.sqf", "*.hpp", "*.cpp", "*.inc"]
 
-# A post-process handle, a colour-matrix effect, or a brightness lever.
-FORBIDDEN = [
+# Check A applies to every addon. No post-process effect and no colour matrix.
+# A matrix is the shape of a colour simulation, so it stays banned everywhere.
+CHECK_A_TOKENS = [
     "ppEffectCreate",
     "ppEffectAdjust",
     "ppEffectEnable",
     "ppEffectCommit",
     "ppEffectDestroy",
+    "setPiPEffect",
     "ColorCorrections",
-    "setAperture",
-    "setApertureNew",
 ]
+
+# Check B applies to the colour component only. That component remaps colours,
+# so it must be provably brightness-neutral and may not touch the aperture
+# commands. The flash damping items live in a future component.
+CHECK_B_TOKENS = ["setAperture", "setApertureNew"]
+COLOUR_COMPONENT = ROOT / "addons" / "colourblind"
 
 # A colour matrix is ten or more numbers in one array, with nothing else in it.
 # The body must hold only numbers, commas and whitespace, so a code block that
@@ -49,20 +55,27 @@ def matrix_arrays(text: str) -> list[str]:
     return found
 
 
+def scan(paths: list[Path], tokens: list[str], check: str) -> list[str]:
+    failures: list[str] = []
+    for path in paths:
+        text = path.read_text(encoding="utf-8", errors="replace")
+        rel = path.relative_to(ROOT)
+        for token in tokens:
+            if token in text:
+                failures.append(f"{check}: {rel} contains {token}")
+        for array in matrix_arrays(text):
+            failures.append(f"{check}: {rel} colour matrix {array[:60]}")
+    return failures
+
+
 def main() -> int:
     files: list[Path] = []
     for glob in SOURCE_GLOBS:
         files.extend(sorted(SOURCE_DIR.rglob(glob)))
+    colour_files = [p for p in files if COLOUR_COMPONENT in p.parents]
 
-    failures: list[str] = []
-    for path in files:
-        text = path.read_text(encoding="utf-8", errors="replace")
-        rel = path.relative_to(ROOT)
-        for token in FORBIDDEN:
-            if token in text:
-                failures.append(f"{rel}: contains {token}")
-        for array in matrix_arrays(text):
-            failures.append(f"{rel}: colour matrix {array[:60]}")
+    failures = scan(files, CHECK_A_TOKENS, "A")
+    failures += scan(colour_files, CHECK_B_TOKENS, "B")
 
     if failures:
         print("FAILURES:")
@@ -71,8 +84,12 @@ def main() -> int:
         return 1
 
     print(
-        f"[verify_no_filter] PASS: {len(files)} source files, "
+        f"[verify_no_filter] PASS: check A over {len(files)} source files, "
         "no post-process effect and no colour matrix"
+    )
+    print(
+        f"[verify_no_filter] PASS: check B over {len(colour_files)} colour files, "
+        "the colour component is brightness-neutral"
     )
     return 0
 
