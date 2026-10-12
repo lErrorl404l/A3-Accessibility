@@ -40,4 +40,8 @@ if (_allPassed) then {
     diag_log text format ["[A3ACC] tests failed: %1", str _results];
 };
 
+// An explicit completion flag. scriptDone does not become true for every test
+// here, so it cannot signal that this suite has finished.
+missionNamespace setVariable ["A3ACC_testComplete", true];
+
 _allPassed
