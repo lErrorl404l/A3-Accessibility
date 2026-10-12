@@ -1,3 +1,4 @@
 PREP_RECOMPILE_START;
 PREP(applyCaptions);
+PREP(soundCue);
 PREP_RECOMPILE_END;

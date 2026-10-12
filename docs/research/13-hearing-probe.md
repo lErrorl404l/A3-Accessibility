@@ -40,6 +40,16 @@ On confirmed land, with live units and 30 rounds loaded, `fire` still produced n
 `Fired` event. The engine did not report a shot from a spawned unit on a headless
 server. The directional cue remains unverified and is not built.
 
+## Fourth probe: success
+
+With `setCombatMode "RED"`, `reveal` and `doTarget`, `doFire` produced eight
+`Fired` and eight `FiredNear` events, each with distance and weapon. The earlier
+failures were unaware units, not a missing engine feature. The directional cue is
+built on this.
+
+The `Explosion` handler still did not fire from a `HelicopterExploSmall` vehicle.
+Explosion cues remain unverified.
+
 ## UNVERIFIED
 
 - Why `FiredNear` did not fire. The spawned units may not have been aware of each

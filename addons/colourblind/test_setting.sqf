@@ -13,7 +13,7 @@
 private _fail = 0;
 
 // Functions live in their own component addons; resolve them by name.
-private _fnNames = ["A3ACC_motion_fnc_applyMotion", "A3ACC_hearing_fnc_applyCaptions", "A3ACC_cognitive_fnc_applyClutter", "A3ACC_lowvision_fnc_applyLegibility", "A3ACC_motor_fnc_applyWalk"];
+private _fnNames = ["A3ACC_motion_fnc_applyMotion", "A3ACC_hearing_fnc_applyCaptions", "A3ACC_cognitive_fnc_applyClutter", "A3ACC_lowvision_fnc_applyLegibility", "A3ACC_motor_fnc_applyWalk", "A3ACC_hearing_fnc_soundCue"];
 {
     if (isNil {missionNamespace getVariable [_x, nil]}) then {
         _fail = _fail + 1;
@@ -170,6 +170,12 @@ if (isNil "A3ACC_ForceWalk") then {
 };
 [true] call _applyWalk;
 [false] call _applyWalk;
+
+// The directional cue setting must be registered.
+if (isNil "A3ACC_SoundCues") then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] setting A3ACC_SoundCues not found";
+};
 
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] setting tests passed"; };
