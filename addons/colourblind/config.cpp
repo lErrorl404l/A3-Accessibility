@@ -15,4 +15,6 @@ class CfgPatches {
 #include "CfgEventHandlers.hpp"
 #include "CfgMarkerColors.hpp"
 #include "CfgStructuredText.hpp"
+#include "CfgInGameUI.hpp"
+#include "CfgNotifications.hpp"
 #include "CfgTests.hpp"

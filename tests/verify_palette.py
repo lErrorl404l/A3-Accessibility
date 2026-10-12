@@ -62,6 +62,16 @@ GATED_PAIRS = {
 
 MIN_RATIO = 3.0
 
+HUD_CONFIG = ROOT / "addons" / "colourblind" / "CfgInGameUI.hpp"
+HUD_PAIRS = [
+    ("colorFriendly", "colorEnemy"),
+    ("colorFriendly", "colorNeutral"),
+    ("colorEnemy", "colorCivilian"),
+    ("colorFriendly", "colorUnknown"),
+]
+SIDE_COLORS = re.compile(r"class SideColors\s*\{(.*?)\n    \};", re.S)
+COLOR_ARRAY = re.compile(r"(\w+)\[\]\s*=\s*\{([^}]+)\}")
+
 RGBA_RE = re.compile(
     r"\[\s*([0-9.]+)\s*,\s*([0-9.]+)\s*,\s*([0-9.]+)\s*,\s*([0-9.]+)\s*\]"
 )
@@ -119,6 +129,19 @@ def parse_config() -> dict[tuple[int, str], tuple[float, float, float, float]]:
     return out
 
 
+def parse_side_colors() -> dict[str, tuple[float, float, float, float]]:
+    text = HUD_CONFIG.read_text(encoding="utf-8")
+    match = SIDE_COLORS.search(text)
+    if match is None:
+        raise SystemExit("FAIL: CfgInGameUI.hpp has no SideColors class")
+    out: dict[str, tuple[float, float, float, float]] = {}
+    for name, values in COLOR_ARRAY.findall(match.group(1)):
+        out[name] = tuple(float(v.strip()) for v in values.split(","))
+    if len(out) != 5:
+        raise SystemExit(f"FAIL: SideColors should have 5 colours, found {len(out)}")
+    return out
+
+
 def main() -> int:
     table = parse_function()
     config = parse_config()
@@ -154,6 +177,30 @@ def main() -> int:
                 failures.append(
                     f"{mode_name} {a} vs {b} = {ratio:.2f}:1, below {MIN_RATIO}:1"
                 )
+
+    # Gate 4: the fixed-name HUD surfaces carry one universal palette, and it
+    # must equal the gated Protan table, because those classes cannot switch mode.
+    hud = parse_side_colors()
+    print("HUD side colours (universal palette):")
+    for name, rgba in sorted(hud.items()):
+        print(f"  {name:16s} {rgba}")
+    for a, b in HUD_PAIRS:
+        ratio = contrast(hud[a], hud[b])
+        verdict = "ok" if ratio >= MIN_RATIO else "FAIL"
+        print(f"  {a:16s} vs {b:16s} {ratio:5.2f}:1  {verdict}")
+        if ratio < MIN_RATIO:
+            failures.append(f"HUD {a} vs {b} = {ratio:.2f}:1, below {MIN_RATIO}:1")
+    for hud_name, cls in (
+        ("colorFriendly", "friendly"),
+        ("colorEnemy", "enemy"),
+        ("colorNeutral", "neutral"),
+        ("colorCivilian", "civilian"),
+        ("colorUnknown", "unknown"),
+    ):
+        if hud[hud_name][:3] != table[1][cls][:3]:
+            failures.append(
+                f"HUD {hud_name} = {hud[hud_name][:3]}, protan {cls} = {table[1][cls][:3]}"
+            )
 
     if failures:
         print("\nFAILURES:")

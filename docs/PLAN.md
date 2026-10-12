@@ -146,22 +146,10 @@ class A3ACC_RscStructuredText: RscStructuredText {
 };
 ```
 
-The text pair is 12.6:1, which clears the 4.5:1 text floor of `01` section 2 (WCAG 2.2 SC 1.4.3). The panel is mode-independent by design, so a mode change cannot make the addon's own text unreadable. No `RscMapControlTooltip` override, per section 1.
-### 4.3 `addons/colourblind/CfgFunctions.hpp`
+The text pair is 14.96:1, which clears the 4.5:1 text floor of `01` section 2 (WCAG 2.2 SC 1.4.3). The panel is mode-independent by design, so a mode change cannot make the addon's own text unreadable. No `RscMapControlTooltip` override, per section 1.
+### 4.3 Functions registration (no `CfgFunctions.hpp`)
 
-```
-class CfgFunctions {
-    class A3ACC { class colourblind {
-        file = "\z\a3acc\addons\colourblind\functions";
-        class paletteForMode {};
-        class colourNameFor {};
-        class applyMode {};
-        class watch {};
-    }; };
-};
-```
-
-`02-cba-and-tooling.md` section 4 names a `PATHTOF_FNC` macro convention. This plan uses the CBA `file` plus empty-class form instead, because that form needs no new macro in `addons/main/script_macros.hpp`. Each function is also listed in `XEH_PREP.hpp`, so CBA compiles it into the compile cache.
+An earlier draft registered the four functions through a `CfgFunctions` block. That block was removed. It produced `A3ACC_fnc_colourblind_*`, which no call site uses. The call sites use the `FUNC` macro, which expands to `A3ACC_colourblind_fnc_*`. The four functions are compiled by `PREP` in `XEH_PREP.hpp` through `CBA_fnc_compileFunction`, which is the CBA mechanism. A `CfgFunctions` block would compile each file a second time under a dead name.
 ### 4.4 `addons/colourblind/CfgTests.hpp`
 
 The discovery list from `07-mod-quality-standards.md`, so adding a test file needs no edit to the runner.

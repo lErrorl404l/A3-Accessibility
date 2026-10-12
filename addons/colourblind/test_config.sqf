@@ -58,5 +58,25 @@ if (isNull _addonText) then {
     };
 };
 
+// The fixed-name HUD, scoreboard and notification surfaces must carry the
+// universal palette, because they cannot switch mode.
+private _side = configFile >> "CfgInGameUI" >> "SideColors";
+if ((getArray (_side >> "colorFriendly")) isNotEqualTo [0, 0.35, 0.85, 1]) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] SideColors colorFriendly not overridden";
+};
+if ((getArray (_side >> "colorEnemy")) isNotEqualTo [1, 0.7, 0, 1]) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] SideColors colorEnemy not overridden";
+};
+if ((getArray (configFile >> "CfgInGameUI" >> "MPTable" >> "colorWest")) isNotEqualTo [0, 0.35, 0.85, 1]) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] MPTable colorWest not overridden";
+};
+if ((getArray (configFile >> "CfgNotifications" >> "TaskFailed" >> "color")) isNotEqualTo [1, 0.7, 0, 1]) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] CfgNotifications TaskFailed not overridden";
+};
+
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] config tests passed"; };
