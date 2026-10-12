@@ -63,7 +63,8 @@ GATED_PAIRS = {
 MIN_RATIO = 3.0
 
 HUD_CONFIG = ROOT / "addons" / "colourblind" / "CfgInGameUI.hpp"
-MARKER_CONFIGS = [ROOT / "addons" / "colourblind" / "CfgMarkers.hpp", ROOT / "addons" / "colourblind" / "CfgGroupIcons.hpp"]
+MARKER_CONFIGS = [ROOT / "addons" / "colourblind" / "CfgMarkers.hpp", ROOT / "addons" / "colourblind" / "CfgGroupIcons.hpp",
+    ROOT / "addons" / "colourblind" / "CfgLocationTypes.hpp"]
 MARKER_SIDES = [("b_unknown", "friendly"), ("o_unknown", "enemy"), ("n_unknown", "neutral")]
 HUD_PAIRS = [
     ("colorFriendly", "colorEnemy"),

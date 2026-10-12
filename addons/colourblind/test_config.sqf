@@ -106,5 +106,13 @@ if ((getArray _opticRed) isNotEqualTo [1, 0.7, 0, 1]) then {
     diag_log text "[A3ACC] RscInGameUI optic colour not overridden";
 };
 
+
+// The map location side colours must carry the universal palette.
+private _locSide = configFile >> "CfgLocationTypes" >> "n_unknown" >> "color";
+if ((getArray _locSide) isNotEqualTo [0, 0.8, 0.8, 1]) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] CfgLocationTypes n_unknown not overridden";
+};
+
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] config tests passed"; };

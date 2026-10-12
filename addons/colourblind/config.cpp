@@ -20,4 +20,5 @@ class CfgPatches {
 #include "CfgMarkers.hpp"
 #include "CfgGroupIcons.hpp"
 #include "CfgRscInGameUI.hpp"
+#include "CfgLocationTypes.hpp"
 #include "CfgTests.hpp"
