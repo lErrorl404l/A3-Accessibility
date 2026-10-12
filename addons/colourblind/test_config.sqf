@@ -91,5 +91,12 @@ if ((getArray _groupSide) isNotEqualTo [1, 0.7, 0, 1]) then {
     diag_log text "[A3ACC] CfgGroupIcons o_unknown not overridden";
 };
 
+
+// The accessibility help screen must exist for the pause menu entry to open.
+if (!isClass (configFile >> "A3ACC_RscDisplayAccessibility")) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] accessibility help display not found";
+};
+
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] config tests passed"; };

@@ -1,3 +1,4 @@
 PREP_RECOMPILE_START;
 PREP(applyClutter);
+PREP(addPauseOption);
 PREP_RECOMPILE_END;
