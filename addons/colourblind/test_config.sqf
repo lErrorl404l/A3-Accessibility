@@ -78,5 +78,18 @@ if ((getArray (configFile >> "CfgNotifications" >> "TaskFailed" >> "color")) isN
     diag_log text "[A3ACC] CfgNotifications TaskFailed not overridden";
 };
 
+
+// The marker and group-icon side colours must carry the universal palette.
+private _markerSide = configFile >> "CfgMarkers" >> "b_unknown" >> "color";
+if ((getArray _markerSide) isNotEqualTo [0, 0.35, 0.85, 1]) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] CfgMarkers b_unknown not overridden";
+};
+private _groupSide = configFile >> "CfgGroupIcons" >> "o_unknown" >> "color";
+if ((getArray _groupSide) isNotEqualTo [1, 0.7, 0, 1]) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] CfgGroupIcons o_unknown not overridden";
+};
+
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] config tests passed"; };
