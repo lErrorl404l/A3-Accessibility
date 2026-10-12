@@ -35,6 +35,9 @@ jobs:
       - name: Offline palette test
         run: python3 tests/verify_palette.py
 
+      - name: No-filter test
+        run: python3 tests/verify_no_filter.py
+
       - name: Build
         run: hemtt build
 
