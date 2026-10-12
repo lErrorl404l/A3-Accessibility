@@ -5,8 +5,29 @@ The format follows Keep a Changelog, and this project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- The colour engine is dynamic. A mode change writes the engine's own side and
+  interface profile variables, and the addon's own surface variables, instead of
+  replacing config values. The player's own values are recorded and restored
+  when the mode is Off.
+- `CfgMarkerColors`, `CfgMarkers`, `CfgGroupIcons`, `CfgLocationTypes` and the
+  name mapper are gone. The shipped config already reads the engine variables
+  for those surfaces.
+- `CfgInGameUI/SideColors`, `CfgInGameUI/MPTable`, the cursors, the optics, the
+  Eden draw colours and the notifications read per-channel expressions. The
+  `IslandMap` and `SquadRadar` overrides are gone: the shipped `IslandMap`
+  already reads the variables, and the shipped config defines no colour for
+  `SquadRadar`.
+- Every reopened class restates its vanilla parent. A bare reopen cleared the
+  parent and dropped the marker icon, size and scope.
+
 ### Added
 
+- `tests/verify_surface.py`, an offline gate for the expression form, the
+  variable set, the owned and forbidden variables, the deleted overrides and the
+  parent restatement.
+- An in-engine surface test, and a marker colour wiring assertion.
 - HEMTT project scaffold with a CBA-style split of `addons/main` and `addons/colourblind`.
 - Research record under `docs/research` for colour vision deficiency, CBA_A3, the Arma 3 colour
   surface, accessibility features, testing, quality standards and example mods.

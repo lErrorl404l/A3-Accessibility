@@ -6,13 +6,22 @@ statement and it makes no claim of compliance.
 
 ## What this addon does
 
-The addon adds five selectable colour-vision-deficiency modes. Each mode remaps
-the named map marker colours so that friendly, enemy, neutral and unknown
-markers stay easy to tell apart. It also remaps the wider colour surface that
-carries side and status meaning: the HUD and 3D icon side colours
-(`CfgInGameUI/SideColors`), the scoreboard side colours, the squad radar, the
-map object colours, and the notification status colours. The modes change the
-colours. They do not add a screen filter or a post-process effect.
+The addon adds five selectable colour-vision-deficiency modes. Each mode drives
+the colours that carry side and status meaning, so that friendly, enemy, neutral
+and unknown stay easy to tell apart.
+
+The mechanism is dynamic. The engine reads most of these colours from a profile
+variable, and a few from a mission variable, so a mode change writes variables
+instead of replacing config values. The addon writes the engine's own side and
+interface variables, and its own surface variables, and records the player's
+own values so that Off restores them. It does not add a screen filter and it
+does not add a post-process effect.
+
+The surfaces that follow a mode: the map markers, the map, the group icons, the
+HUD and 3D icon side colours, the scoreboard side colours, the vehicle optic
+indicators and heading, the Eden editor draw colours, the Zeus and
+high-command cursors, the task and score notifications, the interface error and
+warning text, and the tactical ping.
 
 The modes are Off, Protan, Deutan, Tritan and Achromatopsia.
 
@@ -20,10 +29,10 @@ The modes are Off, Protan, Deutan, Tritan and Achromatopsia.
 
 The addon is split into one component per accessibility concern.
 
-- **Colour blind mode** (`colourblind`): five modes over the map markers, the
-  HUD and 3D icon side colours, the scoreboard, the squad radar, the marker,
-  group-icon and map-location catalogues, the vehicle optic HUD, the Eden editor
-  draw colours, the Zeus cursors and the notification colours.
+- **Colour blind mode** (`colourblind`): five modes over the map markers and
+  the map, the HUD and 3D icon side colours, the scoreboard, the vehicle optic
+  HUD, the Eden editor draw colours, the Zeus and high-command cursors, and the
+  notification, error, warning and tactical ping colours.
 - **Reduce camera shake** (`motion`): for motion sensitivity.
 - **Force subtitles on** (`hearing`): and restore the previous setting when off.
 - **Directional gunfire cues** (`hearing`): an on-screen cue in the direction of
@@ -66,20 +75,23 @@ The pairs that must be told apart, and the ratio each reaches, are in
   `tests/verify_palette.py`. It needs no game.
 - The addon is loaded by a real Arma 3 dedicated server, and its test suite runs
   in the engine, through `tests/ingame/run.sh`. The suite asserts the apply, the
-  restore and the mode switch on live markers, the config sync, the setting
-  default and the structured-text control.
+  restore and the mode switch, the engine variable values, the marker colour
+  wiring, the setting default and the structured-text control. An offline gate,
+  `tests/verify_surface.py`, asserts the expression form, the variable set and
+  that every reopened class restates its parent.
 - Simulation filters were not used to test the palette. They are not a substitute
   for testing with colour-blind players. No colour-blind player has tested this
   addon yet.
 
 ## Known limits
 
-- Only the named marker colours are remapped. A marker with a raw colour value
-  keeps its value.
-- The wider colour surface uses one universal palette, not the selected mode.
-  The engine reads those fixed-name classes once, so they cannot switch with the
-  mode. The palette is separated at 3:1 by luminance, so every deficiency type
-  can still separate the colours by brightness.
+- Only the colours the addon covers are remapped. A marker that a mission gives
+  a raw colour value keeps that value.
+- The engine evaluates some surfaces when it loads them. The scoreboard is one.
+  A mode change may therefore need the next mission load to reach such a
+  surface. The evaluation moment of each surface is not fully mapped.
+- No script command reads a marker's resolved colour, so the rendered marker
+  colour can only be checked by eye at a client.
 - The addon does not change map terrain colours such as sea, forest and contour
   lines. Those are art, not side identity.
 
