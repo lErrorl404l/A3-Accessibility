@@ -25,4 +25,5 @@ The format follows Keep a Changelog, and this project uses Semantic Versioning.
 - Lowercase PBO names, so a Linux dedicated server loads the addon.
 - One addon component per accessibility concern: `main`, `colourblind`, `hearing`, `motion`, `cognitive`, `lowvision`, `motor`.
 - Camera-shake reduction, caption forcing, directional gunfire cues, reduced HUD clutter, larger map markers, an always-walk toggle and a pause-menu help screen.
-- Marker and group-icon catalogue colours.
+- Marker, group-icon and map-location catalogue colours, the vehicle optic HUD, the Eden editor draw colours and the Zeus cursors.
+- A keybind for every feature, a current-objective panel, and the CBA marker event in place of the marker poll.

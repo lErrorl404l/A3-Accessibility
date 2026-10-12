@@ -19,7 +19,9 @@ apply a screen filter, so the rest of the picture stays as it is.
 - Makes map markers larger, for low vision.
 - Forces subtitles on.
 - Adds an always-walk option, for reduced motor demand.
+- Shows the current objective in a small panel.
 - Adds an accessibility help screen to the pause menu.
+- Adds a keybind for every feature, unbound by default.
 - Works in the editor and in single player.
 - No filter and no post-process effect.
 

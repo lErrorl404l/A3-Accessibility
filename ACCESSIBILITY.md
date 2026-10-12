@@ -21,8 +21,9 @@ The modes are Off, Protan, Deutan, Tritan and Achromatopsia.
 The addon is split into one component per accessibility concern.
 
 - **Colour blind mode** (`colourblind`): five modes over the map markers, the
-  HUD and 3D icon side colours, the scoreboard, the squad radar, the marker and
-  group-icon catalogues, and the notification colours.
+  HUD and 3D icon side colours, the scoreboard, the squad radar, the marker,
+  group-icon and map-location catalogues, the vehicle optic HUD, the Eden editor
+  draw colours, the Zeus cursors and the notification colours.
 - **Reduce camera shake** (`motion`): for motion sensitivity.
 - **Force subtitles on** (`hearing`): and restore the previous setting when off.
 - **Directional gunfire cues** (`hearing`): an on-screen cue in the direction of
@@ -30,10 +31,12 @@ The addon is split into one component per accessibility concern.
 - **Reduce HUD clutter** (`cognitive`): hides the kill feed and panels, the HUD
   group icons and the radio chatter.
 - **Accessibility help screen** (`cognitive`): opens from the pause menu.
+- **Current objective panel** (`cognitive`): a small always-on panel with the
+  current task.
 - **Larger map markers** (`lowvision`): for low vision.
 - **Always walk** (`motor`): no key is needed to change speed.
-- **Mode-cycle keybind** (`colourblind`): the mode is reachable from the
-  keyboard.
+- **Keybinds**: every feature is reachable from the keyboard, unbound by
+  default. CBA keybinds are client-only, so they do not register on a server.
 
 ## What this addon does not do
 
