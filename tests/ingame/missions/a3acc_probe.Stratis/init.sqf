@@ -46,6 +46,6 @@ private _paths = [
             else { if (isArray _e) then { str getArray _e } else { "(class)" } } };
         diag_log format ["[A3ACC-PROBE]   %1 = %2", configName _e, _v];
     } forEach _props;
-} forEach ["CfgMarkers/b_unknown", "CfgNotifications/TaskSucceeded", "CfgWrapperUI/Cursors/CuratorPlaceWaypoint"];
+} forEach ["CfgMarkers/b_unknown", "CfgInGameUI/SideColors", "CfgInGameUI/MPTable", "CfgInGameUI/SquadRadar", "CfgInGameUI/IslandMap", "Cfg3DEN/Trigger/Draw/2D", "CfgWrapperUI/Cursors/HC_move"];
 
 diag_log "[A3ACC-PROBE] VANILLA DONE";
