@@ -11,3 +11,15 @@
     { [_this] call A3ACC_colourblind_fnc_applyMode },
     false
 ] call CBA_fnc_addSetting;
+
+[
+    "A3ACC_ReduceMotion",
+    "CHECKBOX",
+    ["Reduce camera shake",
+     "Remove camera shake, for motion sensitivity."],
+    "A3 Accessibility",
+    false,
+    0,
+    { [_this] call A3ACC_colourblind_fnc_applyMotion },
+    false
+] call CBA_fnc_addSetting;

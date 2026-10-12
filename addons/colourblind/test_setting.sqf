@@ -75,5 +75,13 @@ if (isNil "_defaults") then {
     };
 };
 
+// The motion setting must be registered, and applying it must not error.
+if (isNil "A3ACC_ReduceMotion") then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] setting A3ACC_ReduceMotion not found";
+};
+[true] call FUNC(applyMotion);
+[false] call FUNC(applyMotion);
+
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] setting tests passed"; };
