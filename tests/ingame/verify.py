@@ -17,13 +17,28 @@ BENIGN = (
     "not lowercase",
     "is dependent on downloadable content",
     "looped for animation",
-    "No entry 'bin",
-    "No entry '.",
     "Cannot open object",
     "Size: '/' not an array",
-    "'/' is not a value",
     "No geometry and no visual shape",
+    "'/' is not a value",
 )
+
+# Config roots this addon overrides. A missing entry under one of these is our
+# defect, not engine noise.
+OUR_ROOTS = (
+    "CfgMarkerColors",
+    "CfgMarkers",
+    "CfgGroupIcons",
+    "CfgLocationTypes",
+    "CfgNotifications",
+    "CfgInGameUI",
+    "RscInGameUI",
+    "CfgWrapperUI",
+    "Cfg3DEN",
+)
+
+# A cleared vanilla parent. The engine reports it as "Updating base class 'X'->''".
+CLEARED_PARENT = re.compile(r"Updating base class '[^']*'->''")
 
 
 def main() -> int:
@@ -43,6 +58,19 @@ def main() -> int:
         if re.search(r"\bError\b", line) and not any(b in line for b in BENIGN)
     ]
 
+    # Our overrides must preserve the vanilla parent chain. A redeclared class
+    # without its parent clears the inheritance and is reported by name.
+    cleared = [
+        line
+        for line in text.splitlines()
+        if "a3acc" in line.lower() and CLEARED_PARENT.search(line)
+    ]
+    missing = [
+        line
+        for line in text.splitlines()
+        if "No entry '" in line and any(root in line for root in OUR_ROOTS)
+    ]
+
     if not done:
         print("FAIL: the test did not finish ([A3ACC-TEST] DONE is missing)")
         return 1
@@ -54,6 +82,16 @@ def main() -> int:
     if errors:
         print("FAIL: the server log has errors")
         for line in errors[:20]:
+            print("  " + line.strip())
+        return 1
+    if cleared:
+        print("FAIL: an override cleared a vanilla base class")
+        for line in cleared[:20]:
+            print("  " + line.strip())
+        return 1
+    if missing:
+        print("FAIL: a config root is missing an entry")
+        for line in missing[:20]:
             print("  " + line.strip())
         return 1
 
