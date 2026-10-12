@@ -50,22 +50,27 @@ if ((count (missionNamespace getVariable ["A3ACC_palette", []])) != 0) then {
     diag_log text "[A3ACC] palette global is not empty after mode 0";
 };
 
-// A live marker must recolour on apply and restore on Off.
+// A live marker keeps its canonical engine colour name, which the engine
+// resolves through the mode variables fnc_applyVars writes. A foreign change is
+// re-asserted, and Off restores the name.
 private _marker = "a3acc_test_marker";
 createMarker [_marker, [0, 0, 0]];
-_marker setMarkerColor "ColorWEST";
+_marker setMarkerColorLocal "ColorWEST";
 [1] call FUNC(applyMode);
-private _after = getMarkerColor _marker;
-private _want = [1, "ColorWEST"] call FUNC(colourNameFor);
-if (_after != _want) then {
+if ((getMarkerColor _marker) != "ColorWEST") then {
     _fail = _fail + 1;
-    diag_log text format ["[A3ACC] marker did not recolour: %1 want %2", _after, _want];
+    diag_log text format ["[A3ACC] marker name changed on apply: %1", getMarkerColor _marker];
+};
+_marker setMarkerColorLocal "ColorBlue";
+[1] call FUNC(applyMode);
+if ((getMarkerColor _marker) != "ColorWEST") then {
+    _fail = _fail + 1;
+    diag_log text format ["[A3ACC] marker name was not re-asserted: %1", getMarkerColor _marker];
 };
 [0] call FUNC(applyMode);
-_after = getMarkerColor _marker;
-if (_after != "ColorWEST") then {
+if ((getMarkerColor _marker) != "ColorWEST") then {
     _fail = _fail + 1;
-    diag_log text format ["[A3ACC] marker did not restore: %1", _after];
+    diag_log text format ["[A3ACC] marker did not restore: %1", getMarkerColor _marker];
 };
 deleteMarker _marker;
 

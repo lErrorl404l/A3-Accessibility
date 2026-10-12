@@ -8,6 +8,6 @@
      ["Off", "Protan", "Deutan", "Tritan", "Achromatopsia"],
      0],
     0,
-    { [_this] call FUNC(applyMode) },
+    { [_this] call FUNC(applyMode); [_this] call FUNC(applyVars) },
     false
 ] call CBA_fnc_addSetting;

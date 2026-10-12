@@ -1,58 +1,24 @@
-// Whole-game colour override for the fixed-name HUD, map and scoreboard classes.
-//
-// A fixed class name with fixed property names cannot carry per-mode variants the
-// way CfgMarkerColors can, and the engine evaluates these arrays once, so a mode
-// change cannot recolour them live. They therefore carry one universal palette,
-// the gated Protan and Deutan table of docs/PLAN.md section 2.3. It is separated
-// at 3:1 by luminance, so every deficiency type, including tritan and
-// achromatopsia, can still separate the colours by brightness.
+// HUD and scoreboard colours. SideColors reads an addon profile variable per
+// channel. MPTable reads an addon mission variable per channel, because the
+// engine evaluates MPTable at server startup, before the profile namespace is
+// writable. IslandMap is not overridden: the shipped class reads the engine
+// side variables directly, and fnc_applyVars writes those. SquadRadar is not
+// overridden either: the extracted shipped config defines no colour property
+// for it.
 
 class CfgInGameUI {
-    // Vanilla friendly is green and enemy is red, the classic confusion pair.
     class SideColors {
-        colorFriendly[] = {0.00, 0.35, 0.85, 1};
-        colorEnemy[]    = {1.00, 0.70, 0.00, 1};
-        colorNeutral[]  = {0.00, 0.80, 0.80, 1};
-        colorCivilian[] = {0.35, 0.35, 0.35, 1};
-        colorUnknown[]  = {0.75, 0.75, 0.75, 1};
+        colorFriendly[] = {"(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorFriendly_R',0.709])","(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorFriendly_G',0.972])","(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorFriendly_B',0.384])",1};
+        colorEnemy[] = {"(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorEnemy_R',0.706])","(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorEnemy_G',0.0745])","(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorEnemy_B',0.0196])",1};
+        colorNeutral[] = {"(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorNeutral_R',0.606])","(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorNeutral_G',0.606])","(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorNeutral_B',0.606])",1};
+        colorCivilian[] = {"(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorCivilian_R',0.606])","(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorCivilian_G',0.606])","(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorCivilian_B',0.606])",1};
+        colorUnknown[] = {"(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorUnknown_R',0.863])","(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorUnknown_G',0.584])","(profilenamespace getvariable ['A3ACC_Surf_SideColors_colorUnknown_B',0])",1};
     };
 
     class MPTable {
-        colorWest[] = {0.00, 0.35, 0.85, 1};
-        colorEast[] = {1.00, 0.70, 0.00, 1};
-        colorCiv[]  = {0.35, 0.35, 0.35, 1};
-        colorRes[]  = {0.00, 0.80, 0.80, 1};
-    };
-
-    class SquadRadar {
-        friendlyUnitColor[] = {0.00, 0.35, 0.85, 1};
-        enemyUnitColor[]    = {1.00, 0.70, 0.00, 1};
-        taskIconColor[]     = {1.00, 1.00, 1.00, 1};
-    };
-
-    // The vanilla side colours here are profile-driven, so a literal override
-    // also removes the user's own map colour choice.
-    class IslandMap {
-        colorFriendly[]        = {0.00, 0.35, 0.85, 1};
-        colorEnemy[]           = {1.00, 0.70, 0.00, 1};
-        colorNeutral[]         = {0.00, 0.80, 0.80, 1};
-        colorCivilian[]        = {0.35, 0.35, 0.35, 1};
-        colorUnknown[]         = {0.75, 0.75, 0.75, 1};
-        colorMe[]              = {0.00, 0.35, 0.85, 1};
-        colorPlayable[]        = {0.00, 0.80, 0.80, 1};
-        colorNonPlayable[]     = {0.35, 0.35, 0.35, 1};
-        colorCamera[]          = {0.00, 0.80, 0.80, 1};
-        colorSensor[]          = {0.00, 0.80, 0.80, 1};
-        colorExposureEnemy[]   = {1.00, 0.70, 0.00, 0.5};
-        colorExposureUnknown[] = {0.75, 0.75, 0.75, 0.5};
-        colorGroups[]          = {0.00, 0.80, 0.80, 0.5};
-        colorActiveGroup[]     = {1.00, 1.00, 1.00, 1};
-        colorPath[]            = {1.00, 1.00, 1.00, 1};
-        colorPathDone[]        = {0.00, 0.80, 0.80, 0.8};
-        colorSync[]            = {0.00, 0.35, 0.85, 1};
-        colorDetectorSync[]    = {0.00, 0.80, 0.80, 1};
-        colorExplosive[]       = {1.00, 0.70, 0.00, 1};
-        colorMissions[]        = {0.75, 0.75, 0.75, 0.5};
-        colorActiveMission[]   = {1.00, 1.00, 1.00, 1};
+        colorWest[] = {"(missionnamespace getvariable ['A3ACC_Surf_MPTable_colorWest_R',0.13])","(missionnamespace getvariable ['A3ACC_Surf_MPTable_colorWest_G',0.41])","(missionnamespace getvariable ['A3ACC_Surf_MPTable_colorWest_B',0.87])",1};
+        colorEast[] = {"(missionnamespace getvariable ['A3ACC_Surf_MPTable_colorEast_R',0.83])","(missionnamespace getvariable ['A3ACC_Surf_MPTable_colorEast_G',0.17])","(missionnamespace getvariable ['A3ACC_Surf_MPTable_colorEast_B',0.17])",1};
+        colorCiv[]  = {"(missionnamespace getvariable ['A3ACC_Surf_MPTable_colorCiv_R',0.45])","(missionnamespace getvariable ['A3ACC_Surf_MPTable_colorCiv_G',0.05])","(missionnamespace getvariable ['A3ACC_Surf_MPTable_colorCiv_B',0.9])",1};
+        colorRes[]  = {"(missionnamespace getvariable ['A3ACC_Surf_MPTable_colorRes_R',0.18])","(missionnamespace getvariable ['A3ACC_Surf_MPTable_colorRes_G',0.65])","(missionnamespace getvariable ['A3ACC_Surf_MPTable_colorRes_B',0.12])",1};
     };
 };

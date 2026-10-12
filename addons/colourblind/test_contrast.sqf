@@ -2,16 +2,15 @@
 
 /*
  * Author: lErrorl404l
- * Recompute the WCAG 2.2 contrast ratio from the live config. The offline
- * verifier reads the source headers. This reads what the engine loaded, so a
- * build that mangles a value is caught. Every gated pair must clear 3:1.
+ * Recompute the WCAG 2.2 contrast ratio from the live palette function, and
+ * check the writer put those values in the profile variables. Every gated pair
+ * must clear 3:1.
  *
  * Return Value:
  * None
  *
  * Public: No
  */
-
 
 private _fail = 0;
 
@@ -25,7 +24,6 @@ private _fnc_luminance = {
     (0.2126 * ([_r] call _channel)) + (0.7152 * ([_g] call _channel)) + (0.0722 * ([_b] call _channel))
 };
 
-
 private _fnc_contrast = {
     params ["_a", "_b"];
     private _la = [_a] call _fnc_luminance;
@@ -33,24 +31,18 @@ private _fnc_contrast = {
     ((_la max _lb) + 0.05) / ((_la min _lb) + 0.05)
 };
 
-// Read the live marker palette. The objective class has no config class, so it
-// comes from the loaded function.
-private _engineNames = ["ColorWEST", "ColorEAST", "ColorGUER", "ColorUNKNOWN", "ColorCIV"];
-private _classNames = ["friendly", "enemy", "neutral", "unknown", "civilian"];
-
+// Read the live palette from the pure function. The objective class has no
+// engine key, so it stays here.
+private _classes = ["friendly", "enemy", "neutral", "unknown", "civilian", "objective"];
 private _table = createHashMap;
 {
     private _mode = _x;
     private _row = createHashMap;
     {
-        private _className = _classNames select (_engineNames find _x);
-        private _configName = [_mode, _x] call FUNC(colourNameFor);
-        _row set [_className, getArray (configFile >> "CfgMarkerColors" >> _configName >> "color")];
-    } forEach _engineNames;
-    _row set ["objective", [_mode, "objective"] call FUNC(paletteForMode)];
+        _row set [_x, [_mode, _x] call FUNC(paletteForMode)];
+    } forEach _classes;
     _table set [_mode, _row];
 } forEach [1, 2, 3, 4];
-
 
 private _gated = [
     [1, [["friendly", "enemy"], ["neutral", "civilian"], ["enemy", "civilian"], ["friendly", "unknown"]]],
@@ -72,56 +64,68 @@ private _gated = [
     } forEach _pairs;
 } forEach _gated;
 
-
-// The fixed-name HUD surfaces carry the universal palette, and it must equal the
-// Protan table, because those classes cannot switch mode.
-private _side = configFile >> "CfgInGameUI" >> "SideColors";
-private _hud = createHashMapFromArray [
-    ["friendly", getArray (_side >> "colorFriendly")],
-    ["enemy", getArray (_side >> "colorEnemy")],
-    ["neutral", getArray (_side >> "colorNeutral")],
-    ["civilian", getArray (_side >> "colorCivilian")],
-    ["unknown", getArray (_side >> "colorUnknown")]
+// The writer must put the mode colour into the engine variables, so the map,
+// ORBAT and marker catalogue follow the mode.
+private _engineVars = [
+    ["Map_BLUFOR", "BLUFOR"],
+    ["Map_OPFOR", "OPFOR"],
+    ["Map_Independent", "Independent"],
+    ["Map_Civilian", "Civilian"],
+    ["Map_Unknown", "Unknown"],
+    ["IGUI_ERROR_RGB", "Error"],
+    ["IGUI_WARNING_RGB", "Warning"],
+    ["IGUI_TACTPING_RGB", "TacticalPing"]
 ];
-
+[2] call FUNC(applyVars);
 {
-    _x params ["_a", "_b"];
-    private _ratio = [(_hud get _a), (_hud get _b)] call _fnc_contrast;
-    if (_ratio < 3) then {
+    _x params ["_prefix", "_key"];
+    private _want = ([2, _key] call FUNC(surfaceColourFor)) select [0, 3];
+    private _got = [
+        profileNamespace getVariable [_prefix + "_R", -1],
+        profileNamespace getVariable [_prefix + "_G", -1],
+        profileNamespace getVariable [_prefix + "_B", -1]
+    ];
+    if (_got isNotEqualTo _want) then {
         _fail = _fail + 1;
-        diag_log text format ["[A3ACC] HUD contrast %1 vs %2 = %3, below 3:1", _a, _b, _ratio];
+        diag_log text format ["[A3ACC] engine variable %1 = %2, want %3", _prefix, str _got, str _want];
     };
-} forEach [["friendly", "enemy"], ["friendly", "neutral"], ["enemy", "civilian"], ["friendly", "unknown"]];
+} forEach _engineVars;
 
+// The shipped marker palette resolves a side colour through the engine
+// variables. Prove the wiring headlessly: the expression names the variable and
+// call compile of it equals the value applyVars wrote. The rendered result still
+// needs a client, because no command reads a marker's resolved colour.
 {
-    _x params ["_name", "_className"];
-    private _protan = (_table get 1) get _className;
-    if (((_hud get _name) select [0, 3]) isNotEqualTo (_protan select [0, 3])) then {
+    _x params ["_class", "_prefix"];
+    private _colour = getArray (configFile >> "CfgMarkerColors" >> _class >> "color");
+    if (count _colour != 4) then {
         _fail = _fail + 1;
-        diag_log text format ["[A3ACC] HUD %1 does not equal protan %2", _name, _className];
-    };
-} forEach [["friendly", "friendly"], ["enemy", "enemy"], ["neutral", "neutral"], ["civilian", "civilian"], ["unknown", "unknown"]];
-
-
-// The marker, group-icon and location side colours must also equal Protan.
-{
-    _x params ["_cfgPath", "_class", "_className"];
-    private _rgba = getArray (configFile >> _cfgPath >> _class >> "color");
-    private _protan = (_table get 1) get _className;
-    if ((_rgba select [0, 3]) isNotEqualTo (_protan select [0, 3])) then {
-        _fail = _fail + 1;
-        diag_log text format ["[A3ACC] %1 %2 does not equal protan %3", _cfgPath, _class, _className];
+        diag_log text format ["[A3ACC] CfgMarkerColors %1 is not four values", _class];
+    } else {
+        {
+            private _channel = ["R", "G", "B"] select _forEachIndex;
+            private _varName = format ["%1_%2", _prefix, _channel];
+            if (_x isEqualType "") then {
+                if (_varName in _x) then {
+                    private _resolved = call compile _x;
+                    private _written = profileNamespace getVariable [_varName, -1];
+                    if (_resolved != _written) then {
+                        _fail = _fail + 1;
+                        diag_log text format ["[A3ACC] %1 channel %2 resolves to %3, wrote %4", _class, _channel, _resolved, _written];
+                    };
+                } else {
+                    _fail = _fail + 1;
+                    diag_log text format ["[A3ACC] %1 channel %2 does not name %3", _class, _channel, _varName];
+                };
+            } else {
+                _fail = _fail + 1;
+                diag_log text format ["[A3ACC] %1 channel %2 is not an expression", _class, _channel];
+            };
+        } forEach (_colour select [0, 3]);
     };
 } forEach [
-    ["CfgMarkers", "b_unknown", "friendly"],
-    ["CfgMarkers", "o_unknown", "enemy"],
-    ["CfgMarkers", "n_unknown", "neutral"],
-    ["CfgGroupIcons", "b_unknown", "friendly"],
-    ["CfgGroupIcons", "o_unknown", "enemy"],
-    ["CfgGroupIcons", "n_unknown", "neutral"],
-    ["CfgLocationTypes", "b_unknown", "friendly"],
-    ["CfgLocationTypes", "o_unknown", "enemy"],
-    ["CfgLocationTypes", "n_unknown", "neutral"]
+    ["ColorWEST", "Map_BLUFOR"],
+    ["ColorEAST", "Map_OPFOR"]
 ];
 
 // Text pairs must clear 4.5:1. These are the addon's own text surfaces.
@@ -136,6 +140,8 @@ private _hud = createHashMapFromArray [
     ["A3ACC_RscStructuredText", configFile >> "A3ACC_RscStructuredText"],
     ["objective panel", configFile >> "RscTitles" >> "A3ACC_ObjectiveHud" >> "controls" >> "Objective"]
 ];
+
+[0] call FUNC(applyVars);
 
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] contrast tests passed"; };

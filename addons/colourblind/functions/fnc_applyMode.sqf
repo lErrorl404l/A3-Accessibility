@@ -4,7 +4,13 @@
  * Author: lErrorl404l
  * Apply a colour-vision-deficiency mode to the local map markers.
  * Client-local only: it never broadcasts one player's mode to other machines.
- * The remap resolves from the cached original colour, so a mode change works.
+ *
+ * setMarkerColorLocal accepts a colour name, not an RGBA array, so the mode
+ * reaches a marker through the profile variables fnc_applyVars writes: the
+ * engine resolves one of the five names (ColorWEST and siblings) through
+ * Map_BLUFOR_* and the rest. This pass re-asserts the canonical name after a
+ * foreign change. A marker on another name, or on a mission raw value, stays as
+ * it is.
  *
  * Arguments:
  * 0: Mode index <NUMBER>
@@ -29,6 +35,15 @@ if (_mode > 0) then {
 
 missionNamespace setVariable ["A3ACC_palette", _palette];
 
+// The five engine marker colour names map to the five surface keys.
+private _keyFor = createHashMapFromArray [
+    ["ColorWEST", "BLUFOR"],
+    ["ColorEAST", "OPFOR"],
+    ["ColorGUER", "Independent"],
+    ["ColorCIV", "Civilian"],
+    ["ColorUNKNOWN", "Unknown"]
+];
+
 private _cache = missionNamespace getVariable ["A3ACC_colourblind_markerCache", createHashMap];
 private _logged = missionNamespace getVariable ["A3ACC_colourblind_loggedNames", createHashMap];
 
@@ -47,16 +62,16 @@ private _logged = missionNamespace getVariable ["A3ACC_colourblind_loggedNames",
             _name setMarkerColorLocal _original;
         };
     } else {
-        private _target = [_mode, _original] call FUNC(colourNameFor);
+        private _key = _keyFor getOrDefault [_original, ""];
 
-        if (_target == "") then {
+        if (_key == "") then {
             if !(_original in _logged) then {
                 _logged set [_original, true];
                 diag_log format ["[A3ACC] marker colour '%1' has no remap and stays unchanged", _original];
             };
         } else {
-            if (_current != _target) then {
-                _name setMarkerColorLocal _target;
+            if (_current != _original) then {
+                _name setMarkerColorLocal _original;
             };
         };
     };
