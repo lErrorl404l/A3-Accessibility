@@ -19,3 +19,7 @@ The format follows Keep a Changelog, and this project uses Semantic Versioning.
 - An offline verifier, `tests/verify_palette.py`, that gates the config sync and every gated WCAG contrast pair.
 - CI, CONTRIBUTING, the PR and issue templates, a pre-commit hook and the QA checklist.
 - Research on UK, US and EU accessibility requirements.
+- A whole-game remap of `CfgInGameUI` (SideColors, MPTable, SquadRadar, IslandMap) and the `CfgNotifications` status colours.
+- A mod icon, converted to PAA and wired to `mod.cpp` and `CfgMods`.
+- A Docker in-engine test tier in `tests/ingame`.
+- Lowercase PBO names, so a Linux dedicated server loads the addon.

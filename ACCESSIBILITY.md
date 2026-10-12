@@ -8,8 +8,11 @@ statement and it makes no claim of compliance.
 
 The addon adds five selectable colour-vision-deficiency modes. Each mode remaps
 the named map marker colours so that friendly, enemy, neutral and unknown
-markers stay easy to tell apart. The modes change the colours. They do not add a
-screen filter or a post-process effect.
+markers stay easy to tell apart. It also remaps the wider colour surface that
+carries side and status meaning: the HUD and 3D icon side colours
+(`CfgInGameUI/SideColors`), the scoreboard side colours, the squad radar, the
+map object colours, and the notification status colours. The modes change the
+colours. They do not add a screen filter or a post-process effect.
 
 The modes are Off, Protan, Deutan, Tritan and Achromatopsia.
 
@@ -51,7 +54,12 @@ The pairs that must be told apart, and the ratio each reaches, are in
 
 - Only the named marker colours are remapped. A marker with a raw colour value
   keeps its value.
-- The addon covers map markers. It does not cover every HUD element.
+- The wider colour surface uses one universal palette, not the selected mode.
+  The engine reads those fixed-name classes once, so they cannot switch with the
+  mode. The palette is separated at 3:1 by luminance, so every deficiency type
+  can still separate the colours by brightness.
+- The addon does not change map terrain colours such as sea, forest and contour
+  lines. Those are art, not side identity.
 
 ## Report a problem
 

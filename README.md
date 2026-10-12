@@ -9,7 +9,8 @@ apply a screen filter, so the rest of the picture stays as it is.
 ## Features
 
 - Five modes: Off, Protan, Deutan, Tritan and Achromatopsia.
-- Remaps the named map marker colours.
+- Remaps the map marker colours, the HUD and 3D icon side colours, the
+  scoreboard, the squad radar, the map objects and the notification colours.
 - Works in the editor and in single player.
 - No filter and no post-process effect.
 
