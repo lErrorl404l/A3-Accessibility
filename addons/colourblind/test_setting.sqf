@@ -12,6 +12,19 @@
 
 private _fail = 0;
 
+// Functions live in their own component addons; resolve them by name.
+private _fnNames = ["A3ACC_motion_fnc_applyMotion", "A3ACC_hearing_fnc_applyCaptions", "A3ACC_cognitive_fnc_applyClutter", "A3ACC_lowvision_fnc_applyLegibility"];
+{
+    if (isNil {missionNamespace getVariable [_x, nil]}) then {
+        _fail = _fail + 1;
+        diag_log text format ["[A3ACC] function not found: %1", _x];
+    };
+} forEach _fnNames;
+private _applyMotion = missionNamespace getVariable ["A3ACC_motion_fnc_applyMotion", {}];
+private _applyCaptions = missionNamespace getVariable ["A3ACC_hearing_fnc_applyCaptions", {}];
+private _applyClutter = missionNamespace getVariable ["A3ACC_cognitive_fnc_applyClutter", {}];
+private _applyLegibility = missionNamespace getVariable ["A3ACC_lowvision_fnc_applyLegibility", {}];
+
 if (isNil "A3ACC_CVDMode") then {
     _fail = _fail + 1;
     diag_log text "[A3ACC] setting A3ACC_CVDMode not found";
@@ -80,8 +93,8 @@ if (isNil "A3ACC_ReduceMotion") then {
     _fail = _fail + 1;
     diag_log text "[A3ACC] setting A3ACC_ReduceMotion not found";
 };
-[true] call FUNC(applyMotion);
-[false] call FUNC(applyMotion);
+[true] call _applyMotion;
+[false] call _applyMotion;
 
 // The caption setting must be registered, and it must force and then restore.
 if (isNil "A3ACC_ForceCaptions") then {
@@ -89,12 +102,12 @@ if (isNil "A3ACC_ForceCaptions") then {
     diag_log text "[A3ACC] setting A3ACC_ForceCaptions not found";
 };
 private _priorCaptions = shownSubtitles;
-[true] call FUNC(applyCaptions);
+[true] call _applyCaptions;
 if (!shownSubtitles) then {
     _fail = _fail + 1;
     diag_log text "[A3ACC] subtitles were not forced on";
 };
-[false] call FUNC(applyCaptions);
+[false] call _applyCaptions;
 if (shownSubtitles != _priorCaptions) then {
     _fail = _fail + 1;
     diag_log text "[A3ACC] subtitles were not restored";
@@ -106,13 +119,13 @@ if (isNil "A3ACC_ReduceClutter") then {
     diag_log text "[A3ACC] setting A3ACC_ReduceClutter not found";
 };
 private _priorHud = shownHUD;
-[true] call FUNC(applyClutter);
+[true] call _applyClutter;
 private _reduced = shownHUD;
 if ((_reduced select 8) || {_reduced select 9}) then {
     _fail = _fail + 1;
     diag_log text "[A3ACC] clutter was not reduced";
 };
-[false] call FUNC(applyClutter);
+[false] call _applyClutter;
 if (shownHUD isNotEqualTo _priorHud) then {
     _fail = _fail + 1;
     diag_log text "[A3ACC] HUD was not restored";
@@ -127,17 +140,27 @@ private _legMarker = "a3acc_leg_marker";
 createMarker [_legMarker, [0, 0, 0]];
 _legMarker setMarkerSizeLocal [1, 1];
 _legMarker setMarkerAlphaLocal 0.5;
-[true] call FUNC(applyLegibility);
+[true] call _applyLegibility;
 if ((markerSize _legMarker) isNotEqualTo [1.2, 1.2] || {markerAlpha _legMarker != 1}) then {
     _fail = _fail + 1;
     diag_log text "[A3ACC] marker was not enlarged";
 };
-[false] call FUNC(applyLegibility);
+[false] call _applyLegibility;
 if ((markerSize _legMarker) isNotEqualTo [1, 1] || {markerAlpha _legMarker != 0.5}) then {
     _fail = _fail + 1;
     diag_log text "[A3ACC] marker size was not restored";
 };
 deleteMarker _legMarker;
+
+// Cycling must advance the mode. The keybind itself is verified by a client test.
+private _beforeCycle = missionNamespace getVariable ["A3ACC_CVDMode", 0];
+call FUNC(cycleMode);
+private _afterCycle = missionNamespace getVariable ["A3ACC_CVDMode", 0];
+if (_afterCycle == _beforeCycle) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] cycleMode did not change the mode";
+};
+["A3ACC_CVDMode", _beforeCycle] call CBA_settings_fnc_set;
 
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] setting tests passed"; };
