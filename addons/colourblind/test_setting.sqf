@@ -83,5 +83,22 @@ if (isNil "A3ACC_ReduceMotion") then {
 [true] call FUNC(applyMotion);
 [false] call FUNC(applyMotion);
 
+// The caption setting must be registered, and it must force and then restore.
+if (isNil "A3ACC_ForceCaptions") then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] setting A3ACC_ForceCaptions not found";
+};
+private _priorCaptions = shownSubtitles;
+[true] call FUNC(applyCaptions);
+if (!shownSubtitles) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] subtitles were not forced on";
+};
+[false] call FUNC(applyCaptions);
+if (shownSubtitles != _priorCaptions) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] subtitles were not restored";
+};
+
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] setting tests passed"; };

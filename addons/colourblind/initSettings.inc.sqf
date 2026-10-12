@@ -23,3 +23,15 @@
     { [_this] call A3ACC_colourblind_fnc_applyMotion },
     false
 ] call CBA_fnc_addSetting;
+
+[
+    "A3ACC_ForceCaptions",
+    "CHECKBOX",
+    ["Force subtitles on",
+     "Turn the game subtitles on, and restore the previous setting when this is off."],
+    "A3 Accessibility",
+    false,
+    0,
+    { [_this] call A3ACC_colourblind_fnc_applyCaptions },
+    false
+] call CBA_fnc_addSetting;

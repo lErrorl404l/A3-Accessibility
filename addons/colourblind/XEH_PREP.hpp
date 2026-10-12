@@ -3,5 +3,6 @@ PREP(paletteForMode);
 PREP(colourNameFor);
 PREP(applyMode);
 PREP(applyMotion);
+PREP(applyCaptions);
 PREP(watch);
 PREP_RECOMPILE_END;

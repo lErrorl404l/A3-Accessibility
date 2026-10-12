@@ -18,7 +18,6 @@ params [["_reduced", false, [false]]];
 
 if (_reduced) then {
     enableCamShake false;
-    setCamShakeDefParams [0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01];
 } else {
     enableCamShake true;
     resetCamShake;
