@@ -18,7 +18,7 @@ workshop id `450814997`, from `.hemtt/project.toml`.
    marker keeps its vanilla colour.
 5. Select Off. Confirm every marker returns to its vanilla colour.
 6. Create a new marker while a mode other than Off is active. Confirm the
-   watcher recolours it within 2 seconds.
+   marker event recolours it immediately.
 7. Run a mission that sets a marker with a raw array. Confirm the marker is
    untouched, the other markers still change, and one RPT line records the
    skip.
