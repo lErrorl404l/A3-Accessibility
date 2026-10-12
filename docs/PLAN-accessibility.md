@@ -262,7 +262,7 @@ note in `ACCESSIBILITY.md`.
 
 ## 12. Final verification wave
 
-- [ ] F1. Recompute every contrast gate from the live config. Read each colour pair out of `configFile` in the Docker tier, recompute the WCAG ratio, and require 4.5:1 for text and 3:1 for non-text.
+- [x] F1. Recompute every contrast gate from the live config. Read each colour pair out of `configFile` in the Docker tier, recompute the WCAG ratio, and require 4.5:1 for text and 3:1 for non-text. Done by `addons/colourblind/test_contrast.sqf`.
 - [ ] F2. Prove every command is accepted with its real arguments. Run the Wave 2 and Wave 3 probes on the dedicated server and confirm zero exceptions.
 - [ ] F3. Prove every feature restores vanilla. For each setting, set it, then clear it, and confirm the vanilla behaviour returns. The camera-shake feature is the reference.
 - [ ] F4. Prove no feature is a colour filter. The offline verifier finds no colour matrix, no `ColorCorrections` strength above the flash-damping value, and no CVD simulation.
