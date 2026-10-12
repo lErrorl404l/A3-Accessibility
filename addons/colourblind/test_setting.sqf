@@ -118,5 +118,26 @@ if (shownHUD isNotEqualTo _priorHud) then {
     diag_log text "[A3ACC] HUD was not restored";
 };
 
+// The legibility setting must be registered, and it must enlarge and restore.
+if (isNil "A3ACC_MapLegibility") then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] setting A3ACC_MapLegibility not found";
+};
+private _legMarker = "a3acc_leg_marker";
+createMarker [_legMarker, [0, 0, 0]];
+_legMarker setMarkerSizeLocal [1, 1];
+_legMarker setMarkerAlphaLocal 0.5;
+[true] call FUNC(applyLegibility);
+if ((markerSize _legMarker) isNotEqualTo [1.2, 1.2] || {markerAlpha _legMarker != 1}) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] marker was not enlarged";
+};
+[false] call FUNC(applyLegibility);
+if ((markerSize _legMarker) isNotEqualTo [1, 1] || {markerAlpha _legMarker != 0.5}) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] marker size was not restored";
+};
+deleteMarker _legMarker;
+
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] setting tests passed"; };
