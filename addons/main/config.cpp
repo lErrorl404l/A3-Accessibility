@@ -13,6 +13,8 @@ class CfgPatches {
     };
 };
 
+#include "CfgEventHandlers.hpp"
+
 class CfgMods {
     class PREFIX {
         dir = "@A3-Accessibility";

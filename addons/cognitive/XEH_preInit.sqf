@@ -9,3 +9,5 @@ PREP_RECOMPILE_END;
 ADDON = true;
 
 #include "initSettings.inc.sqf"
+
+#include "initKeybinds.inc.sqf"
