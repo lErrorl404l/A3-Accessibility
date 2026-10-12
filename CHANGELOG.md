@@ -23,3 +23,6 @@ The format follows Keep a Changelog, and this project uses Semantic Versioning.
 - A mod icon, converted to PAA and wired to `mod.cpp` and `CfgMods`.
 - A Docker in-engine test tier in `tests/ingame`.
 - Lowercase PBO names, so a Linux dedicated server loads the addon.
+- One addon component per accessibility concern: `main`, `colourblind`, `hearing`, `motion`, `cognitive`, `lowvision`, `motor`.
+- Camera-shake reduction, caption forcing, directional gunfire cues, reduced HUD clutter, larger map markers, an always-walk toggle and a pause-menu help screen.
+- Marker and group-icon catalogue colours.

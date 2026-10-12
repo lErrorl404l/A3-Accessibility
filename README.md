@@ -10,7 +10,16 @@ apply a screen filter, so the rest of the picture stays as it is.
 
 - Five modes: Off, Protan, Deutan, Tritan and Achromatopsia.
 - Remaps the map marker colours, the HUD and 3D icon side colours, the
-  scoreboard, the squad radar, the map objects and the notification colours.
+  scoreboard, the squad radar, the map and group-icon catalogues and the
+  notification colours.
+- Reduces camera shake, for motion sensitivity.
+- Shows a directional cue for nearby gunfire, for deaf and hard-of-hearing
+  players.
+- Reduces HUD clutter.
+- Makes map markers larger, for low vision.
+- Forces subtitles on.
+- Adds an always-walk option, for reduced motor demand.
+- Adds an accessibility help screen to the pause menu.
 - Works in the editor and in single player.
 - No filter and no post-process effect.
 
