@@ -133,5 +133,13 @@ if ((getArray _edenTrigger) isNotEqualTo [0, 0.8, 0.8, 1]) then {
     diag_log text "[A3ACC] Cfg3DEN trigger colour not overridden";
 };
 
+
+// The Zeus cursor colours must carry the universal palette.
+private _zeusMove = configFile >> "CfgWrapperUI" >> "Cursors" >> "Move" >> "color";
+if ((getArray _zeusMove) isNotEqualTo [0, 0.35, 0.85, 1]) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] CfgWrapperUI cursor colour not overridden";
+};
+
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] config tests passed"; };

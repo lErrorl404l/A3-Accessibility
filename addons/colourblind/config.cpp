@@ -22,4 +22,5 @@ class CfgPatches {
 #include "CfgRscInGameUI.hpp"
 #include "CfgLocationTypes.hpp"
 #include "Cfg3DEN.hpp"
+#include "CfgWrapperUI.hpp"
 #include "CfgTests.hpp"
