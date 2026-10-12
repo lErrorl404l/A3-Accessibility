@@ -114,5 +114,16 @@ if ((getArray _locSide) isNotEqualTo [0, 0.8, 0.8, 1]) then {
     diag_log text "[A3ACC] CfgLocationTypes n_unknown not overridden";
 };
 
+
+// The objective panel class must exist for cutRsc to find it.
+if (!isClass (configFile >> "RscTitles" >> "A3ACC_ObjectiveHud")) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] objective HUD class not found";
+};
+if (isNil "BIS_fnc_taskCurrent") then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] BIS_fnc_taskCurrent not found";
+};
+
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] config tests passed"; };

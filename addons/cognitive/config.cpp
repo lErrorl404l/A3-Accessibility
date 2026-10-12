@@ -14,3 +14,4 @@ class CfgPatches {
 
 #include "CfgEventHandlers.hpp"
 #include "CfgAccessibilityHelp.hpp"
+#include "CfgObjectiveHud.hpp"
