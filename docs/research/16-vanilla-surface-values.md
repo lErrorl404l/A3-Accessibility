@@ -53,6 +53,53 @@ re-evaluation of it is the blocking unknown.
 Note `colorNeutral` and `colorCivilian` are the same grey in vanilla, so the
 addon cannot separate them at the HUD without changing one of them.
 
+## Values read from the extracted configs
+
+Source: `/tmp/opencode/vanilla/ui_f/a3/ui_f/config.cpp` and
+`/tmp/opencode/vanilla/3den/a3/3den/config.cpp`, both produced by `extractpbo`.
+
+`CfgNotifications`, the status colours:
+
+| Class | Property | Value |
+|---|---|---|
+| `TaskSucceeded` | `color` | `[0.7, 1.0, 0.3, 1.0]` |
+| `TaskFailed` | `color` | `[1.0, 0.3, 0.2, 1.0]` |
+| `TaskCanceled` | `color` | `[0.7, 0.7, 0.7, 1.0]` |
+
+`CfgWrapperUI/Cursors`:
+
+| Class | Property | Value |
+|---|---|---|
+| `HC_move` | `color` | `[0, 0.6, 0, 1]` |
+| `HC_overFriendly` | `color` | `[0, 0.6, 0, 1]` |
+
+`Move`, `Move3D`, `Track` and `Track3D` define no colour property in the shipped
+config. An override that adds one is inventing a value.
+
+`Cfg3DEN`, the editor draw colours:
+
+| Class | Value |
+|---|---|
+| `Trigger/Draw/3D` and `2D` | `[0.1, 0.1, 0.9, 1]` |
+| `Comment/Draw/3D` and `2D` | `[0, 1, 0.75, 1]` |
+| `Connections/Group` | `[0, 1, 1, 1]` |
+| `Connections/Sync` | `[0, 0, 1, 1]` |
+| `Connections/WaypointActivation` | `[0, 0, 1, 1]` |
+
+Each `Draw` class carries a companion `colorPreview` with the same value. An
+override that changes `color` alone leaves the editor preview swatch on the
+vanilla colour.
+
+`RscInGameUI` optics. `CA_TurretIndicator` and `CA_HorizontalCompass` use
+`color`. `CA_Heading` uses `colorText`. An override that sets `color` on
+`CA_Heading` has no effect.
+
+| Colour | Classes |
+|---|---|
+| `[0.706, 0.0745, 0.0196, 1]`, the side red | `RscOptics_crows`, `RscOptics_Boat_Armed_01_commander`, `RscOptics_APC_Wheeled_01_gunner`, plus `RscOptics_LaserDesignator`, `RscOptics_LaserDesignator_02`, `RscOptics_Rangefinder`, `RscOptics_strider_commander`, `RscWeaponRangeArtillery`, `RscWeaponRangeArtilleryAuto` on `CA_Heading` |
+| `[0.709, 0.972, 0.384, 1]`, the side green | `RscOptics_MBT_01_commander`, `RscOptics_MBT_01_commander_RCWS`, `RscOptics_MBT_01_gunner` |
+| `[0.95, 0.95, 0.95, 1]`, white | `APC_Tracked_03_gunner`, `APC_Wheeled_03_commander`, `APC_Wheeled_03_gunner`, `MBT_01_driver`, `MBT_02_commander`, `MBT_02_gunner`, `MBT_03_gunner`, `RscOptics_ShipGun_01` |
+
 ## Limits of this method
 
 `inheritsFrom` returns a null config on a dedicated server, because the parent
