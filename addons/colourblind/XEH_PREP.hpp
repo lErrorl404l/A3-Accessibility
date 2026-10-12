@@ -4,5 +4,6 @@ PREP(colourNameFor);
 PREP(applyMode);
 PREP(applyMotion);
 PREP(applyCaptions);
+PREP(applyClutter);
 PREP(watch);
 PREP_RECOMPILE_END;

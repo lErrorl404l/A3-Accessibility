@@ -100,5 +100,23 @@ if (shownSubtitles != _priorCaptions) then {
     diag_log text "[A3ACC] subtitles were not restored";
 };
 
+// The clutter setting must be registered, and it must reduce and then restore.
+if (isNil "A3ACC_ReduceClutter") then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] setting A3ACC_ReduceClutter not found";
+};
+private _priorHud = shownHUD;
+[true] call FUNC(applyClutter);
+private _reduced = shownHUD;
+if ((_reduced select 8) || {_reduced select 9}) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] clutter was not reduced";
+};
+[false] call FUNC(applyClutter);
+if (shownHUD isNotEqualTo _priorHud) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] HUD was not restored";
+};
+
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] setting tests passed"; };

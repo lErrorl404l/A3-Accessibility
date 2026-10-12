@@ -26,6 +26,14 @@ subtitle commands. Run through `tests/ingame`.
 - **H7 (subtitle state control) is viable.** `showSubtitles`, `shownSubtitles`
   and `getSubtitleOptions` all work.
 
+## Second probe
+
+- `fire` on a spawned unit still produced no `Fired` or `FiredNear` event. The
+  directional cue stays unverified.
+- `showHUD` works: `shownHUD` reported the new array, `[false, false, true, ...]`.
+  The reduced-clutter feature is viable and is shipped.
+- `setGroupIconsVisible` and `enableSentences` are accepted.
+
 ## UNVERIFIED
 
 - Why `FiredNear` did not fire. The spawned units may not have been aware of each

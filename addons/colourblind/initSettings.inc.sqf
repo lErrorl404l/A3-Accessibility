@@ -35,3 +35,15 @@
     { [_this] call A3ACC_colourblind_fnc_applyCaptions },
     false
 ] call CBA_fnc_addSetting;
+
+[
+    "A3ACC_ReduceClutter",
+    "CHECKBOX",
+    ["Reduce HUD clutter",
+     "Hide the kill feed and panel groups, hide the HUD group icons, and mute the radio chatter."],
+    "A3 Accessibility",
+    false,
+    0,
+    { [_this] call A3ACC_colourblind_fnc_applyClutter },
+    false
+] call CBA_fnc_addSetting;
