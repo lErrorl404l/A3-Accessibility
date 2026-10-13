@@ -17,6 +17,7 @@ colour, text, label or difficulty change.
 | `17-dynamic-variable-layer.md` | The 44 profile variables the engine reads, which is the lever for a mode-driven colour |
 | `20-colour-coverage.md` | Every colour-bearing property, whether it is dynamic, and every red and green literal with a judgement |
 | `21-fonts-and-difficulty.md` | The font families, and the 24 difficulty options with the value per preset |
+| `22-remaining-levers.md` | What is left: the blinking indicator lights, a check that the planned mechanisms exist, and the candidates that need a probe |
 | `15-shipped-pbo-surface.md` | Where each config root lives in the shipped PBOs, and how to extract one |
 
 `16-vanilla-surface-values.md` holds the shipped values for the surfaces the

@@ -185,6 +185,12 @@ engine config on this machine.
 | MP4 | Motion blur and film grain removal | `ppEffectCreate` with the `FilmGrain` and `DynamicBlur` names, then `ppEffectAdjust`, `ppEffectEnable`, `ppEffectCommit` and `ppEffectDestroy` | Neutralise the vanilla motion blur and grain | MEDIUM to HIGH. A stuck effect is worse than the blur, and a priority already in use fails creation | `G-PROBE` first. If the handle cannot be adjusted and released cleanly, the feature does not ship | yes |
 | MP5 | Field of view | `camSetFov level`, with `camPrepareFov`, `camSetFovRange` and `camCommitFov`. FOV is per camera only, and a commit is required | Widen or narrow the camera field of view for a custom camera. There is no global FOV command | MEDIUM. Some seats and views override the camera, so a camera-level change is not a monitor-level one | `G-PROBE` first, then `G-CLI` | yes |
 | MP6 | Head bob and weapon sway reduction | `setCustomAimCoef` is verified but its semantics are not | Reduce the sway | HIGH. Same fairness concern as M5 | `G-PROBE` first. Shared with M5 | yes |
+| MP7 | Steady indicator lights | The config property `blinking`, with `blinkingPattern` and `blinkingPatternGuarantee`. 209 declarations across the shipped configs, of which 29 state `blinking = 1`: `Light_lock_1` to `Light_lock_7`, `Light1`, `NVGMarker01`, `CollisionLightWhite1` and `PositionRed`. No shipped script reads it, so the engine drives the animation | Stop the strobe on the cockpit lock warning, the exterior position and collision lights and the NVG markers, so a photosensitive player is not flashed. A steady light still carries the warning | MEDIUM. The light must stay lit and must not go dark, or the warning cue is lost. Whether `blinking = 0` leaves it lit is a probe question. The change is client-local, the same scope as the marker colours | `G-PROBE` that `blinking = 0` leaves the light lit, `G-ENG` that the property accepts a per-channel expression, `G-OFF` that the 29 classes are covered, `G-CLI` on the rendered light | yes |
+
+The mechanisms in MP2 to MP6 are real: all six post-process names and all seven
+camera commands appear as literal command names in `arma3_x64.exe`, so the plan
+above is buildable. `docs/research/22-remaining-levers.md` records that check,
+the MP7 finding, and the candidates that need a probe.
 
 ## 8. Component and setting layout
 
