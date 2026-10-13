@@ -1,4 +1,4 @@
-# 18. Wiki command verification
+# Wiki command verification
 
 Method: the wiki at community.bistudio.com returns HTTP 403 to a plain
 fetcher. Every page below was read through the Wayback Machine, using the
