@@ -93,3 +93,27 @@ so the next pass does not rediscover them.
 The remaining work is finite and named. Tier A is about 40 properties across 13
 roots, each with an authoritative value in the table above. Tier B is about 148
 properties in one root, all the same red, so one mechanical pass.
+
+## Status
+
+Tier A and Tier B are covered. The config reads a per-channel profile variable
+and `addons/colourblind/functions/fnc_applyVars.sqf` writes it. The value of
+every expression default comes from the shipped config, not from this report.
+
+Three rows needed a correction against the shipped config:
+
+- `CfgInGameUI/CommandBar/UnitInfo/UnitCombatMode` states `colorBlue`,
+  `colorGreen`, `colorWhite` and `colorText`, all the side red. It states no
+  `colorRedTeam`. `CfgInGameUI/CommandBar` states `colorRedTeam`. Both classes
+  are converted.
+- `RscDisplayMultiplayer/controls/CA_ValueSessions` states no
+  `colorVersionBad`, so the addon converts only the two ping colours there.
+- `CfgInGameUI/CommandBar/UnitInfo/UnitCombatMode` also states `colorRed` and
+  `colorYellow`, both black. The addon leaves those as shipped.
+
+The two `GroundSupport` resistance markers map to `Independent`, because the
+green means the neutral side. The `GroundSupport` east markers map to `OPFOR`.
+
+`RscOpticsRangeFinderMRAWS` and `RscOpticsRangeFinderVorona` come from the Tank
+DLC, and the `GroundSupport` markers come from the Helicopters DLC. The addon
+lists `A3_Ui_F_Tank` and `A3_Missions_F_Heli` in `requiredAddons`.

@@ -39,6 +39,8 @@ OUR_FILES = [
     "CfgRscInGameUI.hpp",
     "Cfg3DEN.hpp",
     "CfgNotifications.hpp",
+    "CfgSideIdentity.hpp",
+    "RscSideDisplays.hpp",
 ]
 
 CLASS_OPEN = re.compile(
