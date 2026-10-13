@@ -8,9 +8,10 @@
  * command can do that: `forceWalk` and `allowSprint` are the only motor
  * commands, and both are Boolean switches, so a sprint toggle is not available.
  *
- * Off by default, and the player opts in. The change is networked, so other
- * players see it, and a mission that depends on sprint can break. Client-local:
- * it never broadcasts one player's choice to another machine.
+ * Off by default, and the player opts in. The flag itself is client-local: it
+ * never broadcasts one player's choice to another machine. The movement still
+ * replicates, so other players see the walk, and a mission that depends on
+ * sprint can break.
  *
  * Arguments:
  * 0: Enabled <BOOL>
