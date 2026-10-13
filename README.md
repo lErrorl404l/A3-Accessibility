@@ -47,8 +47,9 @@ apply a screen filter, so the rest of the picture stays as it is.
 - If a mission sets a raw colour value on a marker, that marker keeps its value.
 - The modes separate colours by brightness as well as by hue, so they stay clear
   in poor light.
-- A few screens are built when the game loads. A mode change reaches those at
-  the next mission load.
+- A few screens are built when the game loads, before the setting is readable.
+  The addon writes the saved mode before any display is built, so a mode change
+  reaches those screens at the next mission load.
 - This addon is addon-scoped. It cannot change Arma 3 itself, and it cannot add a shape or a text cue
   where the game uses colour alone. See [ACCESSIBILITY.md](ACCESSIBILITY.md).
 

@@ -89,9 +89,11 @@ The pairs that must be told apart, and the ratio each reaches, are in
 
 - Only the colours the addon covers are remapped. A marker that a mission gives
   a raw colour value keeps that value.
-- The engine evaluates some surfaces when it loads them. The scoreboard is one.
-  A mode change may therefore need the next mission load to reach such a
-  surface. The evaluation moment of each surface is not fully mapped.
+- The evaluation moment of each converted surface is not fully mapped, and no
+  headless test can settle it. The scoreboard is the one surface with no
+  evidence either way, recorded in `docs/research/20-colour-coverage.md`. A mode
+  change may need the next mission load to reach a surface that the engine
+  evaluates when it loads it.
 - No script command reads a marker's resolved colour, so the rendered marker
   colour can only be checked by eye at a client.
 - The addon does not change map terrain colours such as sea, forest and contour
