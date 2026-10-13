@@ -43,6 +43,12 @@ OUR_FILES = [
     "RscSideDisplays.hpp",
 ]
 
+# Files in other components that reopen a shipped root. They live under a
+# different directory, so they are checked by path.
+OUR_OTHER_FILES = [
+    ROOT / "addons" / "cognitive" / "CfgObjectiveHud.hpp",
+]
+
 CLASS_OPEN = re.compile(
     r"^([ \t]*)class\s+([A-Za-z0-9_]+)\s*(?::\s*([A-Za-z0-9_]+))?\s*(?:\{|$)"
 )
@@ -130,10 +136,17 @@ def main() -> int:
     failures: list[str] = []
     compared = 0
     added = 0
+    own_classes = 0
 
-    for filename in OUR_FILES:
-        oprops, oparents = parse(ADDON / filename)
+    targets = [(name, ADDON / name) for name in OUR_FILES]
+    targets += [(p.name, p) for p in OUR_OTHER_FILES]
+
+    for filename, path in targets:
+        oprops, oparents = parse(path)
         for cls_path, entries in sorted(oprops.items()):
+            if cls_path not in gprops:
+                own_classes += 1
+                continue
             # Parent check.
             if cls_path in gparents and oparents.get(cls_path) != gparents[cls_path]:
                 failures.append(
@@ -169,7 +182,8 @@ def main() -> int:
     print(
         f"[check_authoritative] PASS: {compared} overridden properties and "
         f"{len(gprops)} shipped classes across {nconfigs} game configs. "
-        f"{added} properties are added by the addon. Every parent and default agrees."
+        f"{added} properties added to a shipped class, {own_classes} own classes. "
+        "Every parent and default agrees."
     )
     return 0
 
