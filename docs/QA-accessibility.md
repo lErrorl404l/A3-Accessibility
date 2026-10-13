@@ -95,6 +95,23 @@ workshop id `450814997`, from `.hemtt/project.toml`.
 ## Log
 
 23. Check the RPT for `Error`. It must be absent.
+24. Check the addon's own report. It names the phase, the interface, the world,
+    the mission, the side, the mode from both the setting and the saved value,
+    the palette size, and one config sample as raw, as resolved and as written:
+
+        [A3ACC] postInit: interface=true dedicated=false multiplayer=false world=Stratis ...
+        [A3ACC] postInit: setting=2 saved=2 palette=6
+        [A3ACC] postInit: CfgMarkers/Flag raw=["(missionnamespace getvariable [...])",...] resolved=[0,0.35,0.85,1] written=[0,0.35,0.85]
+
+    A `resolved` value that equals the written value means the expression works.
+    A `resolved` value that equals the shipped colour means the expression fell
+    back, and the engine read that class before the addon wrote its variable.
+25. Check that `[A3ACC] setting changed to N` appears when the mode is changed in
+    the settings menu. It proves the callback ran live, and `applying mode N`
+    follows it. `applyMode N scope=... visited=... recoloured=... live=...` then
+    reports how many markers the change touched.
+26. `applyVars` logs every variable it writes, with its value and its namespace,
+    so a client RPT shows exactly which colours were written and when.
 
 ## UNVERIFIED items this checklist closes
 
