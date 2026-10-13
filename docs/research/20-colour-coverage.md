@@ -172,6 +172,47 @@ A later pass covers three more status surfaces:
 `RscHorizontalCompass` lives in `A3_UI_F_Contact`, so the addon lists that name
 in `requiredAddons`.
 
+## Completeness audit
+
+The effective config was rebuilt across every game PBO in load order, so a
+property defined twice takes the later value. It holds **10179 distinct colour
+properties**. Of those, 207 carry a side colour on a class path this addon does
+not override, and 1904 read a colour variable the addon does not write.
+
+The 1904 are accounted for: `IGUI_TEXT_RGB` (871), `GUI_BCG_RGB` (583) and
+`IGUI_BCG_RGB` (446) are the text and background greys, deliberately not written.
+
+The 207 are classified here, with the judgement for each.
+
+| Count | Where | Judgement |
+|---|---|---|
+| 160 | `CfgVehicles/*/MFD` | A real gap, and the one decision left. See the MFD section |
+| 7 | `CfgMissions/Campaigns/EastWind/.../CfgDebriefing/*/pictureColor` | Decorative: the tint of a campaign debriefing picture |
+| 6 | `RscTestControlTypes`, 2 `RscTestObjectUI` | Developer test displays, not player visible |
+| 3 | `CfgCloudlets/*/colorCoef` | Particle art |
+| 3 | `RscDisplayMissionEditor/colorAttr*` | A mission editor attribute colour; `Cfg3DEN` is covered |
+| 3 | `RscDisplayMultiplayer/controls/ValueSessions/*` | Not a gap: a legacy duplicate in the core config, superseded by `ui_f`'s `CA_ValueSessions`, which the addon covers. Both carry idc 102, and only one can be the list |
+| 1 | `CfgInGameUI/IslandMap/colorDetectorSync` | A map status colour. Reaching it means reopening `IslandMap`, which is its own recorded decision |
+| 2 | `CfgInGameUI/TacticalPing/*/colorSelectBackground` | A menu selection highlight, not side identity |
+| 2 | `RscDisplayLoadingOM/controls/ProgressBar{,2}/colorBar` | The loading bar, seen once per load |
+| 2 | `RscCombo/colorScrollbar`, `colorActive` | A control accent |
+| 2 | `RscDisplayGameOptions/.../sliderColor{R,G}/colorActive` | The colour slider accents on the addon's own settings screen |
+| 2 | `RscTitles/RscDebugText/*` | A debug title |
+| 1 | `RscMapControl/CustomMark/color` | A map mark colour |
+| 1 | `CfgInGameUI/Cursor/colorLocked` | The cursor's locked state |
+| 1 | `RscTextCheckBox/colorText`, `RscDisplayCapture/...`, `RscDisplayDLCPreview_List/...`, `CfgEditCamera/iconSelectColor`, `RscDisplayOptionsLayout/*`, `RscTitles/RscPhoneCall/...` | Incidental UI accents |
+| 4 | `RscWeaponRangeZeroing` and `RscOptics_VLS_01`: `CA_DistanceText/colorText = {1,0,0,1}` and `CA_Distance/colorText = {1,0.15,0.15,0.65}` | **A real miss.** Both are base-game optics, in the family the addon already covers 138 classes of, and both are the enemy red. The colours are derived reds, so the exact-match test above caught only the first of each pair |
+
+So the audit leaves three items. The vehicle MFD and the two optics distance
+readouts are real misses. The `IslandMap` detector colour is a decision, because
+reaching it means reopening that class. Nothing else colour-bearing is
+unaccounted for.
+
+A limit of this audit: it matches a value exactly against the five side colours.
+A derived shade such as `{1,0.15,0.15}` is in a side family and is not matched.
+That is how the optics miss was found only on the second pass, and it means the
+count above is a lower bound.
+
 ## MPTable: why it reads a mission variable, proven
 
 `CfgInGameUI/MPTable` reads an addon **mission** variable; every other converted
