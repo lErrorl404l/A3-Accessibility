@@ -19,6 +19,10 @@
  * Return Value:
  * None
  *
+ * Sets:
+ * A3ACC_palette - the six palette entries for the mode, or empty for Off. The
+ * in-engine suite reads it to assert the apply and the restore.
+ *
  * Public: No
  */
 

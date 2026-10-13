@@ -2,7 +2,7 @@
     "A3ACC_CVDMode",
     "LIST",
     ["Colour blind mode",
-     "Select a colour-vision-deficiency palette for map markers."],
+     "Recolour the colours that carry side and status meaning, so sides and status stay distinct."],
     "A3 Accessibility",
     [[0, 1, 2, 3, 4],
      ["Off", "Protan", "Deutan", "Tritan", "Achromatopsia"],
