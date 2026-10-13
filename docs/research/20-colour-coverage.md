@@ -171,3 +171,21 @@ A later pass covers three more status surfaces:
 
 `RscHorizontalCompass` lives in `A3_UI_F_Contact`, so the addon lists that name
 in `requiredAddons`.
+
+## Open question: when the engine evaluates MPTable
+
+`CfgInGameUI/MPTable` reads an addon **mission** variable, and every other
+converted property reads a profile variable. The reason recorded in the code was
+that the engine evaluates `MPTable` at server startup, before the profile
+namespace is writable. Nothing supports that claim. It is in no research note,
+no client log and no probe result, and the commit that introduced it records no
+observation.
+
+The variable is written one frame after postInit, which is before any display is
+built, so the override works if the engine reads the variable at all.
+
+`getArray` returns the raw expression string rather than a resolved colour, so no
+headless test can settle whether the engine evaluates it. `test_surface` asserts
+what it can: the array names this addon's own variable. The question needs a
+client, and it belongs with the other client-only questions in
+`docs/QA-accessibility.md`.

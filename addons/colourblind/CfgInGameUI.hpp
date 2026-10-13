@@ -1,7 +1,10 @@
 // HUD and scoreboard colours. SideColors reads an addon profile variable per
-// channel. MPTable reads an addon mission variable per channel, because the
-// engine evaluates MPTable at server startup, before the profile namespace is
-// writable. IslandMap is not overridden: the shipped class reads the engine
+// channel. MPTable reads an addon mission variable per channel: that choice is
+// UNVERIFIED, because no note, log or probe records the engine evaluating
+// MPTable at startup, and getArray returns the raw expression string, so no
+// headless test can settle it. See docs/research/20-colour-coverage.md.
+//
+// IslandMap is not overridden: the shipped class reads the engine
 // side variables directly, and fnc_applyVars writes those. SquadRadar is not
 // overridden either: the extracted shipped config defines no colour property
 // for it.
