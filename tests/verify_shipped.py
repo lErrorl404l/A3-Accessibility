@@ -35,6 +35,7 @@ GAME_ALSO = Path("/tmp/opencode/vanilla")
 OUR_FILES = [
     "CfgInGameUI.hpp",
     "CfgWrapperUI.hpp",
+    "CfgCurator.hpp",
     "CfgRscInGameUI.hpp",
     "Cfg3DEN.hpp",
     "CfgNotifications.hpp",

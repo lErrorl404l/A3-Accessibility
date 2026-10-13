@@ -72,7 +72,15 @@ private _surfaceVars = [
     ["CfgNotifications_TaskFailedIcon_colorIconPicture", "OPFOR"],
     ["CfgNotifications_TaskCanceledIcon_color", "Unknown"],
     ["CfgNotifications_TaskCanceledIcon_colorIconPicture", "Unknown"],
-    ["CfgNotifications_ScoreAdded_color", "Independent"]
+    ["CfgNotifications_ScoreAdded_color", "Independent"],
+    ["CfgCurator_DrawObject_2D_colorSelectionSquare", "Independent"],
+    ["CfgCurator_DrawObject_2D_colorPreviewDisabled", "OPFOR"],
+    ["CfgCurator_DrawObject_3D_colorSelectionSquare", "Independent"],
+    ["CfgCurator_DrawObject_3D_colorPreviewDisabled", "OPFOR"],
+    ["CfgCurator_DrawWaypoint_3D_colorNormal", "Independent"],
+    ["CfgCurator_DrawWaypoint_3D_colorCycleNormal", "Independent"],
+    ["CfgCurator_DrawPlayer_2D_color", "OPFOR"],
+    ["CfgCurator_DrawPlayer_3D_color", "OPFOR"]
 ];
 
 private _missionVars = [

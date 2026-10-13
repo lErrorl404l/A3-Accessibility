@@ -28,6 +28,7 @@ CONFIG = ADDON / "config.cpp"
 CONFIG_FILES = [
     ADDON / "CfgInGameUI.hpp",
     ADDON / "CfgWrapperUI.hpp",
+    ADDON / "CfgCurator.hpp",
     ADDON / "CfgRscInGameUI.hpp",
     ADDON / "Cfg3DEN.hpp",
     ADDON / "CfgNotifications.hpp",
@@ -55,7 +56,8 @@ ENGINE_VARS = [
 # The engine variables the writer must not touch.
 FORBIDDEN_VARS = ["IGUI_TEXT_RGB", "IGUI_BCG_RGB", "GUI_BCG_RGB"]
 
-# Every reopened class and its required parent.
+# Every reopened class and its required parent. A None parent means the shipped
+# config states no parent, so the reopen must be bare.
 REOPENED_PARENTS = {
     ("CfgWrapperUI.hpp", "HC_move"): "Track",
     ("CfgWrapperUI.hpp", "HC_overFriendly"): "Track",
@@ -72,6 +74,12 @@ REOPENED_PARENTS = {
     ("CfgNotifications.hpp", "TaskSucceededIcon"): "TaskCreatedIcon",
     ("CfgNotifications.hpp", "TaskFailedIcon"): "TaskCreatedIcon",
     ("CfgNotifications.hpp", "TaskCanceledIcon"): "TaskCreatedIcon",
+    ("CfgCurator.hpp", "CfgCurator"): None,
+    ("CfgCurator.hpp", "DrawObject"): None,
+    ("CfgCurator.hpp", "DrawWaypoint"): None,
+    ("CfgCurator.hpp", "DrawPlayer"): None,
+    ("CfgCurator.hpp", "2D"): None,
+    ("CfgCurator.hpp", "3D"): None,
 }
 
 # A per-channel expression over an addon surface variable, in either namespace.

@@ -44,6 +44,7 @@ private _igui = configFile >> "CfgInGameUI";
 private _cursors = configFile >> "CfgWrapperUI" >> "Cursors";
 private _eden = configFile >> "Cfg3DEN";
 private _notif = configFile >> "CfgNotifications";
+private _curator = configFile >> "CfgCurator";
 private _optic = configFile >> "RscInGameUI" >> "RscOptics_crows" >> "CA_IGUI_elements_group" >> "controls" >> "CA_TurretIndicator";
 
 private _checks = [
@@ -58,7 +59,15 @@ private _checks = [
     [_eden >> "Connections" >> "Group" >> "color", "Cfg3DEN_Connections_Group", "Cfg3DEN Connections Group"],
     [_notif >> "TaskFailed" >> "color", "CfgNotifications_TaskFailed_color", "CfgNotifications TaskFailed"],
     [_notif >> "TaskSucceededIcon" >> "colorIconPicture", "CfgNotifications_TaskSucceededIcon_colorIconPicture", "CfgNotifications TaskSucceededIcon picture"],
-    [_optic >> "color", "RscOptics_crows_CA_TurretIndicator", "RscInGameUI optic"]
+    [_optic >> "color", "RscOptics_crows_CA_TurretIndicator", "RscInGameUI optic"],
+    [_curator >> "DrawObject" >> "2D" >> "colorSelectionSquare", "CfgCurator_DrawObject_2D_colorSelectionSquare", "CfgCurator DrawObject 2D selection square"],
+    [_curator >> "DrawObject" >> "2D" >> "colorPreviewDisabled", "CfgCurator_DrawObject_2D_colorPreviewDisabled", "CfgCurator DrawObject 2D preview disabled"],
+    [_curator >> "DrawObject" >> "3D" >> "colorSelectionSquare", "CfgCurator_DrawObject_3D_colorSelectionSquare", "CfgCurator DrawObject 3D selection square"],
+    [_curator >> "DrawObject" >> "3D" >> "colorPreviewDisabled", "CfgCurator_DrawObject_3D_colorPreviewDisabled", "CfgCurator DrawObject 3D preview disabled"],
+    [_curator >> "DrawWaypoint" >> "3D" >> "colorNormal", "CfgCurator_DrawWaypoint_3D_colorNormal", "CfgCurator DrawWaypoint normal"],
+    [_curator >> "DrawWaypoint" >> "3D" >> "colorCycleNormal", "CfgCurator_DrawWaypoint_3D_colorCycleNormal", "CfgCurator DrawWaypoint cycle normal"],
+    [_curator >> "DrawPlayer" >> "2D" >> "color", "CfgCurator_DrawPlayer_2D_color", "CfgCurator DrawPlayer 2D"],
+    [_curator >> "DrawPlayer" >> "3D" >> "color", "CfgCurator_DrawPlayer_3D_color", "CfgCurator DrawPlayer 3D"]
 ];
 
 {

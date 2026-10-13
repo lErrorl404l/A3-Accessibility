@@ -6,7 +6,7 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
-        requiredAddons[] = {"A3ACC_main", "cba_common", "cba_events", "cba_settings"};
+        requiredAddons[] = {"A3ACC_main", "A3_Ui_F_Curator", "cba_common", "cba_events", "cba_settings"};
         authors[] = {"lErrorl404l"};
         VERSION_CONFIG;
     };
@@ -19,4 +19,5 @@ class CfgPatches {
 #include "CfgRscInGameUI.hpp"
 #include "Cfg3DEN.hpp"
 #include "CfgWrapperUI.hpp"
+#include "CfgCurator.hpp"
 #include "CfgTests.hpp"
