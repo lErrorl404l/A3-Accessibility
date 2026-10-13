@@ -28,22 +28,49 @@ hemtt launch    # build and start Arma 3 with the default profile
 
 ## Gates
 
-Run these three commands before you push. CI runs the same commands.
+Run these before you push. CI runs the same ones.
 
 ```bash
-hemtt check -p -e                 # lint the config and the SQF
-python3 tests/verify_palette.py   # offline palette test
-hemtt build                       # confirm the build succeeds
+hemtt check -p -e                  # lint the config and the SQF
+hemtt script check_prefixes        # confirm every addon prefix is right
+python3 tests/verify_palette.py    # the pure palette, and every 3:1 pair
+python3 tests/verify_no_filter.py  # no post-process and no colour matrix
+python3 tests/verify_surface.py    # the expression form and the variable set
+hemtt build                        # confirm the build succeeds
 ```
 
 - `hemtt check -p -e` must exit 0 with no error and no warning.
 - `python3 tests/verify_palette.py` must exit 0. It checks the pure palette
   function and needs no game.
+- `python3 tests/verify_no_filter.py` must exit 0. It fails on a post-process
+  effect or a colour matrix in any addon, and on an aperture call in the colour
+  component, which must stay brightness-neutral.
+- `python3 tests/verify_surface.py` must exit 0. It fails when a config
+  expression and the writer disagree, and when a reopened class does not restate
+  its vanilla parent.
 - `hemtt build` must exit 0.
 
-The in-engine test is manual. Run
-`execVM "z\a3acc\addons\colourblind\test.sqf"` from the debug console and
-read the RPT file.
+One gate needs a game install, so CI cannot run it. Run it after a config change
+and after a game update:
+
+```bash
+python3 tests/verify_shipped.py    # every override against the shipped config
+```
+
+It compares every override against the extracted game configs for the parent,
+the property set and the shipped value. It must report 0 properties added to a
+shipped class. `docs/research/15-shipped-pbo-surface.md` says how to extract the
+configs.
+
+## The in-engine tier
+
+`tests/ingame/run.sh` runs the suite inside a real dedicated server in Docker. It
+needs a server install and a CBA_A3 folder. It proves the code does not break
+anything. It cannot prove the addon works as intended, because a dedicated
+server has no renderer. See `tests/ingame/README.md`.
+
+The debug console is the quick alternative: run
+`execVM "z\a3acc\addons\colourblind\test.sqf"` and read the RPT.
 
 ## Commit messages
 
@@ -57,7 +84,8 @@ docs: add the colour-blind QA checklist
 ```
 
 - Use the imperative mood. Write "add", not "added".
-- Name the component: `colourblind`, `ci`, `docs` or `tests`.
+- Name the component: `main`, `colourblind`, `hearing`, `motion`, `cognitive`,
+  `lowvision`, `motor`, `build`, `ci`, `docs` or `tests`.
 - Sign every commit with GPG.
 - Cite the plan section or the standard the change satisfies in the body.
 

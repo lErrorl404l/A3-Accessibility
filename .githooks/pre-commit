@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Fast gates for the A3 Accessibility repository.
-# Runs the lint check and the offline palette test. Plan section 7.6.
+# Runs the lint check and every offline gate that needs no game install.
+# tests/verify_shipped.py is excluded: it needs the extracted game configs.
 set -euo pipefail
 
 ROOT="$(git rev-parse --show-toplevel)"
@@ -13,11 +14,18 @@ else
     echo "WARN hemtt not found, skipping the lint check"
 fi
 
-if command -v python3 >/dev/null 2>&1 && [ -f "$ROOT/tests/verify_palette.py" ]; then
-    echo "-> python3 tests/verify_palette.py"
-    (cd "$ROOT" && python3 tests/verify_palette.py) || FAILED=1
+if command -v python3 >/dev/null 2>&1; then
+    for gate in verify_palette verify_no_filter verify_surface; do
+        script="$ROOT/tests/$gate.py"
+        if [ -f "$script" ]; then
+            echo "-> python3 tests/$gate.py"
+            (cd "$ROOT" && python3 "$script" >/dev/null) || FAILED=1
+        else
+            echo "WARN tests/$gate.py not found, skipping it"
+        fi
+    done
 else
-    echo "WARN tests/verify_palette.py not found, skipping the offline palette test"
+    echo "WARN python3 not found, skipping the offline gates"
 fi
 
 if [ "$FAILED" -ne 0 ]; then
