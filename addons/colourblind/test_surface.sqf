@@ -24,16 +24,16 @@ private _engineVars = [
     ["IGUI_TACTPING_RGB", "TacticalPing"]
 ];
 
-// One converted surface variable per root, with the namespace it lives in.
-// MPTable reads missionNamespace, because the engine evaluates that class before
-// the profile namespace exists. See CfgInGameUI.hpp.
+// One converted surface variable per root. Every one of them lives in the mission
+// namespace, because the engine evaluates some of these classes before the
+// profile namespace exists. See CfgInGameUI.hpp.
 private _surfaceSample = [
-    ["SideColors_colorFriendly", "BLUFOR", profileNamespace],
-    ["MPTable_colorWest", "BLUFOR", missionNamespace],
-    ["Cursors_HC_move", "BLUFOR", profileNamespace],
-    ["Cfg3DEN_Connections_Group", "OPFOR", profileNamespace],
-    ["CfgNotifications_TaskFailed_color", "OPFOR", profileNamespace],
-    ["RscOptics_crows_CA_TurretIndicator", "OPFOR", profileNamespace]
+    ["SideColors_colorFriendly", "BLUFOR"],
+    ["MPTable_colorWest", "BLUFOR"],
+    ["Cursors_HC_move", "BLUFOR"],
+    ["Cfg3DEN_Connections_Group", "OPFOR"],
+    ["CfgNotifications_TaskFailed_color", "OPFOR"],
+    ["RscOptics_crows_CA_TurretIndicator", "OPFOR"]
 ];
 
 private _fnc_readRGB = {
@@ -61,9 +61,9 @@ private _fnc_readRGB = {
     } forEach _engineVars;
 
     {
-        _x params ["_name", "_key", "_namespace"];
+        _x params ["_name", "_key"];
         private _want = ([_mode, _key] call FUNC(surfaceColourFor)) select [0, 3];
-        private _got = [_namespace, format ["A3ACC_Surf_%1", _name]] call _fnc_readRGB;
+        private _got = [missionNamespace, format ["A3ACC_Surf_%1", _name]] call _fnc_readRGB;
         if (_got isNotEqualTo _want) then {
             _fail = _fail + 1;
             diag_log text format ["[A3ACC] mode %1 %2 = %3, want %4", _mode, _name, str _got, str _want];

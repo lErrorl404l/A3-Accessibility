@@ -89,10 +89,13 @@ The pairs that must be told apart, and the ratio each reaches, are in
 
 - Only the colours the addon covers are remapped. A marker that a mission gives
   a raw colour value keeps that value.
-- The evaluation moment of most converted surfaces is not fully mapped at a
-  client. One is settled: `CfgInGameUI/MPTable`, the respawn table, is evaluated
-  before the profile namespace exists, so it reads a mission variable and would
-  terminate the game if it read the profile. See
+- The evaluation moment of the converted surfaces is not fully mapped at a
+  client. One class is settled: `CfgInGameUI/MPTable`, the respawn table, is
+  evaluated before the profile namespace exists, and a profile expression there
+  terminates the game. Every converted surface therefore reads a mission
+  variable, which the engine cannot evaluate that early either, so a surface the
+  engine reads that early shows the shipped colour instead of the mode colour.
+  Which surfaces those are is unverified. See
   `docs/research/20-colour-coverage.md`.
 - Whether the engine reads `CfgInGameUI/MPTable` again after the mission starts is
   unverified. Its expression resolves to the mode colour when read, which the

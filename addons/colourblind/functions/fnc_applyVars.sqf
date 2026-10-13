@@ -2,7 +2,8 @@
 
 /*
  * Author: lErrorl404l
- * Write the profile variables the engine reads for one mode.
+ * Write the variables the engine reads for one mode: the engine's own profile
+ * variables, and this addon's surface variables in the mission namespace.
  *
  * Arguments:
  * 0: Mode index <NUMBER>
@@ -250,13 +251,7 @@ private _surfaceVars = [
     ["RscDisplayMultiplayerSetup_colorConfirmed", "BLUFOR"],
     ["RscDisplayMultiplayerSetup_CA_ValueRoles_colorAI", "OPFOR"],
     ["RscHorizontalCompass_DangerZone_colorText", "OPFOR"],
-    ["RscHorizontalCompass_HQ_colorText", "OPFOR"]
-];
-
-// MPTable's colours go to the mission namespace. The engine evaluates that class
-// before the profile namespace exists, and a profile expression there terminates
-// the game at startup. See CfgInGameUI.hpp.
-private _missionVars = [
+    ["RscHorizontalCompass_HQ_colorText", "OPFOR"],
     ["MPTable_colorWest", "BLUFOR"],
     ["MPTable_colorEast", "OPFOR"],
     ["MPTable_colorCiv", "Civilian"],
@@ -264,7 +259,9 @@ private _missionVars = [
 ];
 
 private _channels = ["_R", "_G", "_B"];
-private _prefixes = (_engineVars apply { _x select 0 }) + (_surfaceVars apply { format ["A3ACC_Surf_%1", (_x select 0)] });
+// Only the engine variables are recorded and restored. The surface variables
+// belong to this addon and live in the mission namespace, so Off deletes them.
+private _prefixes = _engineVars apply { _x select 0 };
 
 private _fnc_writeRGB = {
     params ["_ns", "_prefix", "_rgba"];
@@ -291,7 +288,7 @@ if (_mode == 0) then {
         {
             missionNamespace setVariable [_prefix + _x, nil];
         } forEach _channels;
-    } forEach _missionVars;
+    } forEach _surfaceVars;
     profileNamespace setVariable ["A3ACC_vanillaVars", nil];
 } else {
     // Record the player's own values ONCE, and hold them in the profile
@@ -318,15 +315,15 @@ if (_mode == 0) then {
         [profileNamespace, _prefix, [_mode, _key] call FUNC(surfaceColourFor)] call _fnc_writeRGB;
     } forEach _engineVars;
 
-    {
-        _x params ["_name", "_key"];
-        [profileNamespace, format ["A3ACC_Surf_%1", _name], [_mode, _key] call FUNC(surfaceColourFor)] call _fnc_writeRGB;
-    } forEach _surfaceVars;
-
+    // The surface variables go to the mission namespace, never the profile. The
+    // engine reads some of these classes before the profile namespace exists, and
+    // a profile expression there terminates the game at startup. A mission read
+    // cannot be evaluated then either, so the shipped default stands, which is
+    // survivable where a termination is not.
     {
         _x params ["_name", "_key"];
         [missionNamespace, format ["A3ACC_Surf_%1", _name], [_mode, _key] call FUNC(surfaceColourFor)] call _fnc_writeRGB;
-    } forEach _missionVars;
+    } forEach _surfaceVars;
 };
 
 // Remember the mode for the next session's preStart, which cannot read the CBA

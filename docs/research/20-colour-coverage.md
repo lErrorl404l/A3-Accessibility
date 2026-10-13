@@ -213,14 +213,11 @@ A derived shade such as `{1,0.15,0.15}` is in a side family and is not matched.
 That is how the optics miss was found only on the second pass, and it means the
 count above is a lower bound.
 
-## MPTable: why it reads a mission variable, proven
+## Every converted surface reads a mission variable, proven
 
-`CfgInGameUI/MPTable` reads an addon **mission** variable; every other converted
-property reads a profile variable. The reason is now proven by the engine, not
-assumed.
-
-Change those four properties to read `profilenamespace` and run the in-engine
-tier. The dedicated server fails its startup with:
+`CfgInGameUI/MPTable` was the first proof. Change those four properties to read
+`profilenamespace` and run the in-engine tier. The dedicated server fails its
+startup with:
 
     ErrorMessage: Trying to get namespace profile but world is not initialized yet
     Application terminated intentionally
@@ -229,15 +226,30 @@ tier. The dedicated server fails its startup with:
 and the addon's own test never runs. The engine evaluates that class in a phase
 before the profile namespace exists, so a profile expression there is fatal.
 
-The mission namespace holds nothing that early, so the expression resolves to its
-default rather than terminating the game. `test_surface` asserts that the
-expression resolves to the mode colour through `bis_fnc_colorConfigToRGBA`, which
-is the compile path the game's own scripts use. Whether the engine reads the
-class again after the mission starts is a client question, recorded in
-`docs/QA-accessibility.md`.
+A client run then proved the rule is not specific to MPTable. The whole config
+read the profile namespace, and the client terminated at the same phase:
 
-`tests/verify_surface.py` now refuses a profile expression under
-`CfgInGameUI/MPTable`, so the defect cannot return.
+    22:36:57 PhysX3 SDK Init ended.
+    22:36:57 ErrorMessage: Trying to get namespace profile but world is not initialized yet
+    22:36:57 Application terminated intentionally
+
+No script had run: the first extension line in that log is CBA's `PreStart
+started`, eight seconds later. The same log shows the engine evaluating twelve
+MPTable expressions one second earlier and only warning, `Cannot evaluate
+'(missionnamespace getvariable [...])'`. That is the difference between the two
+namespaces at that phase: a profile read terminates the game, a mission read does
+not.
+
+Every converted property therefore reads a mission variable. The mission
+namespace holds nothing that early either, so such an expression cannot be
+evaluated then and the shipped default stands. That is a smaller loss than a
+termination. `test_surface` asserts that the expression resolves to the mode
+colour through `bis_fnc_colorConfigToRGBA`, which is the compile path the game's
+own scripts use. Whether the engine reads a class again after the mission starts
+is a client question, recorded in `docs/QA-accessibility.md`.
+
+`tests/verify_surface.py` refuses a profile expression anywhere in the config,
+and refuses a surface write to the profile namespace, so the defect cannot return.
 
 `CfgInGameUI/MPTable` is the respawn table, not the scoreboard: the shipped
 config puts the `MPTable` control under `RscRespawnCounter`, and no game script

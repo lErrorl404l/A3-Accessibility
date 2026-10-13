@@ -22,42 +22,42 @@ class GroundSupport_CAS_WEST;
 
 class CfgMarkers {
     class Flag {
-        color[] = {"(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_Flag_color_R',1])","(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_Flag_color_G',0])","(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_Flag_color_B',0])",1};
+        color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Flag_color_R',1])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Flag_color_G',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Flag_color_B',0])",1};
     };
     class Select: Flag {
-        color[] = {"(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_Select_color_R',1])","(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_Select_color_G',0])","(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_Select_color_B',0])",1};
+        color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Select_color_R',1])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Select_color_G',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Select_color_B',0])",1};
     };
     class GroundSupport_CAS_EAST: GroundSupport_CAS_WEST {
-        color[] = {"(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_EAST_color_R',0.5])","(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_EAST_color_G',0])","(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_EAST_color_B',0])",1};
+        color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_EAST_color_R',0.5])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_EAST_color_G',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_EAST_color_B',0])",1};
     };
     class GroundSupport_ARTY_EAST: GroundSupport_ARTY_WEST {
-        color[] = {"(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_EAST_color_R',0.5])","(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_EAST_color_G',0])","(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_EAST_color_B',0])",1};
+        color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_EAST_color_R',0.5])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_EAST_color_G',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_EAST_color_B',0])",1};
     };
     class Minefield {
-        color[] = {"(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_Minefield_color_R',0.9])","(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_Minefield_color_G',0])","(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_Minefield_color_B',0])",1};
+        color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Minefield_color_R',0.9])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Minefield_color_G',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Minefield_color_B',0])",1};
     };
     class GroundSupport_CAS_RESISTANCE: GroundSupport_CAS_WEST {
-        color[] = {"(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_RESISTANCE_color_R',0])","(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_RESISTANCE_color_G',0.5])","(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_RESISTANCE_color_B',0])",1};
+        color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_RESISTANCE_color_R',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_RESISTANCE_color_G',0.5])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_RESISTANCE_color_B',0])",1};
     };
     class GroundSupport_ARTY_RESISTANCE: GroundSupport_ARTY_WEST {
-        color[] = {"(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_RESISTANCE_color_R',0])","(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_RESISTANCE_color_G',0.5])","(profilenamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_RESISTANCE_color_B',0])",1};
+        color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_RESISTANCE_color_R',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_RESISTANCE_color_G',0.5])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_RESISTANCE_color_B',0])",1};
     };
 };
 
 class CfgGroupIcons {
     class Flag {
-        color[] = {"(profilenamespace getvariable ['A3ACC_Surf_CfgGroupIcons_Flag_color_R',1])","(profilenamespace getvariable ['A3ACC_Surf_CfgGroupIcons_Flag_color_G',0])","(profilenamespace getvariable ['A3ACC_Surf_CfgGroupIcons_Flag_color_B',0])",1};
+        color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgGroupIcons_Flag_color_R',1])","(missionnamespace getvariable ['A3ACC_Surf_CfgGroupIcons_Flag_color_G',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgGroupIcons_Flag_color_B',0])",1};
     };
     class Select: Flag {
-        color[] = {"(profilenamespace getvariable ['A3ACC_Surf_CfgGroupIcons_Select_color_R',1])","(profilenamespace getvariable ['A3ACC_Surf_CfgGroupIcons_Select_color_G',0])","(profilenamespace getvariable ['A3ACC_Surf_CfgGroupIcons_Select_color_B',0])",1};
+        color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgGroupIcons_Select_color_R',1])","(missionnamespace getvariable ['A3ACC_Surf_CfgGroupIcons_Select_color_G',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgGroupIcons_Select_color_B',0])",1};
     };
 };
 
 class CfgORBATDefault {
-    color[] = {"(profilenamespace getvariable ['A3ACC_Surf_CfgORBATDefault_color_R',1])","(profilenamespace getvariable ['A3ACC_Surf_CfgORBATDefault_color_G',0])","(profilenamespace getvariable ['A3ACC_Surf_CfgORBATDefault_color_B',0])",1};
+    color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgORBATDefault_color_R',1])","(missionnamespace getvariable ['A3ACC_Surf_CfgORBATDefault_color_G',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgORBATDefault_color_B',0])",1};
 };
 
 class RscChatListDefault {
-    colorGroupChannel[] = {"(profilenamespace getvariable ['A3ACC_Surf_RscChatListDefault_colorGroupChannel_R',0.709])","(profilenamespace getvariable ['A3ACC_Surf_RscChatListDefault_colorGroupChannel_G',0.972])","(profilenamespace getvariable ['A3ACC_Surf_RscChatListDefault_colorGroupChannel_B',0.384])",1};
-    colorGroupChannelPlayerBackground[] = {"(profilenamespace getvariable ['A3ACC_Surf_RscChatListDefault_colorGroupChannelPlayerBackground_R',0.709])","(profilenamespace getvariable ['A3ACC_Surf_RscChatListDefault_colorGroupChannelPlayerBackground_G',0.972])","(profilenamespace getvariable ['A3ACC_Surf_RscChatListDefault_colorGroupChannelPlayerBackground_B',0.384])",0.5};
+    colorGroupChannel[] = {"(missionnamespace getvariable ['A3ACC_Surf_RscChatListDefault_colorGroupChannel_R',0.709])","(missionnamespace getvariable ['A3ACC_Surf_RscChatListDefault_colorGroupChannel_G',0.972])","(missionnamespace getvariable ['A3ACC_Surf_RscChatListDefault_colorGroupChannel_B',0.384])",1};
+    colorGroupChannelPlayerBackground[] = {"(missionnamespace getvariable ['A3ACC_Surf_RscChatListDefault_colorGroupChannelPlayerBackground_R',0.709])","(missionnamespace getvariable ['A3ACC_Surf_RscChatListDefault_colorGroupChannelPlayerBackground_G',0.972])","(missionnamespace getvariable ['A3ACC_Surf_RscChatListDefault_colorGroupChannelPlayerBackground_B',0.384])",0.5};
 };

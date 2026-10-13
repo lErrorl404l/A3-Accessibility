@@ -129,21 +129,23 @@ def table_block(text: str, marker: str) -> str:
 def main() -> int:
     failures: list[str] = []
 
-    # Gate 1 and 2: the config triples and the writer tables are the same set,
-    # per namespace.
+    # Gate 1 and 2: the config triples and the writer table are the same set, and
+    # the config reads the mission namespace only.
+    #
+    # The namespace is not a preference. The engine evaluates some of these
+    # classes before the profile namespace exists, and a profile expression there
+    # terminates the game: "Trying to get namespace profile but world is not
+    # initialized yet", then "Application terminated intentionally". That is
+    # proven twice, on a dedicated server where the fatal class was MPTable, and
+    # on a client. A mission expression cannot be evaluated that early either, but
+    # it warns and the shipped default stands, which is survivable.
     apply_text = APPLY_VARS.read_text(encoding="utf-8")
-    profile_table = {
+    surface_table = {
         m.group(1)
         for m in TABLE_RE.finditer(table_block(apply_text, "private _surfaceVars = ["))
     }
-    mission_table = {
-        m.group(1)
-        for m in TABLE_RE.finditer(table_block(apply_text, "private _missionVars = ["))
-    }
-    if not profile_table:
+    if not surface_table:
         failures.append("fnc_applyVars.sqf: the _surfaceVars table is empty")
-    if not mission_table:
-        failures.append("fnc_applyVars.sqf: the _missionVars table is empty")
 
     config_profile: set[str] = set()
     config_mission: set[str] = set()
@@ -157,36 +159,39 @@ def main() -> int:
             )
             channels.setdefault(name, set()).add(channel)
 
-    for name in sorted(config_profile - profile_table):
+    if config_profile:
         failures.append(
-            f"config reads profile variable {name} but the writer has no such variable"
+            f"the config reads the profile namespace for {len(config_profile)} "
+            f"variable(s), first {sorted(config_profile)[0]}: a profile expression "
+            "in a class the engine reads before the world exists terminates the game"
         )
-    for name in sorted(profile_table - config_profile):
-        failures.append(
-            f"the writer writes profile variable {name} but no config reads it"
-        )
-    for name in sorted(config_mission - mission_table):
+    for name in sorted(config_mission - surface_table):
         failures.append(
             f"config reads mission variable {name} but the writer has no such variable"
         )
-    for name in sorted(mission_table - config_mission):
+    for name in sorted(surface_table - config_mission):
         failures.append(
             f"the writer writes mission variable {name} but no config reads it"
         )
 
-    # The engine evaluates CfgInGameUI/MPTable before the profile namespace
-    # exists. A profile expression there fails the startup with "Trying to get
-    # namespace profile but world is not initialized yet" and then "Application
-    # terminated intentionally", so the gate refuses one. The mission namespace
-    # holds no value that early, so the expression resolves to its default
-    # rather than terminating the game.
+    # The writer must write the surface table where the config reads it, and must
+    # never write it to the profile namespace.
+    if '[missionNamespace, format ["A3ACC_Surf_%1", _name]' not in apply_text:
+        failures.append(
+            "fnc_applyVars.sqf does not write the surface variables to the mission namespace"
+        )
+    if '[profileNamespace, format ["A3ACC_Surf_%1", _name]' in apply_text:
+        failures.append(
+            "fnc_applyVars.sqf writes a surface variable to the profile namespace"
+        )
+
+    # MPTable stays overridden and keeps reading the mission namespace. It is the
+    # class that proved the fatality on a dedicated server.
     ingameui = CONFIG_FILES[0].read_text(encoding="utf-8")
-    for block in re.findall(r"class MPTable \{(.*?)\n    \};", ingameui, re.S):
-        if "profilenamespace" in block:
-            failures.append(
-                "CfgInGameUI.hpp class MPTable reads the profile namespace, "
-                "which terminates the game at startup"
-            )
+    blocks = re.findall(r"class MPTable \{(.*?)\n    \};", ingameui, re.S)
+    if not blocks:
+        failures.append("CfgInGameUI.hpp no longer overrides class MPTable")
+    for block in blocks:
         if "missionnamespace" not in block:
             failures.append(
                 "CfgInGameUI.hpp class MPTable does not read the mission namespace"
@@ -259,8 +264,9 @@ def main() -> int:
         return 1
 
     print(
-        f"[verify_surface] PASS: {len(config_profile)} profile and {len(config_mission)} mission "
-        f"surface variables in the config and the writer, {len(ENGINE_VARS)} engine variables owned, "
+        f"[verify_surface] PASS: {len(config_mission)} mission surface variables in the config "
+        f"and the writer, no profile expression anywhere in the config, "
+        f"{len(ENGINE_VARS)} engine variables owned, "
         "no forbidden variable, no deleted override, "
         f"{gated} class paths restate the parent the shipped config states, "
         f"{gated_decls} forward declarations match the checked list"
