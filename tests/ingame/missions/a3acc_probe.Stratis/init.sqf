@@ -1,5 +1,14 @@
-// Dump the vanilla parent chain and scope for every class the addon overrides.
-// Runs with no addon loaded, so the parents are the shipped ones.
+// Dump the property list and the scope of a named config class, and the value of
+// the profile and mission colour variables.
+//
+// LIMIT: inheritsFrom returns a null config on a dedicated server, because the
+// parent classes live in UI configs the server does not merge. So the parent
+// chain CANNOT be read here. Read it from the extracted game config instead, or
+// from the engine's own "Updating base class" lines in a client RPT.
+//
+// Run with no addon loaded to read the shipped values. That needs
+// A3ACC_PARAMS="-autoInit -noBattlEye", because the compose file otherwise
+// loads the addon.
 diag_log "[A3ACC-PROBE] VANILLA START";
 
 private _paths = [
