@@ -26,7 +26,17 @@ if (_enabled) then {
             private _text = if (_task isEqualTo "") then {
                 "No active task"
             } else {
-                format ["Objective: %1", _task]
+                // BIS_fnc_taskCurrent returns the task ID, not the title. The
+                // description function returns [description, title, marker],
+                // and vanilla localises the title when the task is set.
+                private _desc = [_task] call BIS_fnc_taskDescription;
+                private _title = _task;
+                if (count _desc > 0) then {
+                    _title = _desc select 1;
+                    if (_title isEqualTo "") then { _title = _desc select 0; };
+                    if (_title isEqualTo "") then { _title = _task; };
+                };
+                format ["Objective: %1", _title]
             };
             private _display = uiNamespace getVariable ["A3ACC_ObjectiveHud", displayNull];
             if (!isNull _display) then {

@@ -1,3 +1,4 @@
 PREP_RECOMPILE_START;
 PREP(applyLegibility);
+PREP(watch);
 PREP_RECOMPILE_END;

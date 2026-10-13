@@ -325,3 +325,7 @@ if (_mode == 0) then {
         [missionNamespace, format ["A3ACC_Surf_%1", _name], [_mode, _key] call FUNC(surfaceColourFor)] call _fnc_writeRGB;
     } forEach _missionVars;
 };
+
+// Remember the mode for the next session's preStart, which cannot read the CBA
+// setting. See XEH_preStart.sqf.
+profileNamespace setVariable ["A3ACC_CVDModeSaved", _mode];

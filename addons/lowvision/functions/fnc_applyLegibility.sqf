@@ -5,8 +5,13 @@
  * Make map markers larger and fully opaque, for low vision.
  * Client-local: it changes only the local player's own map.
  *
+ * Pass one marker name to resize a single marker. The created-marker event uses
+ * that path, so a marker created after the setting is on is enlarged at once
+ * rather than at the next toggle.
+ *
  * Arguments:
  * 0: Enabled <BOOL>
+ * 1: One marker name, or "" for every marker <STRING>
  *
  * Return Value:
  * None
@@ -14,7 +19,7 @@
  * Public: No
  */
 
-params [["_enabled", false, [false]]];
+params [["_enabled", false, [false]], ["_only", "", [""]]];
 
 private _cache = missionNamespace getVariable ["A3ACC_markerLegibilityPrior", createHashMap];
 
@@ -35,10 +40,21 @@ private _cache = missionNamespace getVariable ["A3ACC_markerLegibilityPrior", cr
             _name setMarkerAlphaLocal _alpha;
         };
     };
-} forEach allMapMarkers;
+} forEach (if (_only isEqualTo "") then { allMapMarkers } else { [_only] });
 
-if (!_enabled) then {
-    _cache = createHashMap;
+// A full pass also drops the entries for markers that no longer exist, so a long
+// session does not keep every name it has ever seen.
+if (_only isEqualTo "") then {
+    if (_enabled) then {
+        private _live = createHashMapFromArray (allMapMarkers apply { [_x, true] });
+        {
+            if !(_x in _live) then {
+                _cache deleteAt _x;
+            };
+        } forEach keys _cache;
+    } else {
+        _cache = createHashMap;
+    };
 };
 
 missionNamespace setVariable ["A3ACC_markerLegibilityPrior", _cache];

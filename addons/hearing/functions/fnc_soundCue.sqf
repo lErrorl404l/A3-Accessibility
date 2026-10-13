@@ -27,12 +27,20 @@ if (_enabled) then {
             private _firer = _this select 1;
             private _distance = _this select 2;
             if (isNull _firer) exitWith {};
-            A3ACC_soundCues pushBack [_firer, _distance, diag_tickTime + 2];
+            // Build the label here, once per cue. A sustained burst can push many
+            // cues in two seconds, and the frame handler must not format a string
+            // for each of them on every frame.
+            A3ACC_soundCues pushBack [_firer, format ["GUNFIRE %1 m", round _distance], diag_tickTime + 2];
+            // Keep the newest cues only. Several weapons at once must not grow
+            // the list without bound.
+            if (count A3ACC_soundCues > 12) then {
+                A3ACC_soundCues deleteAt 0;
+            };
         }];
         A3ACC_soundCuePFH = [{
             A3ACC_soundCues = A3ACC_soundCues select { (_x select 2) > diag_tickTime };
             {
-                _x params ["_firer", "_distance"];
+                _x params ["_firer", "_label"];
                 if (!isNull _firer) then {
                     private _dir = (getPosASL _firer) vectorDiff (getPosASL player);
                     private _at = (getPosASL player) vectorAdd ((vectorNormalized _dir) vectorMultiply 4);
@@ -41,7 +49,7 @@ if (_enabled) then {
                         [1, 1, 1, 1],
                         _at,
                         0.6, 0.6, 0,
-                        format ["GUNFIRE %1 m", round _distance],
+                        _label,
                         1, 0.03, "TahomaB"
                     ];
                 };

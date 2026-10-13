@@ -13,8 +13,12 @@
  * five side names. A marker on another name, or on a mission raw value, stays as
  * it is and is logged once.
  *
+ * Pass one marker name to recolour a single marker. The created-marker event
+ * uses that path, so a new marker costs one lookup rather than a full rescan.
+ *
  * Arguments:
  * 0: Mode index <NUMBER>
+ * 1: One marker name, or "" for every marker <STRING>
  *
  * Return Value:
  * None
@@ -26,7 +30,7 @@
  * Public: No
  */
 
-params [["_mode", 0, [0]]];
+params [["_mode", 0, [0]], ["_only", "", [""]]];
 
 _mode = _mode max 0 min 4;
 
@@ -49,6 +53,16 @@ private _keyFor = createHashMapFromArray [
     ["ColorUNKNOWN", "Unknown"]
 ];
 
+// The string form of this mode's colour for each marker colour name. Built once
+// per call, so the per-marker work below is a lookup.
+private _colourFor = createHashMap;
+if (_mode > 0) then {
+    {
+        private _rgba = [_mode, _keyFor get _x] call FUNC(surfaceColourFor);
+        _colourFor set [_x, format ["#(%1,%2,%3,1)", _rgba select 0, _rgba select 1, _rgba select 2]];
+    } forEach keys _keyFor;
+};
+
 private _cache = missionNamespace getVariable ["A3ACC_colourblind_markerCache", createHashMap];
 private _logged = missionNamespace getVariable ["A3ACC_colourblind_loggedNames", createHashMap];
 
@@ -67,25 +81,34 @@ private _logged = missionNamespace getVariable ["A3ACC_colourblind_loggedNames",
             _name setMarkerColorLocal _original;
         };
     } else {
-        private _key = _keyFor getOrDefault [_original, ""];
+        private _target = _colourFor getOrDefault [_original, ""];
 
-        if (_key == "") then {
+        if (_target == "") then {
             if !(_original in _logged) then {
                 _logged set [_original, true];
                 diag_log format ["[A3ACC] marker colour '%1' has no remap and stays unchanged", _original];
             };
         } else {
-            private _rgba = [_mode, _key] call FUNC(surfaceColourFor);
-            private _target = format ["#(%1,%2,%3,1)", _rgba select 0, _rgba select 1, _rgba select 2];
             if (_current != _target) then {
                 _name setMarkerColorLocal _target;
             };
         };
     };
-} forEach allMapMarkers;
+} forEach (if (_only isEqualTo "") then { allMapMarkers } else { [_only] });
 
-if (_mode == 0) then {
-    _cache = createHashMap;
+// A full pass also drops the entries for markers that no longer exist, so a long
+// session does not keep every name it has ever seen.
+if (_only isEqualTo "") then {
+    if (_mode == 0) then {
+        _cache = createHashMap;
+    } else {
+        private _live = createHashMapFromArray (allMapMarkers apply { [_x, true] });
+        {
+            if !(_x in _live) then {
+                _cache deleteAt _x;
+            };
+        } forEach keys _cache;
+    };
 };
 
 missionNamespace setVariable ["A3ACC_colourblind_markerCache", _cache];
