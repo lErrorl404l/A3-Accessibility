@@ -271,7 +271,10 @@ private _fnc_writeRGB = {
 };
 
 if (_mode == 0) then {
-    private _recorded = missionNamespace getVariable ["A3ACC_vanillaVars", createHashMap];
+    // The store is an array of [name, value] pairs, because a HashMap may not
+    // serialise into the profile namespace and this must survive a mission
+    // boundary. See the note above the record branch.
+    private _recorded = createHashMapFromArray (profileNamespace getVariable ["A3ACC_vanillaVars", []]);
     if (count _recorded > 0) then {
         {
             private _prefix = _x;
@@ -286,17 +289,25 @@ if (_mode == 0) then {
             missionNamespace setVariable [_prefix + _x, nil];
         } forEach _channels;
     } forEach _missionVars;
-    missionNamespace setVariable ["A3ACC_vanillaVars", nil];
+    profileNamespace setVariable ["A3ACC_vanillaVars", nil];
 } else {
-    if (isNil {missionNamespace getVariable "A3ACC_vanillaVars"}) then {
-        private _recorded = createHashMap;
+    // Record the player's own values ONCE, and hold them in the profile
+    // namespace so they survive a mission boundary. In the mission namespace
+    // they would be wiped at the next mission start, and the values recorded
+    // then would already be this addon's, so Off would restore its own colour.
+    if (isNil {profileNamespace getVariable "A3ACC_vanillaVars"}) then {
+        private _recorded = [];
         {
             private _prefix = _x;
             {
-                _recorded set [_prefix + _x, profileNamespace getVariable [_prefix + _x, nil]];
+                private _name = _prefix + _x;
+                private _value = profileNamespace getVariable [_name, nil];
+                if (!isNil "_value") then {
+                    _recorded pushBack [_name, _value];
+                };
             } forEach _channels;
         } forEach _prefixes;
-        missionNamespace setVariable ["A3ACC_vanillaVars", _recorded];
+        profileNamespace setVariable ["A3ACC_vanillaVars", _recorded];
     };
 
     {

@@ -72,12 +72,24 @@ private _fnc_readRGB = {
 } forEach [1, 2, 3, 4];
 
 // The record and restore round trip. A sentinel value must come back on Off.
-missionNamespace setVariable ["A3ACC_vanillaVars", nil];
+// The store must live in the profile namespace, or the next mission start
+// wipes it and Off restores this addon's own colour instead of the player's.
+profileNamespace setVariable ["A3ACC_vanillaVars", nil];
 profileNamespace setVariable ["Map_BLUFOR_R", 0.123];
 [1] call FUNC(applyVars);
 if ((profileNamespace getVariable ["Map_BLUFOR_R", -1]) isEqualTo 0.123) then {
     _fail = _fail + 1;
     diag_log text "[A3ACC] applyVars did not overwrite the sentinel value";
+};
+private _store = profileNamespace getVariable ["A3ACC_vanillaVars", nil];
+if (isNil "_store") then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] applyVars did not record the store in the profile namespace";
+} else {
+    if !(_store isEqualType []) then {
+        _fail = _fail + 1;
+        diag_log text "[A3ACC] applyVars store is not an array, so it may not serialise";
+    };
 };
 [0] call FUNC(applyVars);
 private _restored = profileNamespace getVariable ["Map_BLUFOR_R", -1];
@@ -85,7 +97,7 @@ if (_restored != 0.123) then {
     _fail = _fail + 1;
     diag_log text format ["[A3ACC] applyVars did not restore the sentinel, got %1", str _restored];
 };
-if !(isNil {missionNamespace getVariable "A3ACC_vanillaVars"}) then {
+if !(isNil {profileNamespace getVariable "A3ACC_vanillaVars"}) then {
     _fail = _fail + 1;
     diag_log text "[A3ACC] applyVars did not clear the vanilla store on Off";
 };
