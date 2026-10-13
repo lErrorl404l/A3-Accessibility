@@ -1,4 +1,5 @@
-// Sensor, server browser and Zeus side and status colours.
+// Sensor, server browser, Zeus, airborne map, setup screen and compass side and
+// status colours.
 //
 //   RscCustomInfoSensors/targets/colorFriendly       green   BLUFOR
 //   RscCustomInfoSensors/targets/colorEnemy          red     OPFOR
@@ -11,10 +12,25 @@
 //   RscDisplayMultiplayer/CA_ValueSessions/pingBad   red     OPFOR
 //   RscDisplayCurator/SideOPFOR/colorText            dark red    OPFOR
 //   RscDisplayCurator/SideIndependent/colorText      dark green  Independent
+//   RscCustomInfoAirborneMiniMap/altitudeMapColorLow    green   Independent
+//   RscCustomInfoAirborneMiniMap/altitudeMapColorMid    yellow  Unknown
+//   RscCustomInfoAirborneMiniMap/altitudeMapColorHigh   red     OPFOR
+//   RscDisplayMultiplayerSetup/colorConfirmed        green   BLUFOR
+//   RscDisplayMultiplayerSetup/CA_ValueRoles/colorAI red     OPFOR
+//   RscHorizontalCompass/DangerZone/colorText        dark red    OPFOR
+//   RscHorizontalCompass/Bar1/HQ/colorText           red     OPFOR
+//
+// The airborne map is an altitude gradient, so its three stops map by
+// luminance and not by side. Low takes Independent, Mid takes Unknown and High
+// takes OPFOR. Those three are far apart in hue and in brightness.
 //
 // controls/CA_ValueSessions states no colorVersionBad, so the addon does not
 // add one. Each parent is declared at the file root as external.
 
+class CA_MiniMap;
+class Controls;
+class MiniMap;
+class RscCustomInfoMiniMap;
 class RscListBox;
 class RscStandardDisplay;
 class SideBLUFOR;
@@ -51,6 +67,48 @@ class RscDisplayCurator {
                 };
                 class SideIndependent: SideBLUFOR {
                     colorText[] = {"(profilenamespace getvariable ['A3ACC_Surf_RscDisplayCurator_SideIndependent_colorText_R',0])","(profilenamespace getvariable ['A3ACC_Surf_RscDisplayCurator_SideIndependent_colorText_G',0.5])","(profilenamespace getvariable ['A3ACC_Surf_RscDisplayCurator_SideIndependent_colorText_B',0])",1};
+                };
+            };
+        };
+    };
+};
+
+class RscCustomInfoAirborneMiniMap: RscCustomInfoMiniMap {
+    class controls: controls {
+        class MiniMap: MiniMap {
+            class Controls: Controls {
+                class CA_MiniMap: CA_MiniMap {
+                    altitudeMapColorLow[] = {"(profilenamespace getvariable ['A3ACC_Surf_RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorLow_R',0])","(profilenamespace getvariable ['A3ACC_Surf_RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorLow_G',1])","(profilenamespace getvariable ['A3ACC_Surf_RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorLow_B',0])",0.15};
+                    altitudeMapColorMid[] = {"(profilenamespace getvariable ['A3ACC_Surf_RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorMid_R',1])","(profilenamespace getvariable ['A3ACC_Surf_RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorMid_G',1])","(profilenamespace getvariable ['A3ACC_Surf_RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorMid_B',0])",0.15};
+                    altitudeMapColorHigh[] = {"(profilenamespace getvariable ['A3ACC_Surf_RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorHigh_R',1])","(profilenamespace getvariable ['A3ACC_Surf_RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorHigh_G',0])","(profilenamespace getvariable ['A3ACC_Surf_RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorHigh_B',0])",0.15};
+                };
+            };
+        };
+    };
+};
+
+class RscDisplayMultiplayerSetup: RscStandardDisplay {
+    colorConfirmed[] = {"(profilenamespace getvariable ['A3ACC_Surf_RscDisplayMultiplayerSetup_colorConfirmed_R',0])","(profilenamespace getvariable ['A3ACC_Surf_RscDisplayMultiplayerSetup_colorConfirmed_G',1])","(profilenamespace getvariable ['A3ACC_Surf_RscDisplayMultiplayerSetup_colorConfirmed_B',0])",1};
+    class controls {
+        class CA_ValueRoles: RscListBox {
+            colorAI[] = {"(profilenamespace getvariable ['A3ACC_Surf_RscDisplayMultiplayerSetup_CA_ValueRoles_colorAI_R',1])","(profilenamespace getvariable ['A3ACC_Surf_RscDisplayMultiplayerSetup_CA_ValueRoles_colorAI_G',0])","(profilenamespace getvariable ['A3ACC_Surf_RscDisplayMultiplayerSetup_CA_ValueRoles_colorAI_B',0])",1};
+        };
+    };
+};
+
+class RscHorizontalCompass: RscControlsGroupNoScrollbars {
+    class Controls {
+        class Compass: RscControlsGroupNoScrollbars {
+            class Controls {
+                class DangerZone: RscPicture {
+                    colorText[] = {"(profilenamespace getvariable ['A3ACC_Surf_RscHorizontalCompass_DangerZone_colorText_R',0.5])","(profilenamespace getvariable ['A3ACC_Surf_RscHorizontalCompass_DangerZone_colorText_G',0])","(profilenamespace getvariable ['A3ACC_Surf_RscHorizontalCompass_DangerZone_colorText_B',0])",1};
+                };
+                class Bar1: RscControlsGroupNoScrollbars {
+                    class Controls {
+                        class HQ: RscPicture {
+                            colorText[] = {"(profilenamespace getvariable ['A3ACC_Surf_RscHorizontalCompass_HQ_colorText_R',1])","(profilenamespace getvariable ['A3ACC_Surf_RscHorizontalCompass_HQ_colorText_G',0])","(profilenamespace getvariable ['A3ACC_Surf_RscHorizontalCompass_HQ_colorText_B',0])",1};
+                        };
+                    };
                 };
             };
         };

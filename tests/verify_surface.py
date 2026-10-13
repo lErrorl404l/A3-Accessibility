@@ -301,6 +301,18 @@ REOPENED_PARENTS_BY_PATH = {
     ("RscSideDisplays.hpp", "RscDisplayCurator/Controls/Add/controls/SideOPFOR"): "SideBLUFOR",
     ("RscSideDisplays.hpp", "RscDisplayMultiplayer"): "RscStandardDisplay",
     ("RscSideDisplays.hpp", "RscDisplayMultiplayer/controls/CA_ValueSessions"): "RscListBox",
+    ("RscSideDisplays.hpp", "RscCustomInfoAirborneMiniMap"): "RscCustomInfoMiniMap",
+    ("RscSideDisplays.hpp", "RscCustomInfoAirborneMiniMap/controls"): "controls",
+    ("RscSideDisplays.hpp", "RscCustomInfoAirborneMiniMap/controls/MiniMap"): "MiniMap",
+    ("RscSideDisplays.hpp", "RscCustomInfoAirborneMiniMap/controls/MiniMap/Controls"): "Controls",
+    ("RscSideDisplays.hpp", "RscCustomInfoAirborneMiniMap/controls/MiniMap/Controls/CA_MiniMap"): "CA_MiniMap",
+    ("RscSideDisplays.hpp", "RscDisplayMultiplayerSetup"): "RscStandardDisplay",
+    ("RscSideDisplays.hpp", "RscDisplayMultiplayerSetup/controls/CA_ValueRoles"): "RscListBox",
+    ("RscSideDisplays.hpp", "RscHorizontalCompass"): "RscControlsGroupNoScrollbars",
+    ("RscSideDisplays.hpp", "RscHorizontalCompass/Controls/Compass"): "RscControlsGroupNoScrollbars",
+    ("RscSideDisplays.hpp", "RscHorizontalCompass/Controls/Compass/Controls/DangerZone"): "RscPicture",
+    ("RscSideDisplays.hpp", "RscHorizontalCompass/Controls/Compass/Controls/Bar1"): "RscControlsGroupNoScrollbars",
+    ("RscSideDisplays.hpp", "RscHorizontalCompass/Controls/Compass/Controls/Bar1/Controls/HQ"): "RscPicture",
 }
 
 # A class block opener, by indentation, so the class path can be rebuilt.

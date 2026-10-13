@@ -243,7 +243,14 @@ private _surfaceVars = [
     ["RscWeaponRangeArtilleryAuto_CA_OpticsZoom_colorText", "OPFOR"],
     ["RscWeaponRangeArtilleryAuto_CA_Time_colorText", "OPFOR"],
     ["RscWeaponRangeArtilleryAuto_CA_VisionMode_colorText", "OPFOR"],
-    ["RscWeaponRangeArtilleryAuto_CA_OORange_colorText", "OPFOR"]
+    ["RscWeaponRangeArtilleryAuto_CA_OORange_colorText", "OPFOR"],
+    ["RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorLow", "Independent"],
+    ["RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorMid", "Unknown"],
+    ["RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorHigh", "OPFOR"],
+    ["RscDisplayMultiplayerSetup_colorConfirmed", "BLUFOR"],
+    ["RscDisplayMultiplayerSetup_CA_ValueRoles_colorAI", "OPFOR"],
+    ["RscHorizontalCompass_DangerZone_colorText", "OPFOR"],
+    ["RscHorizontalCompass_HQ_colorText", "OPFOR"]
 ];
 
 private _missionVars = [

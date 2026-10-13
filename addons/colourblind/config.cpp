@@ -6,7 +6,7 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
-        requiredAddons[] = {"A3ACC_main", "A3_Ui_F_Curator", "A3_Ui_F_Tank", "A3_Missions_F_Heli", "cba_common", "cba_events", "cba_settings"};
+        requiredAddons[] = {"A3ACC_main", "A3_Ui_F_Curator", "A3_Ui_F_Tank", "A3_Missions_F_Heli", "A3_UI_F_Contact", "cba_common", "cba_events", "cba_settings"};
         authors[] = {"lErrorl404l"};
         VERSION_CONFIG;
     };

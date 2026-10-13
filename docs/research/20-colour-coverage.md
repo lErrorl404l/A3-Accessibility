@@ -84,9 +84,24 @@ while a mode is on. Worth a line in the notes rather than an override.
 
 ## Art, not identity
 
-A compass `up` vector, `colorScrollbar`, `RscDisplayAAR/Dead_*/colorBackground`,
-`RscDisplayArcadeMap*` watermarks, and the `RscTest*` developer displays. Listed
-so the next pass does not rediscover them.
+Each surface below carries no side identity, or carries a status that no
+confusion pair shares. The addon leaves every one as shipped.
+
+- `RscDisplayAAR/controls/Dead_0` to `Dead_10` state
+  `colorBackground = {1,0,0,0}`. The alpha is zero, so the control paints
+  nothing. A lone red with no green counterpart is not a protan or deutan
+  confusion pair either way, so the addon leaves it.
+- `RscCombo/colorScrollbar` and `RscCombo/colorActive`, the `RscDebugConsole`
+  button backgrounds, `RscDisplayArcadeMap_Layout_2/Controls/Watermark/colorText`,
+  `ctrlMap/colorRailWay`, `RscDisplayMainMap/objects/Compass/*` and
+  `RscDisplayMainMap/controls/CA_MouseOver/colorText` are interface chrome or
+  art. None of them tells one side from another, so the addon leaves them.
+- `ctrlMap/colorForest` and the other terrain colours are art. ACCESSIBILITY.md
+  already states the addon does not change terrain, so the addon leaves them.
+- The `RscTest*` developer displays and the compass `up` vector are the same
+  kind of art.
+
+Listed so the next pass does not rediscover them.
 
 ## What this means
 
@@ -117,3 +132,18 @@ green means the neutral side. The `GroundSupport` east markers map to `OPFOR`.
 `RscOpticsRangeFinderMRAWS` and `RscOpticsRangeFinderVorona` come from the Tank
 DLC, and the `GroundSupport` markers come from the Helicopters DLC. The addon
 lists `A3_Ui_F_Tank` and `A3_Missions_F_Heli` in `requiredAddons`.
+
+A later pass covers three more status surfaces:
+
+- `RscCustomInfoAirborneMiniMap/controls/MiniMap/Controls/CA_MiniMap` states the
+  altitude gradient `altitudeMapColorLow` green, `altitudeMapColorMid` yellow and
+  `altitudeMapColorHigh` red, each at alpha 0.15. A gradient maps by luminance,
+  so Low takes `Independent`, Mid takes `Unknown` and High takes `OPFOR`.
+- `RscDisplayMultiplayerSetup/colorConfirmed` green takes `BLUFOR`, and
+  `RscDisplayMultiplayerSetup/controls/CA_ValueRoles/colorAI` red takes `OPFOR`.
+- `RscHorizontalCompass/Controls/Compass/Controls/DangerZone/colorText` dark red
+  and `RscHorizontalCompass/Controls/Compass/Controls/Bar1/Controls/HQ/colorText`
+  red both take `OPFOR`.
+
+`RscHorizontalCompass` lives in `A3_UI_F_Contact`, so the addon lists that name
+in `requiredAddons`.

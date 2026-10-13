@@ -108,7 +108,14 @@ private _checks = [
     [configFile >> "RscInGameUI" >> "RscOptics_LaserDesignator" >> "CA_IGUI_elements_group" >> "controls" >> "CA_Distance" >> "colorText", "RscOptics_LaserDesignator_CA_Distance_colorText", "laser designator distance"],
     [configFile >> "RscInGameUI" >> "RscOptics_LaserDesignator_02" >> "CA_IGUI_elements_group" >> "controls" >> "CA_Distance" >> "colorText", "RscOptics_LaserDesignator_02_CA_Distance_colorText", "laser designator 02 distance"],
     [configFile >> "RscInGameUI" >> "RscOptics_strider_commander" >> "CA_IGUI_elements_group" >> "controls" >> "CA_Distance" >> "colorText", "RscOptics_strider_commander_CA_Distance_colorText", "strider commander distance"],
-    [configFile >> "RscInGameUI" >> "RscOpticsRangeFinderMRAWS" >> "CA_IGUI_elements_group" >> "controls" >> "CA_Distance" >> "colorText", "RscOpticsRangeFinderMRAWS_CA_Distance_colorText", "MRAWS rangefinder distance"]
+    [configFile >> "RscInGameUI" >> "RscOpticsRangeFinderMRAWS" >> "CA_IGUI_elements_group" >> "controls" >> "CA_Distance" >> "colorText", "RscOpticsRangeFinderMRAWS_CA_Distance_colorText", "MRAWS rangefinder distance"],
+    [configFile >> "RscCustomInfoAirborneMiniMap" >> "controls" >> "MiniMap" >> "Controls" >> "CA_MiniMap" >> "altitudeMapColorLow", "RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorLow", "airborne map altitude low"],
+    [configFile >> "RscCustomInfoAirborneMiniMap" >> "controls" >> "MiniMap" >> "Controls" >> "CA_MiniMap" >> "altitudeMapColorMid", "RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorMid", "airborne map altitude mid"],
+    [configFile >> "RscCustomInfoAirborneMiniMap" >> "controls" >> "MiniMap" >> "Controls" >> "CA_MiniMap" >> "altitudeMapColorHigh", "RscCustomInfoAirborneMiniMap_CA_MiniMap_altitudeMapColorHigh", "airborne map altitude high"],
+    [configFile >> "RscDisplayMultiplayerSetup" >> "colorConfirmed", "RscDisplayMultiplayerSetup_colorConfirmed", "server setup confirmed"],
+    [configFile >> "RscDisplayMultiplayerSetup" >> "controls" >> "CA_ValueRoles" >> "colorAI", "RscDisplayMultiplayerSetup_CA_ValueRoles_colorAI", "server setup role AI"],
+    [configFile >> "RscHorizontalCompass" >> "Controls" >> "Compass" >> "Controls" >> "DangerZone" >> "colorText", "RscHorizontalCompass_DangerZone_colorText", "compass danger zone"],
+    [configFile >> "RscHorizontalCompass" >> "Controls" >> "Compass" >> "Controls" >> "Bar1" >> "Controls" >> "HQ" >> "colorText", "RscHorizontalCompass_HQ_colorText", "compass HQ"]
 ];
 
 {
