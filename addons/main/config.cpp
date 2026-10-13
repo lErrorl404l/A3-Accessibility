@@ -28,7 +28,7 @@ class CfgMods {
 
         action = "";
         actionName = "";
-        description = "Colour-blind accessibility modes for Arma 3.";
+        description = "Accessibility modes for Arma 3, for colour, hearing, motion, cognitive, low vision and motor needs.";
 
         dlcColor[] = {0.4, 0.6, 0.8, 1};
     };
