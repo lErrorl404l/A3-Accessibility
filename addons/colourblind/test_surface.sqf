@@ -25,7 +25,8 @@ private _engineVars = [
 ];
 
 // One converted surface variable per root, with the namespace it lives in.
-// MPTable reads missionNamespace. See CfgInGameUI.hpp for the open question.
+// MPTable reads missionNamespace, because the engine evaluates that class before
+// the profile namespace exists. See CfgInGameUI.hpp.
 private _surfaceSample = [
     ["SideColors_colorFriendly", "BLUFOR", profileNamespace],
     ["MPTable_colorWest", "BLUFOR", missionNamespace],
@@ -70,17 +71,17 @@ private _fnc_readRGB = {
     } forEach _surfaceSample;
 } forEach [1, 2, 3, 4];
 
-// MPTable reads a mission variable. getArray returns the raw expression string,
-// so this asserts the array names this addon's own variable, which proves the
-// override is wired to the writer. Whether the engine evaluates it is a
-// client-only question, recorded in docs/research/20-colour-coverage.md.
+// MPTable reads a mission variable, and its expression must not read the profile
+// namespace: the engine evaluates that class before the profile namespace exists,
+// and a profile expression there terminates the game at startup. This asserts the
+// expression resolves to the mode colour, through the same compile path the
+// game's own scripts use.
 [1] call FUNC(applyVars);
-private _mpGot = getArray (configFile >> "CfgInGameUI" >> "MPTable" >> "colorWest");
-private _mpWired = ((_mpGot select 0) isEqualType "")
-    && { ((_mpGot select 0) find "A3ACC_Surf_MPTable_colorWest_R") >= 0 };
-if (!_mpWired) then {
+private _mpWant = [1, "BLUFOR"] call FUNC(surfaceColourFor);
+private _mpGot = (configFile >> "CfgInGameUI" >> "MPTable" >> "colorWest") call BIS_fnc_colorConfigToRGBA;
+if (_mpGot isNotEqualTo _mpWant) then {
     _fail = _fail + 1;
-    diag_log text format ["[A3ACC] MPTable colorWest is not wired to the addon variable, got %1", str _mpGot];
+    diag_log text format ["[A3ACC] MPTable colorWest resolved to %1, want %2", str _mpGot, str _mpWant];
 };
 
 // The record and restore round trip. A sentinel value must come back on Off.

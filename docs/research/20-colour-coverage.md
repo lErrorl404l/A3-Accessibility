@@ -172,20 +172,57 @@ A later pass covers three more status surfaces:
 `RscHorizontalCompass` lives in `A3_UI_F_Contact`, so the addon lists that name
 in `requiredAddons`.
 
-## Open question: when the engine evaluates MPTable
+## MPTable: why it reads a mission variable, proven
 
-`CfgInGameUI/MPTable` reads an addon **mission** variable, and every other
-converted property reads a profile variable. The reason recorded in the code was
-that the engine evaluates `MPTable` at server startup, before the profile
-namespace is writable. Nothing supports that claim. It is in no research note,
-no client log and no probe result, and the commit that introduced it records no
-observation.
+`CfgInGameUI/MPTable` reads an addon **mission** variable; every other converted
+property reads a profile variable. The reason is now proven by the engine, not
+assumed.
 
-The variable is written one frame after postInit, which is before any display is
-built, so the override works if the engine reads the variable at all.
+Change those four properties to read `profilenamespace` and run the in-engine
+tier. The dedicated server fails its startup with:
 
-`getArray` returns the raw expression string rather than a resolved colour, so no
-headless test can settle whether the engine evaluates it. `test_surface` asserts
-what it can: the array names this addon's own variable. The question needs a
-client, and it belongs with the other client-only questions in
+    ErrorMessage: Trying to get namespace profile but world is not initialized yet
+    Application terminated intentionally
+    Class MPTable destroyed with lock count 2
+
+and the addon's own test never runs. The engine evaluates that class in a phase
+before the profile namespace exists, so a profile expression there is fatal.
+
+The mission namespace holds nothing that early, so the expression resolves to its
+default rather than terminating the game. `test_surface` asserts that the
+expression resolves to the mode colour through `bis_fnc_colorConfigToRGBA`, which
+is the compile path the game's own scripts use. Whether the engine reads the
+class again after the mission starts is a client question, recorded in
 `docs/QA-accessibility.md`.
+
+`tests/verify_surface.py` now refuses a profile expression under
+`CfgInGameUI/MPTable`, so the defect cannot return.
+
+`CfgInGameUI/MPTable` is the respawn table, not the scoreboard: the shipped
+config puts the `MPTable` control under `RscRespawnCounter`, and no game script
+reads its colours, so the engine reads them.
+
+## What a script read does with an expression
+
+`getArray` returns the raw expression string, so a script that treats the result
+as numbers gets a string.
+
+That is not a defect here. A scan of the 7110 script files in the extracted game
+found one read of an overridden path, `CfgInGameUI/MPTable/Columns/Killed/
+picture`, and that is a texture, not a colour.
+
+Where a game script does read a converted colour, it resolves the expression
+first. `BIS_fnc_colorConfigToRGBA` calls `BIS_fnc_parseNumberSafe`, which
+whitelists `profilenamespace`, `missionnamespace` and `getvariable`, and then
+compiles the string. `fn_ORBATGetGroupParams` reads `CfgORBATDefault/color` that
+way, so the addon's expression resolves there.
+
+## The game's own idiom for a runtime override
+
+`ui_f_contact` reads its map colours as
+
+    colorFriendly[] = {"(missionnamespace getvariable ['Map_Independent_R',
+        profilenamespace getvariable ['Map_Independent_R',0]])", ...};
+
+So the mission namespace is vanilla's own channel for a value a mission
+overrides, with the player's profile as the fallback.

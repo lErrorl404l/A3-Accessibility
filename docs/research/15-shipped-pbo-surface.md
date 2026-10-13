@@ -39,7 +39,7 @@ derapifies `config.bin` to `config.cpp` by default:
 
 ## What each root controls
 
-- `CfgInGameUI`: the in-game HUD. `SideColors` sets the friendly, enemy, neutral, civilian and unknown colours. `MPTable` sets the scoreboard. `SquadRadar` and `IslandMap` set the radar and the map.
+- `CfgInGameUI`: the in-game HUD. `SideColors` sets the friendly, enemy, neutral, civilian and unknown colours. `MPTable` sets the respawn table. `SquadRadar` and `IslandMap` set the radar and the map.
 - `CfgMarkers`: the map marker catalogue. Each class holds the icon, the size, the side and the colour.
 - `CfgGroupIcons`: the 3D group icons.
 - `CfgNotifications`: the task and score notifications, with a title, an icon, a sound and a colour.

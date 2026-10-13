@@ -16,7 +16,7 @@ Result: **3453 properties**, almost all literally named `color`.
 | `CfgMagazines` | 164 | magazine and icon colours |
 | `CfgMarkers` | 93 | the marker icon catalogue |
 | `CfgWrapperUI` | 72 | wrapper UI controls |
-| `CfgInGameUI` | 55 | HUD, map, scoreboard, radar |
+| `CfgInGameUI` | 55 | HUD, map, respawn table, radar |
 | `CfgMarkerColors` | 43 | the named marker palette |
 | `cfgGroupIcons` | 39 | group icons and waypoints |
 | `RscInGameUI` | 35 | vehicle and weapon HUD |

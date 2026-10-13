@@ -253,6 +253,9 @@ private _surfaceVars = [
     ["RscHorizontalCompass_HQ_colorText", "OPFOR"]
 ];
 
+// MPTable's colours go to the mission namespace. The engine evaluates that class
+// before the profile namespace exists, and a profile expression there terminates
+// the game at startup. See CfgInGameUI.hpp.
 private _missionVars = [
     ["MPTable_colorWest", "BLUFOR"],
     ["MPTable_colorEast", "OPFOR"],

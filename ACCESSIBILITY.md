@@ -18,7 +18,7 @@ own values so that Off restores them. It does not add a screen filter and it
 does not add a post-process effect.
 
 The surfaces that follow a mode: the map markers and the map, the group icons,
-the HUD and 3D icon side colours, the scoreboard, the vehicle optic indicators
+the HUD and 3D icon side colours, the respawn table, the vehicle optic indicators
 and heading, the Eden editor draw colours and waypoint cursors, the Zeus editor
 draw colours and cursors, the task and score notifications, the interface error
 and warning text, the tactical ping, the sensor panel, the server browser, the
@@ -31,7 +31,7 @@ The modes are Off, Protan, Deutan, Tritan and Achromatopsia.
 The addon is split into one component per accessibility concern.
 
 - **Colour blind mode** (`colourblind`): five modes over the map markers and
-  the map, the HUD and 3D icon side colours, the scoreboard, the vehicle optic
+  the map, the HUD and 3D icon side colours, the respawn table, the vehicle optic
   HUD, the Eden editor draw colours, the Zeus and high-command cursors, and the
   notification, error, warning and tactical ping colours.
 - **Reduce camera shake** (`motion`): for motion sensitivity.
@@ -89,11 +89,14 @@ The pairs that must be told apart, and the ratio each reaches, are in
 
 - Only the colours the addon covers are remapped. A marker that a mission gives
   a raw colour value keeps that value.
-- The evaluation moment of each converted surface is not fully mapped, and no
-  headless test can settle it. The scoreboard is the one surface with no
-  evidence either way, recorded in `docs/research/20-colour-coverage.md`. A mode
-  change may need the next mission load to reach a surface that the engine
-  evaluates when it loads it.
+- The evaluation moment of most converted surfaces is not fully mapped at a
+  client. One is settled: `CfgInGameUI/MPTable`, the respawn table, is evaluated
+  before the profile namespace exists, so it reads a mission variable and would
+  terminate the game if it read the profile. See
+  `docs/research/20-colour-coverage.md`.
+- Whether the engine reads `CfgInGameUI/MPTable` again after the mission starts is
+  unverified. Its expression resolves to the mode colour when read, which the
+  in-engine tier asserts.
 - No script command reads a marker's resolved colour, so the rendered marker
   colour can only be checked by eye at a client.
 - The addon does not change map terrain colours such as sea, forest and contour

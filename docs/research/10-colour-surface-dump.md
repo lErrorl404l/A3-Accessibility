@@ -55,7 +55,7 @@ concrete:
 | `colorDetectorSync` | `[0, 1, 0, 1]` |
 | `colorLabelBackground` | `[0, 0, 0, 1]` |
 
-## 3. CfgInGameUI/MPTable (multiplayer scoreboard)
+## 3. CfgInGameUI/MPTable (the respawn table)
 
 | Key | Value |
 |---|---|

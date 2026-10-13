@@ -9,7 +9,7 @@ What each tier proves:
 | Tier | Proves | Cannot prove |
 |---|---|---|
 | Offline Python gates | the config shape, the variable set, the contrast ratios, the absence of a filter | nothing about the engine |
-| This tier, in engine | every command accepts its arguments, every config class resolves, the variables hold the mode values, each converted array names the addon variable, the suite restores vanilla | the rendered result, the parent chain, and whether the engine evaluates a config expression: `getArray` returns the raw expression string |
+| This tier, in engine | every command accepts its arguments, every config class resolves, the variables hold the mode values, every converted expression resolves to the mode colour, the suite restores vanilla, and that a profile expression under `CfgInGameUI/MPTable` terminates the server at startup | the rendered result, the parent chain, and whether the engine reads a config value more than once. `getArray` returns the raw expression string |
 | Client RPT | the rendered result, and whether the engine re-evaluates a config expression | nothing, but it is not repeatable |
 
 The authoritative source for a config parent, a shipped value or a shipped

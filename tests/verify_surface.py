@@ -174,6 +174,24 @@ def main() -> int:
             f"the writer writes mission variable {name} but no config reads it"
         )
 
+    # The engine evaluates CfgInGameUI/MPTable before the profile namespace
+    # exists. A profile expression there fails the startup with "Trying to get
+    # namespace profile but world is not initialized yet" and then "Application
+    # terminated intentionally", so the gate refuses one. The mission namespace
+    # holds no value that early, so the expression resolves to its default
+    # rather than terminating the game.
+    ingameui = CONFIG_FILES[0].read_text(encoding="utf-8")
+    for block in re.findall(r"class MPTable \{(.*?)\n    \};", ingameui, re.S):
+        if "profilenamespace" in block:
+            failures.append(
+                "CfgInGameUI.hpp class MPTable reads the profile namespace, "
+                "which terminates the game at startup"
+            )
+        if "missionnamespace" not in block:
+            failures.append(
+                "CfgInGameUI.hpp class MPTable does not read the mission namespace"
+            )
+
     # Gate 3: every surface colour is a triple.
     for name, found in sorted(channels.items()):
         if found != {"R", "G", "B"}:

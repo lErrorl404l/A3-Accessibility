@@ -1,8 +1,14 @@
-// HUD and scoreboard colours. SideColors reads an addon profile variable per
-// channel. MPTable reads an addon mission variable per channel: that choice is
-// UNVERIFIED, because no note, log or probe records the engine evaluating
-// MPTable at startup, and getArray returns the raw expression string, so no
-// headless test can settle it. See docs/research/20-colour-coverage.md.
+// HUD and respawn-table colours. SideColors reads an addon profile variable per
+// channel. MPTable reads an addon mission variable per channel, because the
+// engine evaluates MPTable before the profile namespace exists. That is proven,
+// not assumed: a profile expression here fails the startup with
+// "Trying to get namespace profile but world is not initialized yet" and then
+// "Application terminated intentionally" in the server RPT, and
+// tests/verify_surface.py now refuses one.
+//
+// MPTable is the respawn table, not the scoreboard: the shipped config puts the
+// MPTable control under RscRespawnCounter, and no game script reads its colours,
+// so the engine reads them, at that early phase.
 //
 // IslandMap is not overridden: the shipped class reads the engine
 // side variables directly, and fnc_applyVars writes those. SquadRadar is not
