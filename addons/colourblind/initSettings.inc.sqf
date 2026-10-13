@@ -8,6 +8,6 @@
      ["Off", "Protan", "Deutan", "Tritan", "Achromatopsia"],
      0],
     0,
-    { [_this] call FUNC(applyMode); [_this] call FUNC(applyVars) },
+    { [_this] call FUNC(applyMode); [_this] call FUNC(applyVars); diag_log text format ["[A3ACC] setting changed to %1", _this] },
     false
 ] call CBA_fnc_addSetting;

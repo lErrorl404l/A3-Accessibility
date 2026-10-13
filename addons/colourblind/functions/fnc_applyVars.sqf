@@ -18,6 +18,10 @@ params [["_mode", 0, [0]]];
 
 _mode = _mode max 0 min 4;
 
+// Every apply is logged, so a client RPT shows whether the setting callback ran
+// and which mode reached the engine.
+diag_log text format ["[A3ACC] applying mode %1", _mode];
+
 private _engineVars = [
     ["Map_BLUFOR", "BLUFOR"],
     ["Map_OPFOR", "OPFOR"],
