@@ -294,6 +294,7 @@ if (_mode == 0) then {
         } forEach _channels;
     } forEach _surfaceVars;
     profileNamespace setVariable ["A3ACC_vanillaVars", nil];
+    diag_log text format ["[A3ACC] mode 0: restored %1 engine variables and cleared %2 surface variables", count _prefixes, count _surfaceVars];
 } else {
     // Record the player's own values ONCE, and hold them in the profile
     // namespace so they survive a mission boundary. In the mission namespace
@@ -316,7 +317,9 @@ if (_mode == 0) then {
 
     {
         _x params ["_prefix", "_key"];
-        [profileNamespace, _prefix, [_mode, _key] call FUNC(surfaceColourFor)] call _fnc_writeRGB;
+        private _rgba = [_mode, _key] call FUNC(surfaceColourFor);
+        [profileNamespace, _prefix, _rgba] call _fnc_writeRGB;
+        diag_log text format ["[A3ACC] profile %1 = %2", _prefix, str (_rgba select [0, 3])];
     } forEach _engineVars;
 
     // The surface variables go to the mission namespace, never the profile. The
@@ -326,7 +329,9 @@ if (_mode == 0) then {
     // survivable where a termination is not.
     {
         _x params ["_name", "_key"];
-        [missionNamespace, format ["A3ACC_Surf_%1", _name], [_mode, _key] call FUNC(surfaceColourFor)] call _fnc_writeRGB;
+        private _rgba = [_mode, _key] call FUNC(surfaceColourFor);
+        [missionNamespace, format ["A3ACC_Surf_%1", _name], _rgba] call _fnc_writeRGB;
+        diag_log text format ["[A3ACC] mission A3ACC_Surf_%1 = %2", _name, str (_rgba select [0, 3])];
     } forEach _surfaceVars;
 };
 

@@ -65,9 +65,12 @@ if (_mode > 0) then {
 
 private _cache = missionNamespace getVariable ["A3ACC_colourblind_markerCache", createHashMap];
 private _logged = missionNamespace getVariable ["A3ACC_colourblind_loggedNames", createHashMap];
+private _visited = 0;
+private _changed = 0;
 
 {
     private _name = _x;
+    _visited = _visited + 1;
 
     if !(_name in _cache) then {
         _cache set [_name, getMarkerColor _name];
@@ -79,6 +82,7 @@ private _logged = missionNamespace getVariable ["A3ACC_colourblind_loggedNames",
     if (_mode == 0) then {
         if (_current != _original) then {
             _name setMarkerColorLocal _original;
+            _changed = _changed + 1;
         };
     } else {
         private _target = _colourFor getOrDefault [_original, ""];
@@ -91,10 +95,14 @@ private _logged = missionNamespace getVariable ["A3ACC_colourblind_loggedNames",
         } else {
             if (_current != _target) then {
                 _name setMarkerColorLocal _target;
+                _changed = _changed + 1;
             };
         };
     };
 } forEach (if (_only isEqualTo "") then { allMapMarkers } else { [_only] });
+
+diag_log text format ["[A3ACC] applyMode %1 scope=%2 visited=%3 recoloured=%4 live=%5",
+    _mode, ([_only, "all"] select (_only isEqualTo "")), _visited, _changed, count allMapMarkers];
 
 // A full pass also drops the entries for markers that no longer exist, so a long
 // session does not keep every name it has ever seen.

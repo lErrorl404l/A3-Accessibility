@@ -4,5 +4,6 @@ PREP(surfaceColourFor);
 PREP(applyVars);
 PREP(applyMode);
 PREP(cycleMode);
+PREP(logState);
 PREP(watch);
 PREP_RECOMPILE_END;

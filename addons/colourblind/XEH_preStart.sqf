@@ -10,3 +10,7 @@
 // last apply instead. The CBA value is authoritative and replaces this one a
 // frame after postInit.
 [profileNamespace getVariable ["A3ACC_CVDModeSaved", 0]] call FUNC(applyVars);
+
+// Log the state this phase starts from, so a client RPT shows whether the
+// setting callback ever ran and what the engine sees.
+["preStart"] call FUNC(logState);
