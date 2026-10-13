@@ -19,17 +19,25 @@ params [["_enabled", false, [false]]];
 
 if (_enabled) then {
     if (isNil {missionNamespace getVariable "A3ACC_clutterPrior"}) then {
-        missionNamespace setVariable ["A3ACC_clutterPrior", shownHUD];
+        // All three are readable, so all three are restored. groupIconsVisible
+        // returns [visibleOnMap, visibleOnHUD], and sentencesEnabled returns a
+        // Boolean. Both are the getters for the setters used below.
+        missionNamespace setVariable ["A3ACC_clutterPrior", [
+            shownHUD,
+            groupIconsVisible,
+            sentencesEnabled
+        ]];
     };
     showHUD [true, true, true, true, true, true, true, true, false, false, true];
     setGroupIconsVisible [true, false];
     enableSentences false;
 } else {
-    private _hud = missionNamespace getVariable ["A3ACC_clutterPrior", nil];
-    if (!isNil "_hud") then {
+    private _prior = missionNamespace getVariable ["A3ACC_clutterPrior", nil];
+    if (!isNil "_prior") then {
+        _prior params ["_hud", "_icons", "_sentences"];
         showHUD _hud;
+        setGroupIconsVisible _icons;
+        enableSentences _sentences;
         missionNamespace setVariable ["A3ACC_clutterPrior", nil];
     };
-    setGroupIconsVisible [true, true];
-    enableSentences true;
 };
