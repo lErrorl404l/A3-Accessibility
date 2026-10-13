@@ -45,11 +45,7 @@ DELETED_FILES = [
     ADDON / "CfgLocationTypes.hpp",
 ]
 
-# The engine variables the writer owns. Alpha is left to the player. The list is
-# the set the engine and the shipped config actually read, verified two ways: the
-# name literals in arma3_x64.exe, and the namespace reads in the shipped configs.
-# IGUI_TEXT_RGB, IGUI_BCG_RGB and GUI_BCG_RGB exist and are deliberately not
-# owned. See docs/research/17-dynamic-variable-layer.md.
+# The engine variables the writer owns. Alpha is left to the player.
 ENGINE_VARS = [
     "Map_BLUFOR",
     "Map_OPFOR",
@@ -58,6 +54,7 @@ ENGINE_VARS = [
     "Map_Unknown",
     "IGUI_ERROR_RGB",
     "IGUI_WARNING_RGB",
+    "IGUI_TACTPING_RGB",
 ]
 
 # The engine variables the writer must not touch.

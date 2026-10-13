@@ -43,7 +43,7 @@ if (count ([9, "friendly"] call FUNC(paletteForMode)) != 0) then { _fail = _fail
 
 // The surface function resolves every key for every mode, and the Off value is
 // the shipped colour.
-private _keys = ["BLUFOR", "OPFOR", "Independent", "Civilian", "Unknown", "Error", "Warning"];
+private _keys = ["BLUFOR", "OPFOR", "Independent", "Civilian", "Unknown", "Error", "Warning", "TacticalPing"];
 {
     private _mode = _x;
     {
@@ -64,9 +64,7 @@ private _keys = ["BLUFOR", "OPFOR", "Independent", "Civilian", "Unknown", "Error
 
 if (str ([0, "BLUFOR"] call FUNC(surfaceColourFor)) != str [0, 1, 1, 1]) then { _fail = _fail + 1; };
 if (str ([0, "Error"] call FUNC(surfaceColourFor)) != str [0.8, 0, 0, 1]) then { _fail = _fail + 1; };
-// The tactical ping has no colour variable, so its key must not resolve. This
-// guards the removal: re-adding the key fails here.
-if (str ([0, "TacticalPing"] call FUNC(surfaceColourFor)) != str [1, 1, 1, 1]) then { _fail = _fail + 1; };
+if (str ([0, "TacticalPing"] call FUNC(surfaceColourFor)) != str [1, 0.8, 0.2, 1]) then { _fail = _fail + 1; };
 if (str ([1, "BLUFOR"] call FUNC(surfaceColourFor)) != str ([1, "friendly"] call FUNC(paletteForMode))) then { _fail = _fail + 1; };
 if (str ([3, "OPFOR"] call FUNC(surfaceColourFor)) != str ([3, "enemy"] call FUNC(paletteForMode))) then { _fail = _fail + 1; };
 if ((count ([1, "nope"] call FUNC(surfaceColourFor))) != 4) then { _fail = _fail + 1; };

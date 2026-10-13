@@ -73,7 +73,8 @@ private _engineVars = [
     ["Map_Civilian", "Civilian"],
     ["Map_Unknown", "Unknown"],
     ["IGUI_ERROR_RGB", "Error"],
-    ["IGUI_WARNING_RGB", "Warning"]
+    ["IGUI_WARNING_RGB", "Warning"],
+    ["IGUI_TACTPING_RGB", "TacticalPing"]
 ];
 [2] call FUNC(applyVars);
 {
