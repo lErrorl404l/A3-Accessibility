@@ -13,7 +13,6 @@ class CfgPatches {
 };
 
 #include "CfgEventHandlers.hpp"
-#include "CfgStructuredText.hpp"
 #include "CfgInGameUI.hpp"
 #include "CfgNotifications.hpp"
 #include "CfgRscInGameUI.hpp"

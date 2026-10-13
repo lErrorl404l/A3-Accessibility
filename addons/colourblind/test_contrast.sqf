@@ -137,7 +137,7 @@ private _engineVars = [
         diag_log text format ["[A3ACC] text contrast %1 = %2, below 4.5:1", _label, _ratio];
     };
 } forEach [
-    ["A3ACC_RscStructuredText", configFile >> "A3ACC_RscStructuredText"],
+    ["help screen", configFile >> "A3ACC_RscDisplayAccessibility" >> "controls" >> "Body"],
     ["objective panel", configFile >> "RscTitles" >> "A3ACC_ObjectiveHud" >> "controls" >> "Objective"]
 ];
 

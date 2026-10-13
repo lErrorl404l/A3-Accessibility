@@ -146,25 +146,25 @@ if (isClass (configFile >> "CfgMarkerColors" >> "A3ACC_ColorWEST_Protan")) then 
     diag_log text "[A3ACC] the deleted A3ACC_ColorWEST_Protan override is still present";
 };
 
-// The vanilla structured-text base must still resolve, and the addon copy must be well formed.
+// The vanilla structured-text base must still resolve, and the addon's own text
+// controls must be well formed. The addon ships no structured-text class of its
+// own: each control sets its own high-contrast pair.
 if (isNull (configFile >> "RscStructuredText")) then {
     _fail = _fail + 1;
     diag_log text "[A3ACC] RscStructuredText is missing";
 };
-private _addonText = configFile >> "A3ACC_RscStructuredText";
-if (isNull _addonText) then {
-    _fail = _fail + 1;
-    diag_log text "[A3ACC] A3ACC_RscStructuredText is missing";
-} else {
-    if ((count (getArray (_addonText >> "colorBackground"))) != 4) then {
-        _fail = _fail + 1;
-        diag_log text "[A3ACC] A3ACC_RscStructuredText colorBackground is not four values";
-    };
-    if ((count (getArray (_addonText >> "colorText"))) != 4) then {
-        _fail = _fail + 1;
-        diag_log text "[A3ACC] A3ACC_RscStructuredText colorText is not four values";
-    };
-};
+{
+    _x params ["_label", "_class"];
+    {
+        if ((count (getArray (_class >> _x))) != 4) then {
+            _fail = _fail + 1;
+            diag_log text format ["[A3ACC] %1 %2 is not four values", _label, _x];
+        };
+    } forEach ["colorText", "colorBackground"];
+} forEach [
+    ["help screen", configFile >> "A3ACC_RscDisplayAccessibility" >> "controls" >> "Body"],
+    ["objective panel", configFile >> "RscTitles" >> "A3ACC_ObjectiveHud" >> "controls" >> "Objective"]
+];
 
 // The accessibility help screen must exist for the pause menu entry to open.
 if (!isClass (configFile >> "A3ACC_RscDisplayAccessibility")) then {
