@@ -285,6 +285,30 @@ that assertion fails when the test points at the wrong addon.
 The base addon's `requiredAddons` therefore names no DLC. The floor moves to
 Arma 3 2.14, the version that added the flag.
 
+## The UI hooks the engine provides
+
+The engine calls `A3\functions_f\GUI\fn_initDisplay.sqf` from every shipped
+display's `onLoad`, 310 times in `ui_f/config.cpp` alone. That function fires two
+scripted events with the display and its class:
+
+    [missionNamespace, "OnDisplayRegistered",   [_display, _class]] call BIS_fnc_callScriptedEventHandler;
+    [missionNamespace, "OnDisplayUnregistered", [_display, _class]] call BIS_fnc_callScriptedEventHandler;
+
+`BIS_fnc_addScriptedEventHandler` registers a handler. That is the one moment
+every display passes through, so a control colour can be set there rather than
+declared in the class.
+
+The same function, at preStart, compiles a per-class script for `RscTitles`,
+`RscInGameUI` and `Cfg3DEN/Attributes`, from the class's `scriptName` and
+`scriptPath`. 155 shipped classes use it, 33 of them under `IGUI`. So a title or
+a HUD element can run a script at creation, and an addon adds its own
+`CfgScriptPaths` entry to hold the file.
+
+Both hooks reach colours the config cannot. They run after the world exists, so
+they read a mission variable that is already written, and they follow a mode
+change without a reload. See `docs/research/19-mod-survey.md`, section 3a, for
+what ACE3, ACRE2 and CBA do with the same hooks.
+
 ## What a script read does with an expression
 
 `getArray` returns the raw expression string, so a script that treats the result

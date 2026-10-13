@@ -34,10 +34,16 @@ fallback for the same size. The engine picks an index from the control's size,
 so text size is decided by the `sizeEx` and `font` of each control, not by a
 single global value.
 
-Consequence: there is no global text-size lever. A mod can add a family, or
-override a control's `sizeEx`, but it cannot scale the interface in one step.
-A dyslexia-friendly font would also need a CJK fallback per size, so it means
-shipping font assets.
+Consequence: there is no per-control global value. But `fonts[]` is one
+size-indexed array per family, and only 11 families exist. Replacing a family's
+array with a shifted copy makes every control that uses that family render one
+size larger, and the Latin and CJK entries stay paired, because each index holds
+both. That is one class per family rather than one per control, so it is the
+nearest thing to a global text-size lever. It is a config change, so it needs a
+reload, and the shift is bounded by the largest entry the family holds.
+
+A dyslexia-friendly font still means shipping font assets, and still needs a CJK
+fallback per size.
 
 ## Difficulty is the lever for labels and aim aid
 
