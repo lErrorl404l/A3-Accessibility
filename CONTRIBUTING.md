@@ -62,6 +62,22 @@ the property set and the shipped value. It must report 0 properties added to a
 shipped class. `docs/research/15-shipped-pbo-surface.md` says how to extract the
 configs.
 
+## The client tier
+
+A rendered or interactive result cannot be checked from a dedicated server. After
+a client run, read the RPT:
+
+```bash
+python3 tests/check_client_rpt.py            # newest RPT in the default folder
+python3 tests/check_client_rpt.py <file.rpt> # or name one
+```
+
+It reports whether the addon loaded, any vanilla parent it cleared, any missing
+entry under a root it overrides, any error that names it, and its own diagnostic
+lines. It refuses to pass a run that never loaded the addon. Then run the
+checklist in `docs/QA-accessibility.md` for the rendered result, which only a
+person can judge.
+
 ## The in-engine tier
 
 `tests/ingame/run.sh` runs the suite inside a real dedicated server in Docker. It
