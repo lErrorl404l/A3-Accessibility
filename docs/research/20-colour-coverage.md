@@ -82,6 +82,30 @@ at the side red. A preset supplies the default for a profile variable. The addon
 writes the profile variable itself, so the preset does not decide the colour
 while a mode is on. Worth a line in the notes rather than an override.
 
+## A vanilla inconsistency in the map colours
+
+The shipped `CfgInGameUI/IslandMap` does not use the same variable for a role as
+the marker catalogue does. Read from the extracted config:
+
+| `IslandMap` key | Reads | The marker catalogue uses that variable for |
+|---|---|---|
+| `colorFriendly` | `Map_Independent` | neutral |
+| `colorNeutral` | `Map_Civilian` | civilian |
+| `colorCivilian` | `Map_BLUFOR` | friendly |
+| `colorEnemy` | `Map_OPFOR` | enemy |
+| `colorUnknown` | `Map_Unknown` | unknown |
+
+So the map's unit icons take their colour from a different family than the map
+markers and the HUD. In vanilla the default values happen to look consistent, so
+the swap is invisible. With a CVD palette the roles separate, and the map's
+friendly colour can differ from the HUD's.
+
+The addon does not override `IslandMap`, so it inherits the swap. Correcting it
+means overriding the five keys to read the family the role implies. That is a
+behaviour change to vanilla, and the result cannot be seen from a dedicated
+server, so it is left as a recorded finding with a client check: compare a
+friendly unit icon on the map with a friendly marker and with the HUD tag.
+
 ## Art, not identity
 
 Each surface below carries no side identity, or carries a status that no

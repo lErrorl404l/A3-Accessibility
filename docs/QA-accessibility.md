@@ -45,6 +45,10 @@ workshop id `450814997`, from `.hemtt/project.toml`.
     differ.
 13. Fly a helicopter low then high with the airborne mini map shown. Confirm the
     altitude gradient separates low from high by brightness, not only by hue.
+14. Compare a friendly unit icon on the map with a friendly marker and with the
+    HUD name tag. The shipped `IslandMap` reads a different variable family for
+    its side roles than the marker catalogue does, so these three may not agree.
+    Record what you see. See `docs/research/20-colour-coverage.md`.
 
 ## Hearing
 
