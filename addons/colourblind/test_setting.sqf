@@ -76,6 +76,47 @@ if ((getMarkerColor _marker) != "ColorWEST") then {
 };
 deleteMarker _marker;
 
+// The created-marker event path recolours one marker, not the whole set. It must
+// set the marker it is given and leave every other marker alone.
+private _one = "a3acc_test_marker_one";
+private _other = "a3acc_test_marker_other";
+createMarker [_one, [0, 0, 0]];
+createMarker [_other, [0, 0, 0]];
+_one setMarkerColorLocal "ColorEAST";
+_other setMarkerColorLocal "ColorWEST";
+private _rgbaEast = [1, "OPFOR"] call FUNC(surfaceColourFor);
+private _wantEast = format ["#(%1,%2,%3,1)", _rgbaEast select 0, _rgbaEast select 1, _rgbaEast select 2];
+[1, _one] call FUNC(applyMode);
+if ((getMarkerColor _one) != _wantEast) then {
+    _fail = _fail + 1;
+    diag_log text format ["[A3ACC] single-marker apply: %1 want %2", getMarkerColor _one, _wantEast];
+};
+if ((getMarkerColor _other) != "ColorWEST") then {
+    _fail = _fail + 1;
+    diag_log text format ["[A3ACC] single-marker apply touched another marker: %1", getMarkerColor _other];
+};
+deleteMarker _one;
+deleteMarker _other;
+
+// The created-marker event must recolour a marker created after the mode is on,
+// with no toggle. fnc_watch returns early without an interface, so a dedicated
+// server never registers the handler and this block is skipped here. The client
+// tier covers it: docs/QA-accessibility.md.
+if (hasInterface) then {
+    missionNamespace setVariable ["A3ACC_CVDMode", 1];
+    private _late = "a3acc_test_marker_late";
+    createMarker [_late, [0, 0, 0]];
+    _late setMarkerColorLocal "ColorWEST";
+    private _deadline = diag_tickTime + 5;
+    waitUntil { (getMarkerColor _late) isNotEqualTo "ColorWEST" || {diag_tickTime > _deadline} };
+    if ((getMarkerColor _late) != _want) then {
+        _fail = _fail + 1;
+        diag_log text format ["[A3ACC] the created-marker handler did not recolour a new marker: %1", getMarkerColor _late];
+    };
+    deleteMarker _late;
+    missionNamespace setVariable ["A3ACC_CVDMode", 0];
+};
+
 // The registered default must be Off (0). CBA stores the setting definition in
 // CBA_settings_default; the first element of that array is the default value.
 private _defaults = missionNamespace getVariable ["CBA_settings_default", nil];

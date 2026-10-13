@@ -7,4 +7,5 @@ class A3ACC_Tests {
     // The runner enumerates this one class, so a test from another component is
     // listed here by its own path rather than by a second registry class.
     clutter = "z\a3acc\addons\cognitive\test_clutter.sqf";
+    lowvision = "z\a3acc\addons\lowvision\test_marker.sqf";
 };

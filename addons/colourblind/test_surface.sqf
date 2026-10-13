@@ -128,5 +128,20 @@ if (_earlier != 0.321) then {
 };
 profileNamespace setVariable ["A3ACC_vanillaVars", nil];
 
+// preStart cannot read the CBA setting, because CBA publishes it one frame after
+// postInit. applyVars saves the mode so preStart can still write the colours, and
+// the saved value must track the mode in both directions.
+[2] call FUNC(applyVars);
+if ((profileNamespace getVariable ["A3ACC_CVDModeSaved", -1]) != 2) then {
+    _fail = _fail + 1;
+    diag_log text format ["[A3ACC] applyVars saved mode %1, want 2", str (profileNamespace getVariable ["A3ACC_CVDModeSaved", -1])];
+};
+[0] call FUNC(applyVars);
+if ((profileNamespace getVariable ["A3ACC_CVDModeSaved", -1]) != 0) then {
+    _fail = _fail + 1;
+    diag_log text "[A3ACC] applyVars did not save the Off mode";
+};
+profileNamespace setVariable ["A3ACC_CVDModeSaved", nil];
+
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] surface tests passed"; };
