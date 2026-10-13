@@ -89,6 +89,11 @@ The pairs that must be told apart, and the ratio each reaches, are in
 
 - Only the colours the addon covers are remapped. A marker that a mission gives
   a raw colour value keeps that value.
+- The addon needs no paid DLC. The colours that live in a DLC config sit in a
+  separate addon, which the engine skips when that DLC is absent, so the addon
+  still loads and the absent DLC keeps its shipped colours. The engine proves
+  the skip itself: it prints `Skipped loading of addon ... as required addon ...
+  is not present` instead of a `requires addon` warning.
 - The evaluation moment of the converted surfaces is not fully mapped at a
   client. One class is settled: `CfgInGameUI/MPTable`, the respawn table, is
   evaluated before the profile namespace exists, and a profile expression there

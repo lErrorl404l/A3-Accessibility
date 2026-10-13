@@ -7,18 +7,10 @@
 //
 //   CfgMarkers/Flag                            red          OPFOR
 //   CfgMarkers/Select                          red          OPFOR
-//   CfgMarkers/GroundSupport_CAS_EAST          dark red     OPFOR
-//   CfgMarkers/GroundSupport_ARTY_EAST         dark red     OPFOR
-//   CfgMarkers/Minefield                       red          OPFOR
-//   CfgMarkers/GroundSupport_CAS_RESISTANCE    dark green   Independent
-//   CfgMarkers/GroundSupport_ARTY_RESISTANCE   dark green   Independent
 //   CfgGroupIcons/Flag                         red          OPFOR
 //   CfgGroupIcons/Select                       red          OPFOR
 //   CfgORBATDefault/color                      red          OPFOR
 //   RscChatListDefault/colorGroupChannel       green        BLUFOR
-
-class GroundSupport_ARTY_WEST;
-class GroundSupport_CAS_WEST;
 
 class CfgMarkers {
     class Flag {
@@ -26,21 +18,6 @@ class CfgMarkers {
     };
     class Select: Flag {
         color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Select_color_R',1])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Select_color_G',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Select_color_B',0])",1};
-    };
-    class GroundSupport_CAS_EAST: GroundSupport_CAS_WEST {
-        color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_EAST_color_R',0.5])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_EAST_color_G',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_EAST_color_B',0])",1};
-    };
-    class GroundSupport_ARTY_EAST: GroundSupport_ARTY_WEST {
-        color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_EAST_color_R',0.5])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_EAST_color_G',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_EAST_color_B',0])",1};
-    };
-    class Minefield {
-        color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Minefield_color_R',0.9])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Minefield_color_G',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_Minefield_color_B',0])",1};
-    };
-    class GroundSupport_CAS_RESISTANCE: GroundSupport_CAS_WEST {
-        color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_RESISTANCE_color_R',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_RESISTANCE_color_G',0.5])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_CAS_RESISTANCE_color_B',0])",1};
-    };
-    class GroundSupport_ARTY_RESISTANCE: GroundSupport_ARTY_WEST {
-        color[] = {"(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_RESISTANCE_color_R',0])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_RESISTANCE_color_G',0.5])","(missionnamespace getvariable ['A3ACC_Surf_CfgMarkers_GroundSupport_ARTY_RESISTANCE_color_B',0])",1};
     };
 };
 

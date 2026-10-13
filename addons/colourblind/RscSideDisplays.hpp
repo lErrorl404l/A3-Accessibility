@@ -10,16 +10,15 @@
 //   RscDisplayMultiplayer/colorVersionBad            red     OPFOR
 //   RscDisplayMultiplayer/CA_ValueSessions/pingGood  green   BLUFOR
 //   RscDisplayMultiplayer/CA_ValueSessions/pingBad   red     OPFOR
-//   RscDisplayCurator/SideOPFOR/colorText            dark red    OPFOR
-//   RscDisplayCurator/SideIndependent/colorText      dark green  Independent
 //   RscCustomInfoAirborneMiniMap/altitudeMapColorLow    green   Independent
 //   RscCustomInfoAirborneMiniMap/altitudeMapColorMid    yellow  Unknown
 //   RscCustomInfoAirborneMiniMap/altitudeMapColorHigh   red     OPFOR
 //   RscDisplayMultiplayerSetup/colorConfirmed        green   BLUFOR
 //   RscDisplayMultiplayerSetup/CA_ValueRoles/colorAI red     OPFOR
-//   RscHorizontalCompass/DangerZone/colorText        dark red    OPFOR
-//   RscHorizontalCompass/Bar1/HQ/colorText           red     OPFOR
 //
+// The Contact compass is in the colourblind_contact addon, and the Zeus side
+// list in colourblind_curator. The engine skips each of those whole configs when
+// its DLC is absent.
 // The airborne map is an altitude gradient, so its three stops map by
 // luminance and not by side. Low takes Independent, Mid takes Unknown and High
 // takes OPFOR. Those three are far apart in hue and in brightness.
@@ -33,7 +32,6 @@ class MiniMap;
 class RscCustomInfoMiniMap;
 class RscListBox;
 class RscStandardDisplay;
-class SideBLUFOR;
 
 class RscCustomInfoSensors {
     class targets {
@@ -58,21 +56,6 @@ class RscDisplayMultiplayer: RscStandardDisplay {
     };
 };
 
-class RscDisplayCurator {
-    class Controls {
-        class Add: RscControlsGroupNoScrollbars {
-            class controls {
-                class SideOPFOR: SideBLUFOR {
-                    colorText[] = {"(missionnamespace getvariable ['A3ACC_Surf_RscDisplayCurator_SideOPFOR_colorText_R',0.5])","(missionnamespace getvariable ['A3ACC_Surf_RscDisplayCurator_SideOPFOR_colorText_G',0])","(missionnamespace getvariable ['A3ACC_Surf_RscDisplayCurator_SideOPFOR_colorText_B',0])",1};
-                };
-                class SideIndependent: SideBLUFOR {
-                    colorText[] = {"(missionnamespace getvariable ['A3ACC_Surf_RscDisplayCurator_SideIndependent_colorText_R',0])","(missionnamespace getvariable ['A3ACC_Surf_RscDisplayCurator_SideIndependent_colorText_G',0.5])","(missionnamespace getvariable ['A3ACC_Surf_RscDisplayCurator_SideIndependent_colorText_B',0])",1};
-                };
-            };
-        };
-    };
-};
-
 class RscCustomInfoAirborneMiniMap: RscCustomInfoMiniMap {
     class controls: controls {
         class MiniMap: MiniMap {
@@ -92,25 +75,6 @@ class RscDisplayMultiplayerSetup: RscStandardDisplay {
     class controls {
         class CA_ValueRoles: RscListBox {
             colorAI[] = {"(missionnamespace getvariable ['A3ACC_Surf_RscDisplayMultiplayerSetup_CA_ValueRoles_colorAI_R',1])","(missionnamespace getvariable ['A3ACC_Surf_RscDisplayMultiplayerSetup_CA_ValueRoles_colorAI_G',0])","(missionnamespace getvariable ['A3ACC_Surf_RscDisplayMultiplayerSetup_CA_ValueRoles_colorAI_B',0])",1};
-        };
-    };
-};
-
-class RscHorizontalCompass: RscControlsGroupNoScrollbars {
-    class Controls {
-        class Compass: RscControlsGroupNoScrollbars {
-            class Controls {
-                class DangerZone: RscPicture {
-                    colorText[] = {"(missionnamespace getvariable ['A3ACC_Surf_RscHorizontalCompass_DangerZone_colorText_R',0.5])","(missionnamespace getvariable ['A3ACC_Surf_RscHorizontalCompass_DangerZone_colorText_G',0])","(missionnamespace getvariable ['A3ACC_Surf_RscHorizontalCompass_DangerZone_colorText_B',0])",1};
-                };
-                class Bar1: RscControlsGroupNoScrollbars {
-                    class Controls {
-                        class HQ: RscPicture {
-                            colorText[] = {"(missionnamespace getvariable ['A3ACC_Surf_RscHorizontalCompass_HQ_colorText_R',1])","(missionnamespace getvariable ['A3ACC_Surf_RscHorizontalCompass_HQ_colorText_G',0])","(missionnamespace getvariable ['A3ACC_Surf_RscHorizontalCompass_HQ_colorText_B',0])",1};
-                        };
-                    };
-                };
-            };
         };
     };
 };

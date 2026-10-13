@@ -2,7 +2,7 @@
 
 /*
  * Author: lErrorl404l
- * Assert the converted config surfaces read profile-variable expressions, and
+ * Assert the converted config surfaces read mission-variable expressions, and
  * that the deleted marker overrides are gone.
  *
  * Return Value:
@@ -36,6 +36,25 @@ private _fnc_checkExpr = {
         if !((_arr select 3) isEqualType 0) then {
             _problems pushBack format ["[A3ACC] %1 alpha is not a number", _label];
         };
+    };
+    _problems
+};
+
+// A class that belongs to a DLC addon must keep its shipped value where the
+// engine skipped that addon's whole config. Asserting that proves the skip,
+// which a missing override alone would not.
+private _fnc_checkShipped = {
+    params ["_cfg", "_label"];
+    private _problems = [];
+    private _arr = getArray _cfg;
+    if (count _arr != 4) then {
+        _problems pushBack format ["[A3ACC] %1 is not four values", _label];
+    } else {
+        {
+            if (_x isEqualType "") then {
+                _problems pushBack format ["[A3ACC] %1 still reads an expression where its DLC is absent", _label];
+            };
+        } forEach (_arr select [0, 3]);
     };
     _problems
 };
@@ -118,11 +137,29 @@ private _checks = [
     [configFile >> "RscHorizontalCompass" >> "Controls" >> "Compass" >> "Controls" >> "Bar1" >> "Controls" >> "HQ" >> "colorText", "RscHorizontalCompass_HQ_colorText", "compass HQ"]
 ];
 
+// The variable name prefix names the addon that carries the override.
+private _gates = [
+    ["Cursors_CuratorPlaceWaypoint", "A3ACC_colourblind_curator"],
+    ["CfgMarkers_GroundSupport", "A3ACC_colourblind_heli"],
+    ["CfgMarkers_Minefield", "A3ACC_colourblind_curator"],
+    ["RscDisplayCurator_", "A3ACC_colourblind_curator"],
+    ["RscOpticsRangeFinderMRAWS", "A3ACC_colourblind_tank"],
+    ["RscOpticsRangeFinderVorona", "A3ACC_colourblind_tank"],
+    ["RscHorizontalCompass_", "A3ACC_colourblind_contact"]
+];
+
 {
+    _x params ["_cfg", "_varName", "_label"];
+    private _gate = _gates select { _varName find (_x select 0) == 0 };
+    private _problems = if (_gate isEqualTo [] || {isClass (configFile >> "CfgPatches" >> ((_gate select 0) select 1))}) then {
+        [_cfg, _varName, _label] call _fnc_checkExpr
+    } else {
+        [_cfg, _label] call _fnc_checkShipped
+    };
     {
         _fail = _fail + 1;
         diag_log text _x;
-    } forEach (_x call _fnc_checkExpr);
+    } forEach _problems;
 } forEach _checks;
 
 // The shipped marker catalogue still reads the engine side variables. The

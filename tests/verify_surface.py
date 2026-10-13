@@ -36,6 +36,10 @@ CONFIG_FILES = [
     ADDON / "CfgNotifications.hpp",
     ADDON / "CfgSideIdentity.hpp",
     ADDON / "RscSideDisplays.hpp",
+    ROOT / "addons" / "colourblind_contact" / "RscHorizontalCompass.hpp",
+    ROOT / "addons" / "colourblind_curator" / "CfgCuratorColours.hpp",
+    ROOT / "addons" / "colourblind_tank" / "RscOpticsTank.hpp",
+    ROOT / "addons" / "colourblind_heli" / "CfgMarkersHeli.hpp",
 ]
 
 DELETED_FILES = [

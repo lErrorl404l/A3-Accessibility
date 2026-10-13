@@ -19,17 +19,10 @@
       "CfgWrapperUI/Cursors/3DENPlaceWaypointAttach": "3DEN",
       "CfgWrapperUI/Cursors/3DENPlaceWaypointAttachMulti": "3DEN",
       "CfgWrapperUI/Cursors/3DENPlaceWaypointMulti": "3DEN",
-      "CfgWrapperUI/Cursors/CuratorPlaceWaypoint": "Curator",
-      "CfgWrapperUI/Cursors/CuratorPlaceWaypointCycle": "Curator",
-      "CfgWrapperUI/Cursors/CuratorPlaceWaypointDestroy": "Curator",
-      "CfgWrapperUI/Cursors/CuratorPlaceWaypointDestroyMulti": "Curator",
-      "CfgWrapperUI/Cursors/CuratorPlaceWaypointGetIn": "Curator",
-      "CfgWrapperUI/Cursors/CuratorPlaceWaypointMulti": "Curator",
       "CfgWrapperUI/Cursors/HC_move": "Track",
       "CfgWrapperUI/Cursors/HC_overFriendly": "Track"
     },
     "declarations": [
-      "Curator",
       "Track",
       "3DEN"
     ]
@@ -51,22 +44,6 @@
   "CfgRscInGameUI.hpp": {
     "classes": {
       "RscInGameUI": null,
-      "RscInGameUI/RscOpticsRangeFinderMRAWS": "RscUnitInfo",
-      "RscInGameUI/RscOpticsRangeFinderMRAWS/CA_IGUI_elements_group": "RscControlsGroup",
-      "RscInGameUI/RscOpticsRangeFinderMRAWS/CA_IGUI_elements_group/controls": null,
-      "RscInGameUI/RscOpticsRangeFinderMRAWS/CA_IGUI_elements_group/controls/CA_Distance": "RscText",
-      "RscInGameUI/RscOpticsRangeFinderVorona": "RscUnitInfo",
-      "RscInGameUI/RscOpticsRangeFinderVorona/CA_IGUI_elements_group": "RscControlsGroup",
-      "RscInGameUI/RscOpticsRangeFinderVorona/CA_IGUI_elements_group/controls": null,
-      "RscInGameUI/RscOpticsRangeFinderVorona/CA_IGUI_elements_group/controls/CA_Distance": "RscText",
-      "RscInGameUI/RscOpticsRangeFinderVorona/CA_IGUI_elements_group/controls/CA_FlirMode": "RscText",
-      "RscInGameUI/RscOpticsRangeFinderVorona/CA_IGUI_elements_group/controls/CA_VisionMode": "RscText",
-      "RscInGameUI/RscOpticsRangeFinderVorona/CA_NFOV_mode_group": "RscControlsGroup",
-      "RscInGameUI/RscOpticsRangeFinderVorona/CA_NFOV_mode_group/controls": null,
-      "RscInGameUI/RscOpticsRangeFinderVorona/CA_NFOV_mode_group/controls/CA_FOVModeNFOV": "RscText",
-      "RscInGameUI/RscOpticsRangeFinderVorona/CA_WFOV_mode_group": "RscControlsGroup",
-      "RscInGameUI/RscOpticsRangeFinderVorona/CA_WFOV_mode_group/controls": null,
-      "RscInGameUI/RscOpticsRangeFinderVorona/CA_WFOV_mode_group/controls/CA_FOVModeWFOV": "RscText",
       "RscInGameUI/RscOptics_APC_Wheeled_01_gunner": "RscUnitInfo",
       "RscInGameUI/RscOptics_APC_Wheeled_01_gunner/CA_APC_NFOV_mode_group": "RscControlsGroupNoScrollbars",
       "RscInGameUI/RscOptics_APC_Wheeled_01_gunner/CA_APC_NFOV_mode_group/controls": null,
@@ -356,19 +333,11 @@
       "CfgGroupIcons/Select": "Flag",
       "CfgMarkers": null,
       "CfgMarkers/Flag": null,
-      "CfgMarkers/GroundSupport_ARTY_EAST": "GroundSupport_ARTY_WEST",
-      "CfgMarkers/GroundSupport_ARTY_RESISTANCE": "GroundSupport_ARTY_WEST",
-      "CfgMarkers/GroundSupport_CAS_EAST": "GroundSupport_CAS_WEST",
-      "CfgMarkers/GroundSupport_CAS_RESISTANCE": "GroundSupport_CAS_WEST",
-      "CfgMarkers/Minefield": null,
       "CfgMarkers/Select": "Flag",
       "CfgORBATDefault": null,
       "RscChatListDefault": null
     },
-    "declarations": [
-      "GroundSupport_ARTY_WEST",
-      "GroundSupport_CAS_WEST"
-    ]
+    "declarations": []
   },
   "RscSideDisplays.hpp": {
     "classes": {
@@ -380,18 +349,24 @@
       "RscCustomInfoSensors": null,
       "RscCustomInfoSensors/targets": null,
       "RscCustomInfoSensors/threats": null,
-      "RscDisplayCurator": null,
-      "RscDisplayCurator/Controls": null,
-      "RscDisplayCurator/Controls/Add": "RscControlsGroupNoScrollbars",
-      "RscDisplayCurator/Controls/Add/controls": null,
-      "RscDisplayCurator/Controls/Add/controls/SideIndependent": "SideBLUFOR",
-      "RscDisplayCurator/Controls/Add/controls/SideOPFOR": "SideBLUFOR",
       "RscDisplayMultiplayer": "RscStandardDisplay",
       "RscDisplayMultiplayer/controls": null,
       "RscDisplayMultiplayer/controls/CA_ValueSessions": "RscListBox",
       "RscDisplayMultiplayerSetup": "RscStandardDisplay",
       "RscDisplayMultiplayerSetup/controls": null,
-      "RscDisplayMultiplayerSetup/controls/CA_ValueRoles": "RscListBox",
+      "RscDisplayMultiplayerSetup/controls/CA_ValueRoles": "RscListBox"
+    },
+    "declarations": [
+      "CA_MiniMap",
+      "Controls",
+      "MiniMap",
+      "RscCustomInfoMiniMap",
+      "RscListBox",
+      "RscStandardDisplay"
+    ]
+  },
+  "RscHorizontalCompass.hpp": {
+    "classes": {
       "RscHorizontalCompass": "RscControlsGroupNoScrollbars",
       "RscHorizontalCompass/Controls": null,
       "RscHorizontalCompass/Controls/Compass": "RscControlsGroupNoScrollbars",
@@ -402,13 +377,72 @@
       "RscHorizontalCompass/Controls/Compass/Controls/DangerZone": "RscPicture"
     },
     "declarations": [
-      "CA_MiniMap",
-      "Controls",
-      "MiniMap",
-      "RscCustomInfoMiniMap",
-      "RscListBox",
-      "RscStandardDisplay",
-      "SideBLUFOR"
+      "RscControlsGroupNoScrollbars",
+      "RscPicture"
+    ]
+  },
+  "CfgCuratorColours.hpp": {
+    "classes": {
+      "CfgMarkers": null,
+      "CfgMarkers/Minefield": null,
+      "CfgWrapperUI": null,
+      "CfgWrapperUI/Cursors": null,
+      "CfgWrapperUI/Cursors/CuratorPlaceWaypoint": "Curator",
+      "CfgWrapperUI/Cursors/CuratorPlaceWaypointCycle": "Curator",
+      "CfgWrapperUI/Cursors/CuratorPlaceWaypointDestroy": "Curator",
+      "CfgWrapperUI/Cursors/CuratorPlaceWaypointDestroyMulti": "Curator",
+      "CfgWrapperUI/Cursors/CuratorPlaceWaypointGetIn": "Curator",
+      "CfgWrapperUI/Cursors/CuratorPlaceWaypointMulti": "Curator",
+      "RscDisplayCurator": null,
+      "RscDisplayCurator/Controls": null,
+      "RscDisplayCurator/Controls/Add": "RscControlsGroupNoScrollbars",
+      "RscDisplayCurator/Controls/Add/controls": null,
+      "RscDisplayCurator/Controls/Add/controls/SideIndependent": "SideBLUFOR",
+      "RscDisplayCurator/Controls/Add/controls/SideOPFOR": "SideBLUFOR"
+    },
+    "declarations": [
+      "RscControlsGroupNoScrollbars",
+      "SideBLUFOR",
+      "Curator"
+    ]
+  },
+  "RscOpticsTank.hpp": {
+    "classes": {
+      "RscInGameUI": null,
+      "RscInGameUI/RscOpticsRangeFinderMRAWS": "RscUnitInfo",
+      "RscInGameUI/RscOpticsRangeFinderMRAWS/CA_IGUI_elements_group": "RscControlsGroup",
+      "RscInGameUI/RscOpticsRangeFinderMRAWS/CA_IGUI_elements_group/controls": null,
+      "RscInGameUI/RscOpticsRangeFinderMRAWS/CA_IGUI_elements_group/controls/CA_Distance": "RscText",
+      "RscInGameUI/RscOpticsRangeFinderVorona": "RscUnitInfo",
+      "RscInGameUI/RscOpticsRangeFinderVorona/CA_IGUI_elements_group": "RscControlsGroup",
+      "RscInGameUI/RscOpticsRangeFinderVorona/CA_IGUI_elements_group/controls": null,
+      "RscInGameUI/RscOpticsRangeFinderVorona/CA_IGUI_elements_group/controls/CA_Distance": "RscText",
+      "RscInGameUI/RscOpticsRangeFinderVorona/CA_IGUI_elements_group/controls/CA_FlirMode": "RscText",
+      "RscInGameUI/RscOpticsRangeFinderVorona/CA_IGUI_elements_group/controls/CA_VisionMode": "RscText",
+      "RscInGameUI/RscOpticsRangeFinderVorona/CA_NFOV_mode_group": "RscControlsGroup",
+      "RscInGameUI/RscOpticsRangeFinderVorona/CA_NFOV_mode_group/controls": null,
+      "RscInGameUI/RscOpticsRangeFinderVorona/CA_NFOV_mode_group/controls/CA_FOVModeNFOV": "RscText",
+      "RscInGameUI/RscOpticsRangeFinderVorona/CA_WFOV_mode_group": "RscControlsGroup",
+      "RscInGameUI/RscOpticsRangeFinderVorona/CA_WFOV_mode_group/controls": null,
+      "RscInGameUI/RscOpticsRangeFinderVorona/CA_WFOV_mode_group/controls/CA_FOVModeWFOV": "RscText"
+    },
+    "declarations": [
+      "RscControlsGroup",
+      "RscText",
+      "RscUnitInfo"
+    ]
+  },
+  "CfgMarkersHeli.hpp": {
+    "classes": {
+      "CfgMarkers": null,
+      "CfgMarkers/GroundSupport_ARTY_EAST": "GroundSupport_ARTY_WEST",
+      "CfgMarkers/GroundSupport_ARTY_RESISTANCE": "GroundSupport_ARTY_WEST",
+      "CfgMarkers/GroundSupport_CAS_EAST": "GroundSupport_CAS_WEST",
+      "CfgMarkers/GroundSupport_CAS_RESISTANCE": "GroundSupport_CAS_WEST"
+    },
+    "declarations": [
+      "GroundSupport_ARTY_WEST",
+      "GroundSupport_CAS_WEST"
     ]
   }
 }

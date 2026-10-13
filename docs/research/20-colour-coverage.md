@@ -255,6 +255,36 @@ and refuses a surface write to the profile namespace, so the defect cannot retur
 config puts the `MPTable` control under `RscRespawnCounter`, and no game script
 reads its colours, so the engine reads them.
 
+## The DLC-only overrides are optional, proven
+
+Twenty-one of the converted class paths exist only in a DLC config: nine in the
+Zeus interface, six in the Tank optics, four in the Helicopters markers and two
+in the Contact compass. Naming those DLCs in the base addon's `requiredAddons`
+made the engine warn on every install without them, and it declared an empty
+class for each reopened class the absent PBO would have defined.
+
+Each DLC now has its own addon, with that DLC in `requiredAddons` and
+`skipWhenMissingDependencies = 1`. The BIKI documents the flag: "if any of
+requiredAddons[] entry is missing in your game the entire config will be ignored
+and return no error (but in rpt)". It is the pattern CBA_A3 uses for its own DLC
+components.
+
+Both halves are proven in engine. On the dedicated server, which has no Contact
+DLC:
+
+    Skipped loading of addon 'A3ACC_colourblind_contact' as required addon 'A3_UI_F_Contact' is not present
+
+and the base addon still loads. Remove the flag and the same run prints:
+
+    Warning Message: Addon 'A3ACC_colourblind_contact' requires addon 'A3_UI_F_Contact'
+
+so the flag is what converts the warning into a skip. `test_config` asserts that
+a class whose DLC is absent keeps a shipped value rather than an expression, and
+that assertion fails when the test points at the wrong addon.
+
+The base addon's `requiredAddons` therefore names no DLC. The floor moves to
+Arma 3 2.14, the version that added the flag.
+
 ## What a script read does with an expression
 
 `getArray` returns the raw expression string, so a script that treats the result

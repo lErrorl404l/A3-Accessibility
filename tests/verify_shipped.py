@@ -47,6 +47,10 @@ OUR_FILES = [
 # different directory, so they are checked by path.
 OUR_OTHER_FILES = [
     ROOT / "addons" / "cognitive" / "CfgObjectiveHud.hpp",
+    ROOT / "addons" / "colourblind_contact" / "RscHorizontalCompass.hpp",
+    ROOT / "addons" / "colourblind_curator" / "CfgCuratorColours.hpp",
+    ROOT / "addons" / "colourblind_tank" / "RscOpticsTank.hpp",
+    ROOT / "addons" / "colourblind_heli" / "CfgMarkersHeli.hpp",
 ]
 
 CLASS_OPEN = re.compile(
