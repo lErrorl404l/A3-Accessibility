@@ -24,8 +24,7 @@ private _engineVars = [
     ["Map_Civilian", "Civilian"],
     ["Map_Unknown", "Unknown"],
     ["IGUI_ERROR_RGB", "Error"],
-    ["IGUI_WARNING_RGB", "Warning"],
-    ["IGUI_TACTPING_RGB", "TacticalPing"]
+    ["IGUI_WARNING_RGB", "Warning"]
 ];
 
 private _surfaceVars = [

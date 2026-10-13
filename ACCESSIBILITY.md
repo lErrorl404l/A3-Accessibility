@@ -21,8 +21,8 @@ The surfaces that follow a mode: the map markers and the map, the group icons,
 the HUD and 3D icon side colours, the respawn table, the vehicle optic indicators
 and heading, the Eden editor draw colours and waypoint cursors, the Zeus editor
 draw colours and cursors, the task and score notifications, the interface error
-and warning text, the tactical ping, the sensor panel, the server browser, the
-compass, the ORBAT and the chat channel.
+and warning text, the sensor panel, the server browser, the compass, the ORBAT
+and the chat channel.
 
 The modes are Off, Protan, Deutan, Tritan and Achromatopsia.
 
@@ -33,7 +33,7 @@ The addon is split into one component per accessibility concern.
 - **Colour blind mode** (`colourblind`): five modes over the map markers and
   the map, the HUD and 3D icon side colours, the respawn table, the vehicle optic
   HUD, the Eden editor draw colours, the Zeus and high-command cursors, and the
-  notification, error, warning and tactical ping colours.
+  notification, error and warning colours.
 - **Reduce camera shake** (`motion`): for motion sensitivity.
 - **Force subtitles on** (`hearing`): and restore the previous setting when off.
 - **Directional gunfire cues** (`hearing`): an on-screen cue in the direction of

@@ -19,21 +19,47 @@ The addon does not need to override those classes. It needs to write the
 variables. That covers the surface with no config override and no inheritance
 risk.
 
-## The 44 colour variables
+## The colour variables, and how they were verified
 
-| Family | Variables | Drives |
+Two independent sources give the complete set, and neither is a guess:
+
+1. The strings in `arma3_x64.exe`. The engine reads its own interface colours from
+   a profile variable whose name is stored verbatim. `strings -n 5 arma3_x64.exe`
+   filtered to `^(map|igui|gui)_[a-z0-9_]+$` returns exactly
+   `gui_bcg_rgb`, `igui_bcg_rgb`, `igui_error_rgb`, `igui_text_rgb` and
+   `igui_warning_rgb`, each with its `_r`, `_g`, `_b` and `_a` forms.
+2. The namespace reads in the shipped configs. Across the 1432 `config.cpp` files
+   extracted from every game PBO, the colour families read from a namespace are
+   `Map_{BLUFOR,OPFOR,Independent,Civilian,Unknown}_*`, `IGUI_TEXT_RGB_*`,
+   `IGUI_BCG_RGB_*`, `IGUI_WARNING_RGB_*` and `GUI_BCG_RGB_*`.
+
+So there are ten families, forty names, and the addon writes seven of them.
+
+| Family | Drives | Addon |
 |---|---|---|
-| `Map_BLUFOR_*` | R, G, B, A | friendly markers, map, ORBAT, sector capture, bases |
-| `Map_OPFOR_*` | R, G, B, A | enemy markers, map, ORBAT, sector capture, bases |
-| `Map_Independent_*` | R, G, B, A | neutral markers, map, ORBAT, sector capture, bases |
-| `Map_Civilian_*` | R, G, B, A | civilian markers, map, ORBAT, bases |
-| `Map_Unknown_*` | R, G, B, A | unknown markers and bases |
-| `IGUI_TEXT_RGB_*` | R, G, B, A | interface text, in every menu and HUD |
-| `IGUI_BCG_RGB_*` | R, G, B, A | interface background |
-| `IGUI_ERROR_RGB_*` | R, G, B, A | error text |
-| `IGUI_WARNING_RGB_*` | R, G, B, A | warning text |
-| `IGUI_TACTPING_RGB_*` | R, G, B, A | tactical ping |
-| `GUI_BCG_RGB_*` | R, G, B, A | GUI background |
+| `Map_BLUFOR_*` | friendly markers, map, ORBAT, sector capture, bases | writes R, G, B |
+| `Map_OPFOR_*` | enemy markers, map, ORBAT, sector capture, bases | writes R, G, B |
+| `Map_Independent_*` | neutral markers, map, ORBAT, sector capture, bases | writes R, G, B |
+| `Map_Civilian_*` | civilian markers, map, ORBAT, bases | writes R, G, B |
+| `Map_Unknown_*` | unknown markers and bases | writes R, G, B |
+| `IGUI_ERROR_RGB_*` | error text, and the radar's incoming-danger and assault colours | writes R, G, B |
+| `IGUI_WARNING_RGB_*` | warning text, and the radar's lock and waypoint colours | writes R, G, B |
+| `IGUI_TEXT_RGB_*` | interface text, in every menu and HUD | not written: a text grey, not a confusion pair |
+| `IGUI_BCG_RGB_*` | interface background | not written: a background |
+| `GUI_BCG_RGB_*` | GUI background | not written: a background |
+
+Alpha is left to the player in every family, so a mode never changes an
+opacity.
+
+An earlier revision of this file listed eleven families and forty-four names,
+including `IGUI_TACTPING_RGB_*` for the tactical ping. That family does not
+exist. The name appears in no engine string, in no shipped config and in no
+script, and the string `tactping` appears nowhere in the executable. The
+tactical ping is a difficulty option (`tacticalPing` in
+`CfgDifficultyPresets`), and its colour is internal to the engine. The addon no
+longer writes the family. `tests/verify_surface.py` holds the list above as the
+engine variables the writer owns, so a name that does not exist cannot come
+back.
 
 ## What reads the side variables
 

@@ -31,16 +31,21 @@ private _keyToClass = createHashMapFromArray [
     ["Civilian", "civilian"],
     ["Unknown", "unknown"],
     ["Error", "enemy"],
-    ["Warning", "unknown"],
-    ["TacticalPing", "friendly"]
+    ["Warning", "unknown"]
 ];
 
 if !(_key in _keyToClass) exitWith { [1, 1, 1, 1] };
 
-// The shipped colour each key shows when the addon is Off. The five map keys
-// are the engine's own side colours. Error, Warning and TacticalPing are the
-// defaults of IGUI_ERROR_RGB_*, IGUI_WARNING_RGB_* and IGUI_TACTPING_RGB_* in
-// the extracted ui_f definecommoncolors.inc.
+// The shipped colour each key shows when the addon is Off. The five map keys are
+// the engine's own side colours. Error is the default of IGUI_ERROR_RGB_* and
+// Warning is the default of IGUI_WARNING_RGB_*, both read from the shipped
+// CfgInGameUI/Radar block, which binds those two families to the radar's danger
+// and waypoint colours.
+//
+// There is no key for the tactical ping. It has no colour variable: the name
+// IGUI_TACTPING_RGB appears in no engine string, no shipped config and no
+// script, and "tactping" appears nowhere in arma3_x64.exe. See
+// docs/research/17-dynamic-variable-layer.md.
 private _vanilla = createHashMapFromArray [
     ["BLUFOR", [0, 1, 1, 1]],
     ["OPFOR", [1, 0, 0, 1]],
@@ -48,8 +53,7 @@ private _vanilla = createHashMapFromArray [
     ["Civilian", [1, 0, 1, 1]],
     ["Unknown", [1, 1, 0, 1]],
     ["Error", [0.8, 0, 0, 1]],
-    ["Warning", [0.8, 0.5, 0, 1]],
-    ["TacticalPing", [1, 0.8, 0.2, 1]]
+    ["Warning", [0.8, 0.5, 0, 1]]
 ];
 
 if (_mode < 1) exitWith { _vanilla get _key };
