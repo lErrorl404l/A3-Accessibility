@@ -12,14 +12,22 @@ design is shipped. This file is the roadmap for everything else.
 
 ## 1. What is already shipped, and must not be re-planned
 
-Two features are done. Both are the pattern the rest of this roadmap copies.
+The colour engine is dynamic, and eight non-colour features ship beside it.
 
 | Shipped feature | Files | Gate that holds it |
 |---|---|---|
-| Colour-vision modes over markers and the fixed-name colour surface | `CfgMarkerColors.hpp`, `CfgInGameUI.hpp`, `CfgNotifications.hpp`, `CfgStructuredText.hpp`, `fnc_paletteForMode.sqf`, `fnc_colourNameFor.sqf`, `fnc_applyMode.sqf`, `fnc_watch.sqf` | `tests/verify_palette.py` offline, `tests/ingame` in-engine |
-| Camera-shake reduction | `functions/fnc_applyMotion.sqf`, the `A3ACC_ReduceMotion` checkbox in `initSettings.inc.sqf`, `XEH_PREP.hpp` | in-engine `TEST_OP` on the setting, client QA |
+| Dynamic colour engine: a mode change writes the engine profile and mission variables plus the addon surface variables | `addons/colourblind/CfgInGameUI.hpp`, `CfgNotifications.hpp`, `CfgWrapperUI.hpp`, `CfgRscInGameUI.hpp`, `Cfg3DEN.hpp`, `CfgCurator.hpp`, `CfgSideIdentity.hpp`, `RscSideDisplays.hpp`, `functions/fnc_surfaceColourFor.sqf`, `functions/fnc_applyVars.sqf`, `functions/fnc_applyMode.sqf` | `tests/verify_palette.py`, `tests/verify_surface.py`, `tests/verify_shipped.py` offline, `tests/ingame` in-engine |
+| Camera-shake reduction | `addons/motion/functions/fnc_applyMotion.sqf`, the `A3ACC_ReduceMotion` checkbox | in-engine setting test, client QA |
+| Force subtitles, and restore the prior state | `addons/hearing/functions/fnc_applyCaptions.sqf` | in-engine setting test, client QA |
+| Directional gunfire cues | `addons/hearing/functions/fnc_soundCue.sqf` | in-engine setting test, client QA |
+| Reduced HUD clutter | `addons/cognitive/functions/fnc_applyClutter.sqf` | in-engine setting test, client QA |
+| Larger map markers | `addons/lowvision/functions/fnc_applyLegibility.sqf` | in-engine setting test, client QA |
+| Always walk | `addons/motor/functions/fnc_applyWalk.sqf` | in-engine setting test, client QA |
+| Objective panel and pause-menu help screen | `addons/cognitive/CfgObjectiveHud.hpp`, `CfgAccessibilityHelp.hpp`, `functions/fnc_objectiveHud.sqf`, `functions/fnc_addPauseOption.sqf` | in-engine config test, client QA |
+| A keybind for every feature, unbound by default | `addons/*/initKeybinds.inc.sqf`, `addons/main/functions/fnc_toggleSetting.sqf` | client QA only, because CBA keybinds are client-only |
 
-`fnc_applyMotion.sqf` is the template for every feature in this roadmap:
+`addons/motion/functions/fnc_applyMotion.sqf` is the template for every setting-driven
+feature in this roadmap:
 
 1. A pure or near-pure function that takes one argument and writes one effect.
 2. One CBA setting in `initSettings.inc.sqf`, `_isGlobal = 0`, and the 7th argument
@@ -30,8 +38,27 @@ Two features are done. Both are the pattern the rest of this roadmap copies.
 5. `XEH_PREP.hpp` lists the function. The in-engine suite asserts the setting exists and
    holds a valid value.
 
+The colour engine follows the same shape, but its restore path records the player's own
+values first, in `A3ACC_vanillaVars`, so Off returns the game to what the player had.
+
 Every feature below reuses that shape. A feature that cannot restore its vanilla behaviour
 does not ship.
+
+### The evidence the roadmap must start from
+
+Three research files hold what the shipped game actually defines, read from the
+game PBOs rather than assumed:
+
+- `docs/research/20-colour-coverage.md`: every colour-bearing property, whether
+  it is already dynamic, and every red and green literal with a judgement.
+- `docs/research/21-fonts-and-difficulty.md`: the font families, and the 24
+  difficulty options with the value per preset.
+- `docs/research/17-dynamic-variable-layer.md`: the 44 profile variables the
+  engine reads, which is the lever for a mode-driven colour.
+
+An item below that contradicts those files is wrong. LV1 and the flash items were
+corrected against them. Re-read them before planning a colour, text, label or
+difficulty item.
 
 ## 2. How to read the roadmap
 
@@ -120,7 +147,7 @@ engine config on this machine.
 
 | ID | Feature | Exact mechanism | Value or behaviour | Risk | Gate | Client test |
 |---|---|---|---|---|---|---|
-| LV1 | Text size for the addon's own UI | `CfgFontFamilies` with `fonts[]`, one entry per point size. Controls set `font` and `sizeEx`. Runtime `ctrlSetFont` with a `CfgFontFamilies` class name and `ctrlSetFontHeight size` for the height. `ctrlFontHeight` is the getter. No `setFont` command exists | Ship a family at three point sizes and let the player choose. Target XAG 101: 26 pixels at 1080p | MEDIUM. Bitmap fonts do not scale. A `.fxy` plus `.paa` set exists per size only, so a missing size renders nothing. No global UI scale command exists, so scaling is per control or per structured-text fragment | `G-OFF` on the config shape, `G-ENG` that the family resolves and `ctrlSetFontHeight` returns the new height, `G-CLI` that the text renders at the chosen size | yes |
+| LV1 | Text size for the addon's own UI | `CfgFontFamilies` with `fonts[]`, one entry per point size. Controls set `font` and `sizeEx`. Runtime `ctrlSetFont` with a `CfgFontFamilies` class name and `ctrlSetFontHeight size` for the height. `ctrlFontHeight` is the getter. No `setFont` command exists | Ship a family at three point sizes and let the player choose. Target XAG 101: 26 pixels at 1080p | MEDIUM. Bitmap fonts do not scale. A `.fxy` plus `.paa` set exists per size only, so a missing size renders nothing. No global UI scale command exists, so scaling is per control or per structured-text fragment. Read from `Addons/uifonts_f.pbo`: each `fonts[]` entry pairs the Latin font with a CJK fallback for the same size, and 9 of the 11 shipped families carry one, so a shipped family needs a CJK set per size too | `G-OFF` on the config shape, `G-ENG` that the family resolves and `ctrlSetFontHeight` returns the new height, `G-CLI` that the text renders at the chosen size | yes |
 | LV2 | Map label and marker legibility | `RscMapControl` `fontGrid`, `sizeExGrid`, `colorGrid[]`, `colorGridMap[]`. Runtime `setMarkerSize` and `setMarkerAlpha`, both verified | Larger grid labels and larger, fully opaque markers. `setMarkerAlpha` at 1 | MEDIUM. `setMarkerSize` changes the map's look and can overlap markers. `colorGrid[]` is a load-time override only, because no script command repoints `fontGrid` | `G-ENG` on `setMarkerSize` and `setMarkerAlpha` acceptance, `G-OFF` on the config, `G-CLI` | yes |
 | LV3 | View distance | `setViewDistance`, `setObjectViewDistance`, `setTerrainGrid`, all verified | Raise the view distance for legibility | HIGH. A longer view distance is a competitive advantage and a frame-rate cost. `setTerrainGrid` changes terrain detail. Default off | `G-ENG` on acceptance, `G-CLI` on the frame rate and the look. A fairness note in `ACCESSIBILITY.md` | yes |
 | LV4 | High-contrast mode for the addon's own UI | `RscStructuredText` and `RscText` `colorText[]` and `colorBackground[]` | Text at 4.5:1 or better, non-text at 3:1 or better | LOW | `G-OFF`: the offline verifier recomputes every ratio and fails below the floor | no |
