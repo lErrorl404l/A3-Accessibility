@@ -21,6 +21,16 @@ The format follows Keep a Changelog, and this project uses Semantic Versioning.
   `SquadRadar`.
 - Every reopened class restates its vanilla parent. A bare reopen cleared the
   parent and dropped the marker icon, size and scope.
+- Coverage is wider. The addon now also recolours the map and group icon status
+  markers, the ground support and minefield markers, the vehicle and weapon
+  optic indicators across every optic class, the Zeus editor draw colours and
+  cursors, the Eden waypoint cursors, the sensor panel, the server browser, the
+  compass, the ORBAT, the chat channel, the command bar and the airborne mini
+  map altitude gradient.
+- `tests/verify_shipped.py` compares every override against the extracted game
+  configs. It reports 224 overridden properties across 18805 shipped classes,
+  with no property invented on a shipped class, and every parent and default
+  agreeing with the game.
 
 ### Added
 
