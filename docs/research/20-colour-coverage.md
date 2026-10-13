@@ -226,3 +226,26 @@ way, so the addon's expression resolves there.
 
 So the mission namespace is vanilla's own channel for a value a mission
 overrides, with the player's profile as the fallback.
+
+## Not covered: the vehicle MFD
+
+The helicopter and aircraft multi-function displays carry side identity in red and
+green, and the addon does not remap them. This is the one named colour gap left.
+
+From the extract of every game PBO:
+
+- `Addons/air_f_beta/.../Heli_Attack_01/config.cpp` states, under
+  `CfgVehicles/Heli_Attack_01_base_F/MFD`, `rwrFriendly/color[] = {0,1,0}` and
+  `rwrEnemy/color[] = {1,0,0}`. The class names carry the meaning:
+  `targetFriendly`, `targetEnemy`, `targetGroundFriendly`, `targetAirEnemy`,
+  `rwrFriendly`, `rwrGroup`.
+- 56 vehicle classes carry MFD colour properties. 145 of those colours are side
+  identity, 30 friendly and 115 enemy. The other 1245 are status reds such as
+  `Hydraulics_Low` and `Speed_VNE`.
+- No script reads the MFD: a scan of the 7110 script files found no reference to
+  it. The engine draws it, so a per-channel expression would be read by the
+  engine and would not be broken by a script read.
+
+Not done yet, and why: it is a feature rather than a defect fix, it triples the
+override count, the class paths are per-variant so the work is wide, and the
+rendered result needs a client. It stays open until that decision is taken.
