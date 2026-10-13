@@ -2,8 +2,15 @@
 
 /*
  * Author: lErrorl404l
- * Force a walk, so the player does not have to hold a key to change speed.
- * Client-local. Off by default: it changes movement, which other players see.
+ * Force a walk on the local player, for a player who prefers to hold a walk.
+ *
+ * This REMOVES sprint. It does not remove the need to hold a key, and no engine
+ * command can do that: `forceWalk` and `allowSprint` are the only motor
+ * commands, and both are Boolean switches, so a sprint toggle is not available.
+ *
+ * Off by default, and the player opts in. The change is networked, so other
+ * players see it, and a mission that depends on sprint can break. Client-local:
+ * it never broadcasts one player's choice to another machine.
  *
  * Arguments:
  * 0: Enabled <BOOL>

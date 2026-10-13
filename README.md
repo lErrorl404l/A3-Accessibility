@@ -20,7 +20,8 @@ apply a screen filter, so the rest of the picture stays as it is.
 - Reduces HUD clutter.
 - Makes map markers larger, for low vision.
 - Forces subtitles on.
-- Adds an always-walk option, for reduced motor demand.
+- Adds an always-walk option, for reduced motor demand. It removes sprint, so
+  it is off by default.
 - Shows the current objective in a small panel.
 - Adds an accessibility help screen to the pause menu.
 - Adds a keybind for every feature, unbound by default.

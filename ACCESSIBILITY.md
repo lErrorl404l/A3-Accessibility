@@ -44,7 +44,8 @@ The addon is split into one component per accessibility concern.
 - **Current objective panel** (`cognitive`): a small always-on panel with the
   current task.
 - **Larger map markers** (`lowvision`): for low vision.
-- **Always walk** (`motor`): no key is needed to change speed.
+- **Always walk** (`motor`): forces a walk. This removes sprint, so it is off by
+  default and the player opts in.
 - **Keybinds**: every feature is reachable from the keyboard, unbound by
   default. CBA keybinds are client-only, so they do not register on a server.
 
@@ -95,6 +96,11 @@ The pairs that must be told apart, and the ratio each reaches, are in
   colour can only be checked by eye at a client.
 - The addon does not change map terrain colours such as sea, forest and contour
   lines. Those are art, not side identity.
+- The always-walk option removes sprint rather than removing the need to hold a
+  key. `forceWalk` and `allowSprint` are the only motor commands and both are
+  Boolean switches, so a sprint toggle is not available to an addon. The option
+  is off by default, the change is networked, and a mission that depends on
+  sprint can break.
 - There is no global text-size lever. The game sizes text per control, from the
   control size and a size-indexed font family, so the addon can only size its
   own interface.

@@ -82,8 +82,9 @@ workshop id `450814997`, from `.hemtt/project.toml`.
 
 ## Motor
 
-21. Enable "always walk". Confirm you walk and cannot sprint. Disable it and
-    confirm sprint returns. Note: this is visible to other players.
+21. Enable "always walk". Confirm you walk and cannot sprint, and that
+    disabling it returns sprint. This removes sprint, other players see the
+    change, and a mission that depends on sprint can break. Use it deliberately.
 22. Bind the keybinds. Confirm each unbound action appears in the CBA keybind
     list, and that a bound key toggles its setting.
 

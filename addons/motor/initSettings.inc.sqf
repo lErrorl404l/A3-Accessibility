@@ -2,7 +2,7 @@
     "A3ACC_ForceWalk",
     "CHECKBOX",
     ["Always walk",
-     "Force a walk, so no key is needed to change speed. This is visible to other players."],
+     "Force a walk. This removes sprint. Other players see the change, and a mission that depends on sprint can break."],
     "A3 Accessibility",
     false,
     0,
