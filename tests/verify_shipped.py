@@ -1,0 +1,175 @@
+#!/usr/bin/env python3
+"""Compare every addon override against the authoritative game PBO configs.
+
+This gate needs the extracted game configs. Extract the PBOs that define the
+roots this addon touches, then point GAME and GAME_ALSO at the result:
+
+    extractpbo -P "<install>/Addons/ui_f.pbo" /tmp/opencode/vanilla/ui_f
+    extractpbo -P "<install>/Curator/Addons/ui_f_curator.pbo" /tmp/opencode/gamepbo/ui_f_curator
+
+It is not part of the CI run, because CI has no game install. Run it after any
+config change, and after a game update.
+
+The game PBOs define the correct parent, the correct property set and the
+correct shipped value. The addon replaces some shipped values with a
+per-channel expression, and must keep the shipped value as the expression
+default. This reads both sides and reports every deviation.
+
+Base game PBOs are searched first, then the DLC and Curator folders, so the
+first definition found is the one the base game loads.
+
+Exit code 0 means every override agrees with the game.
+"""
+
+from __future__ import annotations
+
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path("/ext/Development/A3-Accessibility")
+ADDON = ROOT / "addons" / "colourblind"
+GAME = Path("/tmp/opencode/gamepbo")  # DLC, Curator and mod PBOs
+GAME_ALSO = Path("/tmp/opencode/vanilla")
+
+OUR_FILES = [
+    "CfgInGameUI.hpp",
+    "CfgWrapperUI.hpp",
+    "CfgRscInGameUI.hpp",
+    "Cfg3DEN.hpp",
+    "CfgNotifications.hpp",
+]
+
+CLASS_OPEN = re.compile(
+    r"^([ \t]*)class\s+([A-Za-z0-9_]+)\s*(?::\s*([A-Za-z0-9_]+))?\s*(?:\{|$)"
+)
+PROP_RE = re.compile(r"([A-Za-z0-9_]+)\[\]\s*=\s*\{([^{}]*)\}")
+PROFILE_RE = re.compile(
+    r"\"\(profilenamespace getvariable \['([A-Za-z0-9_]+)',([0-9.]+)\]\)\""
+)
+MISSION_RE = re.compile(
+    r"\"\(missionnamespace getvariable \['([A-Za-z0-9_]+)',([0-9.]+)\]\)\""
+)
+
+
+def classify(body: str) -> tuple[str, list[str]]:
+    for pattern in (PROFILE_RE, MISSION_RE):
+        if pattern.search(body):
+            return "expression", [m.group(2) for m in pattern.finditer(body)]
+    return "literal", [v.strip() for v in body.split(",")]
+
+
+def parse(path: Path):
+    """Return ({classpath: {prop: (kind, values)}}, {classpath: parent})."""
+    props: dict[str, dict[str, tuple[str, list[str]]]] = {}
+    parents: dict[str, str] = {}
+    stack: list[tuple[int, str]] = []
+    for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        m = CLASS_OPEN.match(line)
+        if m:
+            indent = len(m.group(1))
+            while stack and stack[-1][0] >= indent:
+                stack.pop()
+            stack.append((indent, m.group(2)))
+            path_key = "/".join(n for _, n in stack)
+            if m.group(3):
+                parents[path_key] = m.group(3)
+        if not stack:
+            continue
+        current = "/".join(n for _, n in stack)
+        for prop in PROP_RE.finditer(line):
+            props.setdefault(current, {})[prop.group(1)] = classify(prop.group(2))
+    return props, parents
+
+
+def game_defs():
+    configs = sorted(GAME.rglob("config.cpp"))
+    if GAME_ALSO.is_dir():
+        configs = sorted(GAME_ALSO.rglob("config.cpp")) + configs
+    # Base game first, then the addon folders.
+    configs.sort(
+        key=lambda p: (
+            0 if "/gamepbo/" in str(p) and str(p).count("/") == 4 else 1,
+            str(p),
+        )
+    )
+    props: dict[str, dict[str, tuple[str, list[str]]]] = {}
+    parents: dict[str, str] = {}
+    origin: dict[str, str] = {}
+    for path in configs:
+        p, par = parse(path)
+        for cls, entries in p.items():
+            if cls not in props:
+                props[cls] = entries
+                origin[cls] = path.parent.parent.parent.name
+        for cls, parent in par.items():
+            parents.setdefault(cls, parent)
+    return props, parents, origin, len(configs)
+
+
+def near(a: str, b: str) -> bool:
+    try:
+        return abs(float(a) - float(b)) < 1e-6
+    except ValueError:
+        return a == b
+
+
+def same(values: list[str], other: list[str]) -> bool:
+    return len(values) == len(other) and all(near(x, y) for x, y in zip(values, other))
+
+
+def main() -> int:
+    gprops, gparents, origin, nconfigs = game_defs()
+    if not gprops:
+        print("FAIL: no shipped configs found under", GAME)
+        return 1
+
+    failures: list[str] = []
+    compared = 0
+    added = 0
+
+    for filename in OUR_FILES:
+        oprops, oparents = parse(ADDON / filename)
+        for cls_path, entries in sorted(oprops.items()):
+            # Parent check.
+            if cls_path in gparents and oparents.get(cls_path) != gparents[cls_path]:
+                failures.append(
+                    f"{filename} {cls_path}: parent {oparents.get(cls_path)!r} "
+                    f"but the game uses {gparents[cls_path]!r}"
+                )
+            for prop, (kind, values) in sorted(entries.items()):
+                compared += 1
+                g = gprops.get(cls_path, {}).get(prop)
+                if g is None:
+                    added += 1
+                    continue
+                gkind, gvalues = g
+                if kind == "expression" and gkind == "literal":
+                    if not same(gvalues[:3], values):
+                        failures.append(
+                            f"{filename} {cls_path}/{prop}: default {values} "
+                            f"but {origin.get(cls_path)} ships {gvalues[:3]}"
+                        )
+                elif kind == "literal" and gkind == "literal":
+                    if not same(gvalues[:3], values[:3]):
+                        failures.append(
+                            f"{filename} {cls_path}/{prop}: {values[:3]} "
+                            f"but {origin.get(cls_path)} ships {gvalues[:3]}"
+                        )
+
+    if failures:
+        print("DEVIATIONS:")
+        for failure in failures:
+            print(f"  - {failure}")
+        return 1
+
+    print(
+        f"[check_authoritative] PASS: {compared} overridden properties and "
+        f"{len(gprops)} shipped classes across {nconfigs} game configs. "
+        f"{added} properties are added by the addon. Every parent and default agrees."
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

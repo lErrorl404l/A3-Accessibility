@@ -5,12 +5,13 @@
  * Apply a colour-vision-deficiency mode to the local map markers.
  * Client-local only: it never broadcasts one player's mode to other machines.
  *
- * setMarkerColorLocal accepts a colour name, not an RGBA array, so the mode
- * reaches a marker through the profile variables fnc_applyVars writes: the
- * engine resolves one of the five names (ColorWEST and siblings) through
- * Map_BLUFOR_* and the rest. This pass re-asserts the canonical name after a
- * foreign change. A marker on another name, or on a mission raw value, stays as
- * it is.
+ * setMarkerColorLocal accepts a colour name, or the direct string form
+ * "#(r,g,b,a)" since Arma 3 2.20. It does not accept an RGBA array. So the mode
+ * sets each marker to the direct string form, computed from the pure palette.
+ * That path is independent of whether the engine re-evaluates the config
+ * expression, and it works for any marker whose current colour is one of the
+ * five side names. A marker on another name, or on a mission raw value, stays as
+ * it is and is logged once.
  *
  * Arguments:
  * 0: Mode index <NUMBER>
@@ -70,8 +71,10 @@ private _logged = missionNamespace getVariable ["A3ACC_colourblind_loggedNames",
                 diag_log format ["[A3ACC] marker colour '%1' has no remap and stays unchanged", _original];
             };
         } else {
-            if (_current != _original) then {
-                _name setMarkerColorLocal _original;
+            private _rgba = [_mode, _key] call FUNC(surfaceColourFor);
+            private _target = format ["#(%1,%2,%3,1)", _rgba select 0, _rgba select 1, _rgba select 2];
+            if (_current != _target) then {
+                _name setMarkerColorLocal _target;
             };
         };
     };

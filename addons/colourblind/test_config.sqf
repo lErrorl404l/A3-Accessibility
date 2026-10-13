@@ -52,7 +52,6 @@ private _checks = [
     [_igui >> "SideColors" >> "colorNeutral", "SideColors_colorNeutral", "SideColors colorNeutral"],
     [_igui >> "SideColors" >> "colorCivilian", "SideColors_colorCivilian", "SideColors colorCivilian"],
     [_igui >> "SideColors" >> "colorUnknown", "SideColors_colorUnknown", "SideColors colorUnknown"],
-    [_cursors >> "Move" >> "color", "Cursors_Move", "Cursors Move"],
     [_cursors >> "HC_move" >> "color", "Cursors_HC_move", "Cursors HC_move"],
     [_cursors >> "CuratorPlaceWaypointDestroy" >> "color", "Cursors_CuratorPlaceWaypointDestroy", "Cursors CuratorPlaceWaypointDestroy"],
     [_eden >> "Trigger" >> "Draw" >> "2D" >> "color", "Cfg3DEN_Trigger_Draw_2D", "Cfg3DEN Trigger 2D"],

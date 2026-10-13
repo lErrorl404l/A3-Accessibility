@@ -10,3 +10,7 @@ keys/*
 /.omo
 __pycache__/
 *.pyc
+
+# Tooling artefacts, not part of the addon
+.opencode/
+pyghidra_mcp_projects/
