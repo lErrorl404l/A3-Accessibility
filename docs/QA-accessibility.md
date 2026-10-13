@@ -56,7 +56,11 @@ workshop id `450814997`, from `.hemtt/project.toml`.
     appear. Disable it. Confirm the previous setting is restored, not forced on.
 15. Enable "directional gunfire cues". Have a unit fire near you. Confirm an
     on-screen cue appears in the direction of the fire, with a distance, and
-    fades. Confirm it does not appear for distant fire.
+    fades. Confirm it does not appear for distant fire. Repeat this on high
+    ground, at least 100 m above sea level, on a hill or a mountain: confirm the
+    cue sits at the shooter's position and not above them. `drawIcon3D` takes a
+    PositionAGL, so an unconverted sea-level position floats higher the greater
+    the elevation, and no headless test can see it.
 
 ## Motion
 

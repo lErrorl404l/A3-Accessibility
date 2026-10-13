@@ -42,8 +42,14 @@ if (_enabled) then {
             {
                 _x params ["_firer", "_label"];
                 if (!isNull _firer) then {
-                    private _dir = (getPosASL _firer) vectorDiff (getPosASL player);
-                    private _at = (getPosASL player) vectorAdd ((vectorNormalized _dir) vectorMultiply 4);
+                    private _player = getPosASL player;
+                    private _dir = (getPosASL _firer) vectorDiff _player;
+                    // drawIcon3D takes a PositionAGL, not a PositionASL. Passing
+                    // an ASL position draws the cue above the ground by the
+                    // elevation at the player, which grows on a hill. Every
+                    // shipped caller converts first: see ASLToAGL in
+                    // functions_f/Animation/Timeline/fn_timeline_simulateCurves.sqf.
+                    private _at = ASLToAGL (_player vectorAdd ((vectorNormalized _dir) vectorMultiply 4));
                     drawIcon3D [
                         "#(rgb,1,1,1)color(1,0.6,0,1)",
                         [1, 1, 1, 1],
