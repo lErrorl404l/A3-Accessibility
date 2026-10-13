@@ -6,7 +6,9 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
-        requiredAddons[] = {"A3ACC_main", "cba_common", "cba_events", "cba_settings"};
+        // cba_xeh compiles the functions, cba_common holds the per-frame
+        // handler, cba_keybinding binds the key, cba_settings holds the setting.
+        requiredAddons[] = {"A3ACC_main", "cba_xeh", "cba_common", "cba_keybinding", "cba_settings"};
         authors[] = {"lErrorl404l"};
         VERSION_CONFIG;
     };

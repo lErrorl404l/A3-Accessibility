@@ -10,6 +10,7 @@ headers, then:
 3. Checks the engine variables the writer owns, and the ones it must not touch.
 4. Checks the deleted override files are gone and unreferenced.
 5. Checks every class path states the parent the shipped config states.
+6. Checks every forward declaration is one the generator checked against the game.
 
 It needs no game and no SQF interpreter. Exit code 0 means all gates pass.
 """
@@ -77,6 +78,22 @@ EXPECTED_PARENTS_FILE = Path(__file__).resolve().parent / "expected_parents.json
 CLASS_PATH_OPEN = re.compile(
     r"^([ \t]*)class\s+([A-Za-z0-9_]+)\s*(?::\s*([A-Za-z0-9_]+))?\s*(?:\{|$)"
 )
+
+# A forward declaration, `class X;`. It names a class defined elsewhere and has
+# no body, so it opens no scope and states no parent. CLASS_PATH_OPEN does not
+# match it, because the line ends in a semicolon. It still has to be checked: a
+# misspelled name here is invisible to every other gate.
+CLASS_FORWARD = re.compile(r"^([ \t]*)class\s+([A-Za-z0-9_]+)\s*;\s*$")
+
+
+def forward_declarations(text: str) -> list[str]:
+    """Return the forward-declared class names, in file order, without repeats."""
+    names: list[str] = []
+    for line in text.splitlines():
+        match = CLASS_FORWARD.match(line)
+        if match and match.group(2) not in names:
+            names.append(match.group(2))
+    return names
 
 
 def class_declarations(text: str) -> dict[str, str | None]:
@@ -184,7 +201,9 @@ def main() -> int:
     expected = json.loads(EXPECTED_PARENTS_FILE.read_text(encoding="utf-8"))
     texts = {path.name: path.read_text(encoding="utf-8") for path in CONFIG_FILES}
     gated = 0
-    for filename, by_path in expected.items():
+    gated_decls = 0
+    for filename, entry in expected.items():
+        by_path = entry["classes"]
         declared = class_declarations(texts[filename])
         for cls_path, parent in by_path.items():
             gated += 1
@@ -202,6 +221,19 @@ def main() -> int:
                     "regenerate tests/expected_parents.json"
                 )
 
+        # Gate 7: the forward declarations are the ones the generator recorded.
+        # The generator runs with the game extracted and refuses a name the game
+        # does not define, so a recorded name is a checked name. A new or changed
+        # declaration fails here until the generator has checked it.
+        names = forward_declarations(texts[filename])
+        gated_decls += len(names)
+        if names != entry["declarations"]:
+            failures.append(
+                f"{filename}: forward declarations are {names}, "
+                f"expected {entry['declarations']}. "
+                "Run python3 tests/gen_expected_parents.py to check them."
+            )
+
     if failures:
         print("FAILURES:")
         for failure in failures:
@@ -212,7 +244,8 @@ def main() -> int:
         f"[verify_surface] PASS: {len(config_profile)} profile and {len(config_mission)} mission "
         f"surface variables in the config and the writer, {len(ENGINE_VARS)} engine variables owned, "
         "no forbidden variable, no deleted override, "
-        f"{gated} class paths restate the parent the shipped config states"
+        f"{gated} class paths restate the parent the shipped config states, "
+        f"{gated_decls} forward declarations match the checked list"
     )
     return 0
 

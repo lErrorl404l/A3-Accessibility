@@ -6,7 +6,9 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
-        requiredAddons[] = {};
+        // main compiles its functions with CBA_fnc_compileFunction and writes a
+        // setting with CBA_settings_fnc_set.
+        requiredAddons[] = {"cba_xeh", "cba_settings"};
         authors[] = {"lErrorl404l"};
         author = "lErrorl404l";
         VERSION_CONFIG;
