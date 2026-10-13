@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import re
 import sys
+from pathlib import Path
 
 LOG = sys.argv[1] if len(sys.argv) > 1 else "tests/ingame/run.log"
 
@@ -23,18 +24,34 @@ BENIGN = (
     "'/' is not a value",
 )
 
-# Config roots this addon overrides. A missing entry under one of these is our
-# defect, not engine noise.
-OUR_ROOTS = (
-    "CfgMarkerColors",
-    "CfgMarkers",
-    "CfgGroupIcons",
-    "CfgLocationTypes",
-    "CfgNotifications",
-    "CfgInGameUI",
-    "RscInGameUI",
-    "CfgWrapperUI",
-    "Cfg3DEN",
+
+# Config roots this addon overrides, read from the config headers so the list
+# cannot go stale as components are added or removed. A missing entry under one
+# of these is our defect, not engine noise.
+def our_roots() -> tuple[str, ...]:
+    root = Path(__file__).resolve().parent.parent.parent
+    roots: list[str] = []
+    headers = sorted(root.glob("addons/*/Cfg*.hpp")) + sorted(
+        root.glob("addons/*/Rsc*.hpp")
+    )
+    for path in headers:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            stripped = line.rstrip()
+            if not stripped.startswith("class ") or stripped.endswith(";"):
+                continue  # not a root class, or a forward declaration
+            name = stripped[len("class ") :].split(":")[0].split(" ")[0].strip()
+            if name and name not in roots:
+                roots.append(name)
+    return tuple(roots)
+
+
+OUR_ROOTS = our_roots()
+
+# A config expression that read the profile namespace before the engine had one.
+# The engine logs the first line, then terminates. Proven, and refused in the
+# offline gate too: see addons/colourblind/CfgInGameUI.hpp.
+FATAL_STARTUP = re.compile(
+    r"Trying to get namespace profile|Application terminated intentionally"
 )
 
 # A cleared vanilla parent. The engine reports it as "Updating base class 'X'->''".
@@ -52,10 +69,11 @@ def main() -> int:
         for line in text.splitlines()
         if "[A3ACC]" in line and "failed" in line.lower()
     ]
+    fatal = [line for line in text.splitlines() if FATAL_STARTUP.search(line)]
     errors = [
         line
         for line in text.splitlines()
-        if re.search(r"\bError\b", line) and not any(b in line for b in BENIGN)
+        if re.search(r"\bError", line) and not any(b in line for b in BENIGN)
     ]
 
     # Our overrides must preserve the vanilla parent chain. A redeclared class
@@ -71,6 +89,11 @@ def main() -> int:
         if "No entry '" in line and any(root in line for root in OUR_ROOTS)
     ]
 
+    if fatal:
+        print("FAIL: the engine terminated at startup")
+        for line in fatal[:5]:
+            print("  " + line.strip())
+        return 1
     if not done:
         print("FAIL: the test did not finish ([A3ACC-TEST] DONE is missing)")
         return 1

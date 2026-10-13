@@ -35,26 +35,34 @@ OURS = "a3acc"
 # A vanilla parent this addon cleared. The engine reports it as 'X'->''.
 CLEARED_PARENT = re.compile(r"Updating base class '[^']*'->''")
 
-# Config roots this addon overrides. A missing entry under one is our defect.
-OUR_ROOTS = (
-    "CfgMarkers",
-    "CfgGroupIcons",
-    "CfgLocationTypes",
-    "CfgMarkerColors",
-    "CfgNotifications",
-    "CfgInGameUI",
-    "RscInGameUI",
-    "CfgWrapperUI",
-    "Cfg3DEN",
-    "CfgCurator",
-    "CfgORBATDefault",
-    "RscChatListDefault",
-    "RscCustomInfoAirborneMiniMap",
-    "RscCustomInfoSensors",
-    "RscDisplayCurator",
-    "RscDisplayMultiplayer",
-    "RscDisplayMultiplayerSetup",
-    "RscHorizontalCompass",
+
+# Config roots this addon overrides, read from the config headers so the list
+# cannot go stale as components are added or removed. A missing entry under one is
+# our defect, not engine noise.
+def our_roots() -> tuple[str, ...]:
+    root = Path(__file__).resolve().parent.parent
+    roots: list[str] = []
+    headers = sorted(root.glob("addons/*/Cfg*.hpp")) + sorted(
+        root.glob("addons/*/Rsc*.hpp")
+    )
+    for path in headers:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            stripped = line.rstrip()
+            if not stripped.startswith("class ") or stripped.endswith(";"):
+                continue  # not a root class, or a forward declaration
+            name = stripped[len("class ") :].split(":")[0].split(" ")[0].strip()
+            if name and name not in roots:
+                roots.append(name)
+    return tuple(roots)
+
+
+OUR_ROOTS = our_roots()
+
+# A config expression that read the profile namespace before the engine had one.
+# The engine logs the first line, then terminates. That line does not name the
+# addon, so this check does not require the addon name.
+FATAL_STARTUP = re.compile(
+    r"Trying to get namespace profile|Application terminated intentionally"
 )
 
 # Engine noise that no addon change can remove.
@@ -103,10 +111,11 @@ def main() -> int:
     errors = [
         line
         for line in lines
-        if re.search(r"\bError\b", line)
+        if re.search(r"\bError", line)
         and OURS in line.lower()
         and not any(b in line for b in BENIGN)
     ]
+    fatal = [line for line in lines if FATAL_STARTUP.search(line)]
     probe = [line for line in lines if "[A3ACC" in line]
 
     print(f"file: {path.name}")
@@ -129,6 +138,11 @@ def main() -> int:
             print("  " + line.strip()[:160])
 
     failures = 0
+    if fatal:
+        failures += 1
+        print(f"\nFAIL: {len(fatal)} line(s) show the engine terminating at startup")
+        for line in fatal[:10]:
+            print("  " + line.strip()[:160])
     if cleared:
         failures += 1
         print(f"\nFAIL: {len(cleared)} cleared vanilla parent(s)")
