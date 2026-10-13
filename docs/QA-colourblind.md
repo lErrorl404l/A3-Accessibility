@@ -1,5 +1,8 @@
 # Colour-blind mode manual QA
 
+**Superseded.** This checklist is merged into `docs/QA-accessibility.md`, which
+covers every feature and the current colour surfaces. Use that file.
+
 Manual QA for the colour-blind modes. Plan section 7.5. Run the checklist
 after the automated gates pass. The rendered pixel is not observable to an
 automated test, so this checklist is the only check of the final colour.

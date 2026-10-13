@@ -1,5 +1,12 @@
 # A3 Accessibility - whole colour-surface remap for colour-vision deficiency
 
+**Superseded.** The colour engine is now dynamic: a mode change writes the
+engine profile variables rather than replacing config values. See
+`docs/PLAN-dynamic.md` for the current design, `docs/research/17-dynamic-variable-layer.md`
+for the 44 variables the engine reads, and `docs/research/20-colour-coverage.md`
+for what is covered. This file is kept for the palette tables in sections 2.3 to
+2.5, which are still the source of the mode values.
+
 Status: decision complete. The worker needs no further interview.
 Slice: extend the addon from map markers only to the whole in-game colour surface.
 Evidence base: `docs/research/10-colour-surface-dump.md` (authoritative key list),

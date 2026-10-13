@@ -1,5 +1,10 @@
 # A3 Accessibility - colour-blind modes, implementation and test plan
 
+**Superseded.** The palette tables remain the source of the mode values, but the
+mechanism and the scope have moved on. See `docs/PLAN-dynamic.md` for the dynamic
+engine and `docs/PLAN-accessibility.md` for the full roadmap across every
+impairment. `docs/research/20-colour-coverage.md` records what is covered.
+
 Status: decision complete. The worker needs no further interview.
 Slice: selectable colour-vision-deficiency (CVD) palettes for map markers and the addon's own structured-text panel.
 Evidence base: `docs/research/01` to `docs/research/08`. Every value cites a rule. British English. ASD-STE100. ASCII only.
