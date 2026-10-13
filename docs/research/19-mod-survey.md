@@ -100,7 +100,7 @@ through its own UI functions. Source:
 
 ## 3. Precedent for the profile variable approach
 
-Yes. The technique has precedent in two independent places.
+Yes. The technique has precedent in three independent places.
 
 1. The engine itself ships it. Arma 3 config defines `Map_*` and `IGUI_*` as
    `profilenamespace getvariable` expressions, so a colour is read from the
@@ -112,11 +112,58 @@ Yes. The technique has precedent in two independent places.
    then saves. Source: `VindictiveA3/vdic` script above, line 173
    `saveProfileNamespace;`.
 
+3. The staple mods do both, and only for the engine's own variables. ACE3 and
+   CBA_A3 put `profileNamespace getVariable` expressions in their configs, and
+   every one of them reads an engine interface colour: ACE3
+   `addons/nametags/RscTitles.hpp` `colortext[]` reads `IGUI_TEXT_RGB_*`, ACE3
+   `addons/pylons/menu.hpp` reads `GUI_BCG_RGB_*`, and CBA
+   `addons/settings/gui.hpp` reads `GUI_BCG_RGB_*`. ACRE2 puts no colour
+   expression in a config at all: its authored hits are positions and sizes.
+
 What has no precedent found. No mod was found that writes the full `Map_*` and
 `IGUI_*` colour set for a colour-vision-deficiency palette, nor a mod that adds
 its own `A3ACC_Surf_*` style variables for surfaces the engine does not expose.
-The Maverick code writes only the `Map_Unknown_*` triple. This part is
-UNVERIFIED as prior art.
+The Maverick code writes only the `Map_Unknown_*` triple. The staples confirm
+that gap and explain its cost, below.
+
+## 3a. The staples treat such a value as read once
+
+ACE3's `hideDefaultActionIcon` is the closest thing to this addon's mechanism. A
+config reads it, and the setting that owns it is declared needs-restart:
+
+    // addons/ui/initSettings.inc.sqf
+    2, {
+        profileNamespace setVariable [QGVAR(hideDefaultActionIcon), [nil, 0] select _this];
+        saveProfileNamespace;
+    },
+    true // needs restart
+
+The callback writes `profileNamespace` and saves it, so the early read finds the
+value on the next load. ACE3 states the timing hazard in a comment elsewhere:
+"Need to load from profileNamespace because ace_settings might not be init if
+world = empty".
+
+For a change the player sees at once, the staples do not use a config value at
+all. They read the setting in a script and set the control:
+
+- ACRE2 `addons/sys_list/fnc_showHintBox.sqf` reads its `HintBackgroundColor`
+  setting and calls `ctrlSetBackgroundColor` and `ctrlSetTextColor` on the
+  notification display.
+- ACE3 `addons/vector/functions/fnc_adjustBrightness.sqf` recolours the vector
+  display, whose `onLoad` stored the display in `uiNamespace`.
+- ACE3 `addons/advanced_fatigue/initSettings.inc.sqf` reaches the stamina-bar
+  control from a setting callback through `uiNamespace` and `ctrlSetFade`.
+
+No file in ACE3, ACRE2 or CBA relies on a config expression to update a colour
+live. This addon's own `A3ACC_Surf_*` variables therefore have no precedent in
+the three staples. The engine variables it writes do, and that is the path that
+survives. For its own surfaces, the staples' answer is the runtime setter: read
+the setting in a script, then set the control when the display is built.
+
+None of the three ships a colour-vision-deficiency feature. The nearest is
+ACRE2's user-selectable interface palettes: a `"COLOR"` setting type in
+`addons/sys_list/initSettings.inc.sqf`, read at display time. CBA exposes the
+same `"COLOR"` setting type, whose callback receives the RGBA array.
 
 ## 4. Pitfalls recorded by other authors
 
