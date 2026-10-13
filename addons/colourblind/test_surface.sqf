@@ -25,8 +25,7 @@ private _engineVars = [
 ];
 
 // One converted surface variable per root, with the namespace it lives in.
-// MPTable reads missionNamespace, because the engine evaluates it at server
-// startup, before the profile namespace is writable.
+// MPTable reads missionNamespace. See CfgInGameUI.hpp for the open question.
 private _surfaceSample = [
     ["SideColors_colorFriendly", "BLUFOR", profileNamespace],
     ["MPTable_colorWest", "BLUFOR", missionNamespace],
@@ -71,6 +70,19 @@ private _fnc_readRGB = {
     } forEach _surfaceSample;
 } forEach [1, 2, 3, 4];
 
+// MPTable reads a mission variable. getArray returns the raw expression string,
+// so this asserts the array names this addon's own variable, which proves the
+// override is wired to the writer. Whether the engine evaluates it is a
+// client-only question, recorded in docs/research/20-colour-coverage.md.
+[1] call FUNC(applyVars);
+private _mpGot = getArray (configFile >> "CfgInGameUI" >> "MPTable" >> "colorWest");
+private _mpWired = ((_mpGot select 0) isEqualType "")
+    && { ((_mpGot select 0) find "A3ACC_Surf_MPTable_colorWest_R") >= 0 };
+if (!_mpWired) then {
+    _fail = _fail + 1;
+    diag_log text format ["[A3ACC] MPTable colorWest is not wired to the addon variable, got %1", str _mpGot];
+};
+
 // The record and restore round trip. A sentinel value must come back on Off.
 // The store must live in the profile namespace, or the next mission start
 // wipes it and Off restores this addon's own colour instead of the player's.
@@ -101,6 +113,19 @@ if !(isNil {profileNamespace getVariable "A3ACC_vanillaVars"}) then {
     _fail = _fail + 1;
     diag_log text "[A3ACC] applyVars did not clear the vanilla store on Off";
 };
+
+// A store written in an earlier session must still restore. The store lives in
+// the profile namespace, which survives a mission boundary, so an Off run must
+// use it rather than leave this addon's colour in place.
+profileNamespace setVariable ["A3ACC_vanillaVars", [["Map_BLUFOR_R", 0.321]]];
+profileNamespace setVariable ["Map_BLUFOR_R", 0.999];
+[0] call FUNC(applyVars);
+private _earlier = profileNamespace getVariable ["Map_BLUFOR_R", -1];
+if (_earlier != 0.321) then {
+    _fail = _fail + 1;
+    diag_log text format ["[A3ACC] applyVars did not restore a store from an earlier session, got %1", str _earlier];
+};
+profileNamespace setVariable ["A3ACC_vanillaVars", nil];
 
 (missionNamespace getVariable ["A3ACC_testResults", []]) pushBack (_fail == 0);
 if (_fail == 0) then { diag_log text "[A3ACC] surface tests passed"; };
