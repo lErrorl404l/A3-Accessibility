@@ -9,9 +9,11 @@ apply a screen filter, so the rest of the picture stays as it is.
 ## Features
 
 - Five modes: Off, Protan, Deutan, Tritan and Achromatopsia.
-- Remaps the map marker colours, the HUD and 3D icon side colours, the
-  scoreboard, the squad radar, the map and group-icon catalogues and the
-  notification colours.
+- Remaps the colours that carry side and status meaning: the map markers and the
+  map, the HUD and 3D icon side colours, the scoreboard, the vehicle optic
+  indicators, the task and score notifications, the interface error and warning
+  text, the tactical ping, the sensor panel, the server browser, the compass and
+  the Zeus editor.
 - Reduces camera shake, for motion sensitivity.
 - Shows a directional cue for nearby gunfire, for deaf and hard-of-hearing
   players.

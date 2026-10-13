@@ -38,6 +38,9 @@ jobs:
       - name: No-filter test
         run: python3 tests/verify_no_filter.py
 
+      - name: Dynamic surface test
+        run: python3 tests/verify_surface.py
+
       - name: Build
         run: hemtt build
 

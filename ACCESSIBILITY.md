@@ -17,11 +17,12 @@ interface variables, and its own surface variables, and records the player's
 own values so that Off restores them. It does not add a screen filter and it
 does not add a post-process effect.
 
-The surfaces that follow a mode: the map markers, the map, the group icons, the
-HUD and 3D icon side colours, the scoreboard side colours, the vehicle optic
-indicators and heading, the Eden editor draw colours, the Zeus and
-high-command cursors, the task and score notifications, the interface error and
-warning text, and the tactical ping.
+The surfaces that follow a mode: the map markers and the map, the group icons,
+the HUD and 3D icon side colours, the scoreboard, the vehicle optic indicators
+and heading, the Eden editor draw colours and waypoint cursors, the Zeus editor
+draw colours and cursors, the task and score notifications, the interface error
+and warning text, the tactical ping, the sensor panel, the server browser, the
+compass, the ORBAT and the chat channel.
 
 The modes are Off, Protan, Deutan, Tritan and Achromatopsia.
 
@@ -94,6 +95,12 @@ The pairs that must be told apart, and the ratio each reaches, are in
   colour can only be checked by eye at a client.
 - The addon does not change map terrain colours such as sea, forest and contour
   lines. Those are art, not side identity.
+- There is no global text-size lever. The game sizes text per control, from the
+  control size and a size-indexed font family, so the addon can only size its
+  own interface.
+- Friendly and enemy name tags are a difficulty option. A mod can ship a
+  difficulty preset, but it cannot raise the tags at runtime, and it cannot
+  force the player to select a preset.
 
 ## Report a problem
 
