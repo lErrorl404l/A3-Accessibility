@@ -35,6 +35,15 @@ claim is therefore a documented and client-checked claim, not a machine-checked
 one. This gate does not prove the boundary, and a reader who wants the boundary
 proved is looking at the wrong tier.
 
+RANGE PROVENANCE. The numeric bounds this transform tier applies to the addon's
+colour arrays are SELF-IMPOSED, and they are stricter than shipped content. The
+shipped RealIsBrown template carries a blend alpha of -0.5. The shipped EastWind
+template carries a colorize alpha of 1.21. Both are outside the documented
+nominal 0-to-1 channel range. The tier's 0-to-1 array-channel assertions, in
+`tests/verify_frame.py`, and this gate's ten-element matrix rule are therefore
+house rules for this addon's values. They are not a claim about the engine. The
+bounds stay in force.
+
 Exit code 0 means the four properties hold. It needs no game.
 """
 
@@ -70,6 +79,9 @@ CHECK_A_TOKENS = [
     "wetDistortion",
     "dynamicBlur",
     "radialBlur",
+    "ColorInversion",
+    "SSAO",
+    "Resolution",
 ]
 
 # Check B applies to the colour component only. That component remaps colours,

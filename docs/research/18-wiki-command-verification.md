@@ -100,3 +100,101 @@ The code was read before it was judged. Files read:
 
 No rendered result is claimed here. Only a human at a client can see the
 screen.
+
+## Post-process effect names and ranges
+
+Four answers, each cited. The BIKI page "Post Process Effects" is the source for
+the family list and the parameter table. Its snapshot is
+https://web.archive.org/web/20250117220255id_/https://community.bistudio.com/wiki/Post_Process_Effects
+(17 January 2025).
+
+### The name form
+
+`ppEffectAdjust`, `ppEffectEnable`, `ppEffectCommit` and `ppEffectEnabled` each
+accept a bare effect name as well as a handle. `ppEffectDestroy` has NO name
+form. Nothing can destroy another party's effect by name.
+
+| Command | What the wiki gives | Snapshot |
+|---|---|---|
+| `ppEffectAdjust` | `effect` is String or Number. A String is the effect name. | https://web.archive.org/web/20250121160207id_/https://community.bistudio.com/wiki/ppEffectAdjust |
+| `ppEffectEnable` | Syntax 1 takes a String, the name of the effect. Syntax 2 takes a Number handle. | https://web.archive.org/web/20250121124253id_/https://community.bistudio.com/wiki/ppEffectEnable |
+| `ppEffectCommit` | Syntax 1 takes a String, the name of the effect. Syntax 2 takes a Number handle. | https://web.archive.org/web/20241008152220id_/https://community.bistudio.com/wiki/ppEffectCommit |
+| `ppEffectEnabled` | The alternative syntax since 2.04 takes a String, the effect name. | https://web.archive.org/web/20250211105737id_/https://community.bistudio.com/wiki/ppEffectEnabled |
+| `ppEffectDestroy` | `effect` is a Number handle, or an array of Numbers. No name form. | https://web.archive.org/web/20250317130657id_/https://community.bistudio.com/wiki/ppEffectDestroy |
+
+### A bare name and a handle
+
+Whether a bare name reaches the same instance as one that `ppEffectCreate`
+created and the caller holds as a handle is UNDOCUMENTED. Two facts make the
+ambiguity real.
+
+1. The engine holds many `ColorCorrections` instances at once at different
+   priorities. The "Post Process Effects" page gives `ColorCorrections` a base
+   priority of 1500. `tests/gen_pp_priorities.py` reads a CBA_A3 optics priority
+   of 950 from `cba_optics.pbo`, a second instance below the base.
+2. The engine's own template applier uses the name form and creates no handle.
+   See `Addons__functions_f/a3/functions_f/Environment/fn_setPPeffectTemplate.sqf:40-50`.
+   It loops over the names `["colorCorrections","filmGrain"]` and calls
+   `_x ppeffectadjust _data`, `_x ppeffectcommit _commit` and
+   `_x ppeffectenable true`. It calls no `ppEffectCreate`.
+
+### The parameter ranges are nominal
+
+The wiki gives a range for each `ColorCorrections` parameter. The range is
+nominal. Shipped content exceeds it.
+
+| Parameter | Documented range | Default |
+|---|---|---|
+| brightness | 0..2 | 1 |
+| contrast | 0.. (open) | 1 |
+| offset | 0.. (open) | 0 |
+| blend `[r, g, b, a]` | 0..1 | `[0, 0, 0, 0]` |
+| colorize `[r, g, b, a]` | 0..1 | `[1, 1, 1, 1]` |
+| desaturation weights `[r, g, b, 0]` | 0..1 | `[0.299, 0.587, 0.114, 0]` |
+
+Source: the "Post Process Effects" snapshot above.
+
+Two shipped counter-examples sit outside the nominal 0..1 channel range. The
+`CfgPostProcessTemplates` block spans
+`Curator__Addons__ui_f_curator/a3/ui_f_curator/config.cpp:865-895`.
+
+- `Curator__Addons__ui_f_curator/a3/ui_f_curator/config.cpp:881`: the
+  `RealIsBrown` template holds
+  `colorCorrections[] = {1,1,0,{0.1,0.2,0.3,-0.5},{1,1,1,0.4},{0.5,0.2,0.0,1.0}};`.
+  The blend alpha is -0.5.
+- `Curator__Addons__ui_f_curator/a3/ui_f_curator/config.cpp:876`: the `EastWind`
+  template holds
+  `colorCorrections[] = {1,1.08,-0.06,{0.5,0.5,0.5,0},{1.0,1.0,1.0,1.21},{0.09,0.09,0.09,0.0}};`.
+  The colorize alpha is 1.21.
+
+### The nine families and the corpus sweep
+
+The wiki documents nine effect families for `ppEffectCreate`:
+
+RadialBlur, ChromAberration, WetDistortion, ColorCorrections, DynamicBlur,
+FilmGrain, ColorInversion, SSAO and Resolution.
+
+Source: the "Post Process Effects" snapshot above. `tests/verify_postprocess.py`
+owns the ban. Its token list holds the eight families other than
+`ColorCorrections`, plus the capital-C class name `ColorCorrections` as a guard.
+
+A sweep of the extracted corpus at `/ext/Development/.opencode/a3code/` found no
+hue-selective, lookup-table, matrix, grading, white-balance or hue-shift lever
+that a config or a script can reach. The corpus holds 508 extracted trees. The
+file counts are 6699 `.sqf`, 1438 `.cpp`, 1120 `.sqfc`, 618 `.fsm`, 499 `.txt`,
+385 `.ext`, 280 `.inc` and 274 `.hpp`.
+
+- `colorgrading`, `color_grading`, `hueshift`, `whitebalance`, `ColorMatrix` and
+  `\bLUT\b`: no file.
+- `\bHue\b`: no file. The four case-insensitive `hue` hits are surnames in a
+  credit list.
+- `\bMatrix\b`: three files. Each is a geometry or a transform matrix
+  (`fn_convertUnits.sqf`, `fn_spawnObjects.sqf`, `fn_objectsMapper.sqf`), not a
+  colour matrix.
+- `LookUpTable`: one file, `fn_arsenal.sqf`, an item lookup, not a colour lookup.
+- `CfgPostProcessTemplates`: the only post-process config root. It appears 18
+  times.
+
+LIMITATION. The corpus holds no engine binaries and no shader files. A hardcoded
+engine shader therefore cannot be excluded by this evidence. Every lever a config
+or a script can reach is covered.
