@@ -8,6 +8,8 @@
 //
 //   1. the double-transform question: does the frame transform move a 2D control
 //      at all, and does it move a colour the rule has already set;
+//   1b. the name-form question: does a bare effect name reach this probe's own
+//       ColorCorrections instance, or a different one;
 //   2. the four settings the server tier cannot observe, each as an effect;
 //   3. the Zeus reachability check and the marker check, with a mode active;
 //   4. the drawn-line check;
@@ -140,6 +142,48 @@
     } forEach _specs;
     diag_log text format ["%1 the frame is off and the controls are back at their base colours", _tag];
     systemChat format ["%1 the frame is off and the controls are back at their base colours", _tag];
+
+    // 1b. The name-form question. ppEffectAdjust, ppEffectEnable, ppEffectCommit
+    //     and ppEffectEnabled each accept a handle or a bare effect name. Whether
+    //     a bare name reaches THIS instance or a different ColorCorrections
+    //     instance is undocumented. The engine holds many instances at once, so
+    //     another mod or the engine's own template applier could adjust or
+    //     disable ours by name with no priority collision. ppEffectEnabled reads
+    //     a Bool for either form, so the answer is machine evidence. This handle
+    //     sits at priority 1700, clear of the addon's 1991 and of the frame
+    //     probe's 1500, and absent from tests/fixtures/pp_priorities.json. The
+    //     addon's own effect is off here, so this is the only one it holds.
+    private _nameHandle = ppEffectCreate ["colorCorrections", 1700];
+    if (_nameHandle < 0) then {
+        diag_log text format ["%1 NAME-FORM: the probe effect create returned %2, so the priority 1700 is taken and this check is skipped", _tag, _nameHandle];
+        systemChat format ["%1 NAME-FORM skipped: the priority 1700 is taken.", _tag];
+    } else {
+        _nameHandle ppEffectEnable true;
+        sleep 0.5;
+        private _byName = ppEffectEnabled "colorCorrections";
+        private _byHandle = ppEffectEnabled _nameHandle;
+        diag_log text format ["%1 NAME-FORM: enabled the probe handle %2 at priority 1700. ppEffectEnabled by name=%3, by handle=%4", _tag, _nameHandle, _byName, _byHandle];
+        systemChat format ["%1 NAME-FORM: ppEffectEnabled by name=%2, by handle=%3.", _tag, _byName, _byHandle];
+        "colorCorrections" ppEffectEnable false;
+        sleep 0.5;
+        private _afterName = ppEffectEnabled _nameHandle;
+        diag_log text format ["%1 NAME-FORM: after the bare name is set to false, the probe handle reads %2", _tag, _afterName];
+        ppEffectDestroy _nameHandle;
+        private _afterDestroy = ppEffectEnabled "colorCorrections";
+        diag_log text format ["%1 NAME-FORM: destroyed the probe handle. ppEffectEnabled by name now reads %2", _tag, _afterDestroy];
+        private _answer = if (!_byName) then {
+            "a bare name did not reach an enabled instance, so a name-form call cannot adjust or disable this effect"
+        } else {
+            if (!_afterName) then {
+                "a bare name reached this probe's own instance, so a name-form call can adjust or disable this effect"
+            } else {
+                "a bare name reached a different instance, so this probe's own instance stayed enabled"
+            }
+        };
+        diag_log text format ["%1 NAME-FORM CONCLUSION: %2", _tag, _answer];
+        systemChat format ["%1 NAME-FORM CONCLUSION: %2", _tag, _answer];
+        ["1b", "name form: does a bare effect name reach our instance?", 10] call _fn_wait;
+    };
 
     if (isNil "CBA_settings_fnc_set") exitWith {
         diag_log text format ["%1 CBA settings are not available, the remaining checks are skipped", _tag];
