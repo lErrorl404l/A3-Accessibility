@@ -124,3 +124,125 @@ workshop id `450814997`, from `.hemtt/project.toml`.
 - That the keybinds work: CBA keybinds are client-only and never register on a
   dedicated server, so no automated gate covers them.
 - The rendered result of every palette change.
+
+## Frame transform client gate (todo 16)
+
+The frame transform and the double-transformation question. This section is a
+record to fill from one client session. Run it after the automated gates pass,
+because a client is the only tier with a renderer.
+
+Two kinds of line appear below:
+
+- **machine** is a line the probe or a gate wrote. Copy it from the RPT.
+- **observed** is the operator's eye. No command reads the screen.
+
+### How to run
+
+1. Start a client with the addon loaded and the colour blind mode at Off.
+2. Paste `tests/probes/probe_frame_params.sqf` into the debug console. Wait for
+   the `[A3ACC-PROBE] done` line. Record the four answers in
+   `docs/research/23-frame-transform.md`.
+3. Paste `tests/probes/probe_double_transform.sqf`. Follow each `LOOK` line.
+4. Fill every table below.
+5. Run `python3 tests/check_client_rpt.py <client rpt>`. It must exit 0.
+6. Leave the mode at a value other than Off, quit, restart, and read the
+   `preStart` line. Then set the mode back to Off.
+
+### 1. The double-transformation result
+
+The probe draws five controls and shows four states. `A` is rule off and frame
+off, `B` is rule off and frame on, `C` is rule on and frame off, and `D` is rule
+on and frame on. The rule-on colour is the addon's own mapper output. Read the
+on-screen colour of each control with a screen colour picker, and write it as
+`R,G,B`. The six readings per control are `A`, `B`, `C`, `D` and the two pair
+differences.
+
+| Control | Configured base (machine) | Configured rule (machine) | A | B | C | D | A to B | C to D |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| OPFOR | `1,0,0` | `1,0.7,0` | | | | | | |
+| BLUFOR | `0,1,1` | `0,0.35,0.85` | | | | | | |
+| white | `1,1,1` | `1,1,1` | | | | | | |
+| black | `0,0,0` | `0,0,0` | | | | | | |
+| no-role | `0,1,0` | `0,1,0` | | | | | | |
+
+Outcome, name one:
+
+- **OUTCOME A, the transform moves a control the rule set.** The `C` to `D`
+  difference for OPFOR and BLUFOR is inside the classifier's tolerance. The
+  record names the order that holds it.
+- **OUTCOME B, the transform does not move a UI control at all.** `A` equals
+  `B` and `C` equals `D` for every control. The two mechanisms are independent.
+  This falsifies the reach claim in the success criteria, and it is reported.
+- **OUTCOME C, the transform moves the role colours past the tolerance.** The
+  `C` to `D` difference for OPFOR or BLUFOR is outside the tolerance. The order
+  must change, and the record names the chosen order.
+
+Outcome: ______  Difference measured: ______  Order chosen: ______
+
+The classifier's families and bands are in
+`addons/colourblind/functions/fnc_classifyColour.sqf`. A moved colour that stays
+in its own family and band is inside the tolerance.
+
+### 2. The frame lines (machine)
+
+From the mode change in the probe and from the settings menu:
+
+- `[A3ACC] frame handle=1991` present: ______
+- `[A3ACC] frame off destroyed` present: ______
+
+### 3. The four settings the server tier cannot observe
+
+Each row is an effect, not a variable. The machine line is what the probe
+logged. The observation is what you saw. The objective panel needs a current
+task, so give the mission one before the run.
+
+| Setting | Machine evidence | Observed |
+| --- | --- | --- |
+| `A3ACC_ObjectiveHud` | on: `playerEH=true pfh=true panel=true`; off: all false | the panel text on screen |
+| `A3ACC_SoundCues` | on: `firedNear=true pfh=true`; off: both false | the cue icon and its distance label |
+| `A3ACC_ForceWalk` | none: no getter reads the walk flag | walk only, sprint refused; sprint returns |
+| `A3ACC_ReduceMotion` | none: no getter reads cam-shake state | no shake with it on; shake with it off |
+
+Filled:
+
+- ObjectiveHud machine: ______  observed: ______
+- SoundCues machine: ______  observed: ______
+- ForceWalk observed: ______
+- ReduceMotion observed: ______
+
+### 4. The Zeus reachability result
+
+With a mode active, open Zeus. The `RscDisplayCurator` `SideOPFOR` and
+`SideIndependent` rows must render the mode colours. This is the proof that the
+two retirements are safe.
+
+- machine: `ColorEAST=______` `ColorGUER=______`
+- observed: ______
+
+### 5. The marker and group-icon result
+
+With a mode active, confirm the flag marker, the group icons, the ORBAT default
+and the Minefield marker follow the mode. This is the proof that the KEEP
+decision was right.
+
+- observed: ______
+
+### 6. The drawn-line result
+
+Draw a freehand line with the mode active. Draw a second line after Off. The
+first must keep the colour it was drawn with.
+
+- machine: `ColorEAST` with the mode active `______`, after Off `______`
+- observed line 1 colour: ______
+- observed line 2 colour: ______
+
+### 7. The restart line
+
+Leave the mode at a value other than Off, quit, restart.
+
+- machine: `[A3ACC] preStart: setting=nil saved=______`
+
+### 8. The log reader
+
+- `python3 tests/check_client_rpt.py <client rpt>` exit: ______
+- RPT path: ______
