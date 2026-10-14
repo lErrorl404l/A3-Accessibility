@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "description": "Effect priorities in use across the cited trees. Each value lists every file and line it was found on, so a reader can re-derive the set. Built by tests/gen_pp_priorities.py and committed, because /tmp is not durable. tests/verify_priority.py is the consumer.",
+  "trees": [
+    {
+      "label": "uiftest",
+      "root": "/tmp/opencode/uiftest",
+      "contents": "Arma 3 ui_f display scripts",
+      "files_scanned": 221,
+      "priorities_contributed": 6
+    },
+    {
+      "label": "ft_full",
+      "root": "/tmp/opencode/ft_full",
+      "contents": "Arma 3 functions_f scripts",
+      "files_scanned": 1193,
+      "priorities_contributed": 29
+    },
+    {
+      "label": "ace3",
+      "root": "/tmp/opencode/repos/ace3",
+      "contents": "ACE3 addon sources",
+      "files_scanned": 4715,
+      "priorities_contributed": 22
+    },
+    {
+      "label": "acre2",
+      "root": "/tmp/opencode/repos/acre2",
+      "contents": "ACRE2 addon sources",
+      "files_scanned": 1620,
+      "priorities_contributed": 0
+    },
+    {
+      "label": "cba_a3",
+      "root": "/ext/Development/AEE/tests/docker/mods/@cba_a3",
+      "contents": "CBA_A3 addon sources, shipped as PBOs",
+      "files_scanned": 41,
+      "priorities_contributed": 1
+    }
+  ],
+  "priorities": {
+    "102": [
+      "ace3/addons/common/functions/fnc_blurScreen.sqf:36"
+    ],
+    "144": [
+      "ace3/addons/zeus/functions/fnc_bi_moduleRemoteControl.sqf:67"
+    ],
+    "160": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:65"
+    ],
+    "166": [
+      "ft_full/a3/functions_f/Misc/fn_healthEffects.sqf:25"
+    ],
+    "167": [
+      "uiftest/a3/ui_f/scripts/GUI/RscDisplayDebriefing.sqf:661"
+    ],
+    "170": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:90"
+    ],
+    "175": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:167"
+    ],
+    "180": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:110"
+    ],
+    "190": [
+      "ace3/addons/nightvision/functions/fnc_pfeh.sqf:153",
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:116"
+    ],
+    "200": [
+      "ace3/addons/nightvision/functions/fnc_pfeh.sqf:125"
+    ],
+    "212": [
+      "ft_full/a3/functions_f/GUI/fn_guiEffectTiles.sqf:27"
+    ],
+    "260": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:64"
+    ],
+    "270": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:89"
+    ],
+    "275": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:166"
+    ],
+    "280": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:109"
+    ],
+    "290": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:115"
+    ],
+    "400": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:101"
+    ],
+    "451": [
+      "ace3/addons/nightvision/functions/fnc_pfeh.sqf:136"
+    ],
+    "464": [
+      "ft_full/a3/functions_f/Misc/fn_halo.sqf:229",
+      "ft_full/a3/functions_f/Misc/fn_halo.sqf:79"
+    ],
+    "475": [
+      "uiftest/a3/ui_f/scripts/GUI/RscDisplayRespawn.sqf:104"
+    ],
+    "813": [
+      "ace3/addons/medical_feedback/functions/fnc_initEffects.sqf:66"
+    ],
+    "814": [
+      "ace3/addons/medical_feedback/functions/fnc_initEffects.sqf:104"
+    ],
+    "815": [
+      "ace3/addons/medical_feedback/functions/fnc_initEffects.sqf:123"
+    ],
+    "950": [
+      "ace3/addons/spottingscope/CfgOpticsEffect.hpp:5",
+      "ace3/addons/vector/CfgOpticsEffect.hpp:5",
+      "cba_a3/addons/cba_optics.pbo:145",
+      "cba_a3/addons/cba_optics.pbo:150",
+      "cba_a3/addons/cba_optics.pbo:155"
+    ],
+    "1236": [
+      "ace3/addons/nightvision/XEH_postInit.sqf:55"
+    ],
+    "1600": [
+      "ft_full/a3/functions_f/Debug/fn_cameraOld.sqf:13",
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:56"
+    ],
+    "1603": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:108"
+    ],
+    "1605": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:61",
+      "ft_full/a3/functions_f/Misc/fn_healthEffects.sqf:14"
+    ],
+    "1606": [
+      "ft_full/a3/functions_f/Misc/fn_healthEffects.sqf:17"
+    ],
+    "1607": [
+      "ft_full/a3/functions_f/Misc/fn_healthEffects.sqf:21"
+    ],
+    "1610": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:80",
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:81"
+    ],
+    "1615": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:165"
+    ],
+    "1616": [
+      "uiftest/a3/ui_f/scripts/GUI/RscDisplayDebriefing.sqf:645"
+    ],
+    "1620": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:100"
+    ],
+    "1640": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:114"
+    ],
+    "1645": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:121"
+    ],
+    "1650": [
+      "ft_full/a3/functions_f/Feedback/fn_feedbackInit.sqf:124",
+      "ft_full/a3/functions_f/Feedback/fn_radialRed.sqf:175"
+    ],
+    "1776": [
+      "ft_full/a3/functions_f/Debug/fn_camera.sqf:1069",
+      "ft_full/a3/functions_f/Debug/fn_camera.sqf:180"
+    ],
+    "1896": [
+      "ace3/addons/zeus/functions/fnc_bi_moduleRemoteControl.sqf:100"
+    ],
+    "1992": [
+      "ace3/addons/goggles/XEH_postInit.sqf:96"
+    ],
+    "1995": [
+      "ace3/addons/goggles/XEH_postInit.sqf:33"
+    ],
+    "1999": [
+      "ft_full/a3/functions_f/GUI/fn_establishingShot.sqf:74",
+      "ft_full/a3/functions_f/Respawn/fn_respawnNone.sqf:151",
+      "uiftest/a3/ui_f/scripts/GUI/RscDisplayRespawn.sqf:90"
+    ],
+    "2001": [
+      "ft_full/a3/functions_f/GUI/fn_enableSystem.sqf:23"
+    ],
+    "2003": [
+      "ace3/addons/nightvision/functions/fnc_pfeh.sqf:145"
+    ],
+    "2005": [
+      "uiftest/a3/ui_f/scripts/GUI/RscDisplayDebriefing.sqf:653"
+    ],
+    "2012": [
+      "ft_full/a3/functions_f/GUI/fn_establishingShot.sqf:80",
+      "ft_full/a3/functions_f/Respawn/fn_respawnNone.sqf:156",
+      "uiftest/a3/ui_f/scripts/GUI/RscDisplayRespawn.sqf:97"
+    ],
+    "4215": [
+      "ace3/addons/gforces/functions/fnc_addPFEH.sqf:27"
+    ],
+    "4220": [
+      "ace3/addons/advanced_fatigue/XEH_postInit.sqf:40"
+    ],
+    "4265": [
+      "ace3/addons/grenades/XEH_postInit.sqf:16"
+    ],
+    "13500": [
+      "ace3/addons/medical_feedback/functions/fnc_initEffects.sqf:110"
+    ],
+    "13502": [
+      "ace3/addons/medical_feedback/functions/fnc_initEffects.sqf:42",
+      "ace3/addons/medical_feedback/functions/fnc_initEffects.sqf:49",
+      "ace3/addons/medical_feedback/functions/fnc_initEffects.sqf:56"
+    ],
+    "13503": [
+      "ace3/addons/medical_feedback/functions/fnc_initEffects.sqf:76"
+    ],
+    "13504": [
+      "ace3/addons/medical_feedback/functions/fnc_initEffects.sqf:117"
+    ],
+    "135522": [
+      "ace3/addons/huntir/functions/fnc_cam.sqf:52"
+    ]
+  }
+}

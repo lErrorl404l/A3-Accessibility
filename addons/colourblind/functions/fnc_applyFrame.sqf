@@ -1,5 +1,8 @@
 #include "script_component.hpp"
 
+// The gate tests/verify_priority.py reads this constant.
+#define A3ACC_PP_PRIORITY 1991
+
 /*
  * Author: lErrorl404l
  * Apply one colour-vision-deficiency mode to the whole rendered frame with a
@@ -11,9 +14,10 @@
  * without an interface. The create and the destroy are therefore never asserted
  * from the server suite, only from a client record.
  *
- * The effect is created once, at the pinned priority 1991, and its handle lives
- * in the mission namespace. The handle never goes to the profile namespace,
- * because a profile expression can terminate the client at startup.
+ * The effect is created once, at the pinned priority held in
+ * A3ACC_PP_PRIORITY, and its handle lives in the mission namespace. The handle
+ * never goes to the profile namespace, because a profile expression can
+ * terminate the client at startup.
  *
  * A priority collision makes ppEffectCreate return -1. On that value the
  * function records the failure once and returns without enabling the effect, so
@@ -42,7 +46,7 @@ private _handle = missionNamespace getVariable ["A3ACC_colourblind_ppHandle", ni
 // Create the effect once. A later call reuses the handle from the mission
 // namespace, so the effect is never created twice.
 if (isNil "_handle") then {
-    _handle = ppEffectCreate ["colorCorrections", 1991];
+    _handle = ppEffectCreate ["colorCorrections", A3ACC_PP_PRIORITY];
     missionNamespace setVariable ["A3ACC_colourblind_ppHandle", _handle];
 
     if (_handle < 0) then {
