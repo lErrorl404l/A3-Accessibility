@@ -15,7 +15,7 @@ else
 fi
 
 if command -v python3 >/dev/null 2>&1; then
-    for gate in verify_palette verify_postprocess verify_surface; do
+    for gate in verify_palette verify_postprocess verify_surface verify_objective_panel; do
         script="$ROOT/tests/$gate.py"
         if [ -f "$script" ]; then
             echo "-> python3 tests/$gate.py"

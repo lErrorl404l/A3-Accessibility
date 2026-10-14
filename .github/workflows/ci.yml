@@ -41,6 +41,9 @@ jobs:
       - name: Dynamic surface test
         run: python3 tests/verify_surface.py
 
+      - name: Objective panel shape test
+        run: python3 tests/verify_objective_panel.py
+
       - name: Build
         run: hemtt build
 
