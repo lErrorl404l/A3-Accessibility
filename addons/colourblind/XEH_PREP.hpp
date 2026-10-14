@@ -4,6 +4,7 @@ PREP(surfaceColourFor);
 PREP(classifyColour);
 PREP(colourForRole);
 PREP(applyVars);
+PREP(applyFrame);
 PREP(frameParams);
 PREP(applyMode);
 PREP(cycleMode);

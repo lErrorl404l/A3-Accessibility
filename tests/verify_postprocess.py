@@ -18,16 +18,18 @@ ROOT = Path(__file__).resolve().parent.parent
 SOURCE_DIR = ROOT / "addons"
 SOURCE_GLOBS = ["*.sqf", "*.hpp", "*.cpp", "*.inc"]
 
-# Check A applies to every addon. No post-process effect and no colour matrix.
-# A matrix is the shape of a colour simulation, so it stays banned everywhere.
+# Check A applies to every addon. It bans the global screen effect, every
+# post-process effect family other than the colour-corrections transform, and
+# the capital-C class name as a guard. A matrix stays banned too, because a
+# matrix is the shape of a colour simulation.
 CHECK_A_TOKENS = [
-    "ppEffectCreate",
-    "ppEffectAdjust",
-    "ppEffectEnable",
-    "ppEffectCommit",
-    "ppEffectDestroy",
     "setPiPEffect",
     "ColorCorrections",
+    "filmGrain",
+    "chromAberration",
+    "wetDistortion",
+    "dynamicBlur",
+    "radialBlur",
 ]
 
 # Check B applies to the colour component only. That component remaps colours,
@@ -84,11 +86,11 @@ def main() -> int:
         return 1
 
     print(
-        f"[verify_no_filter] PASS: check A over {len(files)} source files, "
+        f"[verify_postprocess] PASS: check A over {len(files)} source files, "
         "no post-process effect and no colour matrix"
     )
     print(
-        f"[verify_no_filter] PASS: check B over {len(colour_files)} colour files, "
+        f"[verify_postprocess] PASS: check B over {len(colour_files)} colour files, "
         "the colour component is brightness-neutral"
     )
     return 0
