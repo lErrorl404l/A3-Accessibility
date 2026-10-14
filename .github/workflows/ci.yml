@@ -44,6 +44,9 @@ jobs:
       - name: Objective panel shape test
         run: python3 tests/verify_objective_panel.py
 
+      - name: Sound cue shape test
+        run: python3 tests/verify_sound_cue.py
+
       - name: Build
         run: hemtt build
 
