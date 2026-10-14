@@ -30,6 +30,24 @@ The assertions:
    from the curated list below and named by one of the setting's own callback
    functions, or an unobservable reason. A row with neither fails, and a row
    that claims an observable effect the setting's own code never reads fails.
+6. NO GLOBAL SHADOWS A SETTING. No SQF global in any addon shares a name with a
+   registered setting, case insensitively. CBA stores a setting's value in the
+   missionNamespace under the setting name, and SQF global identifiers are not
+   case sensitive, so a global that differs from a setting only in case is the
+   SAME variable. The setting then holds whatever the addon writes, and the
+   addon reads a value the setting owns. The defect this closes: the hearing
+   addon kept its cue list in `A3ACC_soundCues`, one letter of case away from
+   the `A3ACC_SoundCues` setting, so the list held a Bool and the `select` in
+   `fnc_soundCue.sqf` failed on every shot.
+
+   The gate parses both sides from source. The setting names come from the
+   `CBA_fnc_addSetting` registrations. The globals come from a scan of every
+   `.sqf` file under `addons/`. The scan skips strings and comments, then takes
+   every identifier that does not begin with an underscore. SQF requires a local
+   variable to begin with an underscore, so a bare identifier is a global, and
+   the underscore prefix is what separates a global from a local. A name that
+   appears only inside a string, such as the setting name in a `getVariable`
+   call or a config class name, is not a global and is not reported.
 
 Exit code 0 means all assertions pass.
 """
@@ -281,6 +299,65 @@ def callback_reads(reg: Registration, token: str) -> bool:
     return False
 
 
+def globals_in_sqf(text: str) -> dict[str, list[int]]:
+    """Map every SQF global in one file to the lines it appears on.
+
+    The scan walks the text once. It skips a double-quoted string, a `//` line
+    comment and a `/* */` block comment, so a name that appears only in a string
+    or a comment is not reported. It then takes every identifier. SQF requires a
+    local variable to begin with an underscore, so an identifier without that
+    prefix is a global, and the prefix is the only thing that separates the two.
+    """
+    found: dict[str, list[int]] = {}
+    line = 1
+    index = 0
+    length = len(text)
+    while index < length:
+        char = text[index]
+        if char == "\n":
+            line += 1
+            index += 1
+        elif char == '"':
+            index += 1
+            while index < length and text[index] != '"':
+                if text[index] == "\\":
+                    index += 1
+                elif text[index] == "\n":
+                    line += 1
+                index += 1
+            index += 1
+        elif text.startswith("//", index):
+            while index < length and text[index] != "\n":
+                index += 1
+        elif text.startswith("/*", index):
+            index += 2
+            while index < length and not text.startswith("*/", index):
+                if text[index] == "\n":
+                    line += 1
+                index += 1
+            index += 2
+        elif char.isalpha() or char == "_":
+            start = index
+            while index < length and (text[index].isalnum() or text[index] == "_"):
+                index += 1
+            token = text[start:index]
+            if not token.startswith("_"):
+                found.setdefault(token, []).append(line)
+        else:
+            index += 1
+    return found
+
+
+def addon_globals() -> dict[str, list[str]]:
+    """Map every SQF global in the addons to the `path:line` places it appears."""
+    by_name: dict[str, list[str]] = {}
+    for path in sorted(ADDONS.rglob("*.sqf")):
+        relative = path.relative_to(ROOT)
+        for name, lines in globals_in_sqf(path.read_text(encoding="utf-8")).items():
+            by_name.setdefault(name, []).extend(f"{relative}:{line}" for line in lines)
+    return by_name
+
+
 def main() -> int:
     failures: list[str] = []
 
@@ -433,11 +510,36 @@ def main() -> int:
                 f"{where}: the unobservable reason is empty, so it says nothing"
             )
 
+    # Assertion 6: no addon global shadows a registered setting. Both sides are
+    # read from source: the settings from the registrations, the globals from a
+    # scan of every `.sqf` file. SQF is not case sensitive for global
+    # identifiers, so the compare folds case.
+    globals_by_name = addon_globals()
+    reg_by_lower = {name.lower(): name for name in reg_by_name}
+    collisions: list[str] = []
+    for name, places in sorted(globals_by_name.items()):
+        setting = reg_by_lower.get(name.lower())
+        if setting is None:
+            continue
+        for place in places:
+            collisions.append(
+                f"{place}: the global {name} shares a name with the registered "
+                f"setting {setting}, case insensitively, so the two are the same "
+                "SQF variable and one overwrites the other"
+            )
+    failures.extend(collisions)
+
     print(f"Registered settings: {len(registrations)}")
     print(f"Owning addons: {len(owning)}")
     print(f"No-setting addons: {len(no_setting)} ({', '.join(no_setting)})")
     print(f"Cycle-table rows: {len(rows)}")
     print(f"Bijection: {'ok' if bijection_ok else 'FAIL'}")
+    own_globals = sorted(g for g in globals_by_name if g.lower().startswith("a3acc_"))
+    print(
+        f"Addon globals: {len(globals_by_name)} distinct, {len(own_globals)} in the "
+        f"A3ACC_ namespace ({', '.join(own_globals)})"
+    )
+    print(f"Global/setting collisions: {len(collisions)}")
 
     print("\nAdmitted values per setting:")
     for reg in sorted(registrations, key=lambda r: r.name):
@@ -467,7 +569,8 @@ def main() -> int:
         f"every registration well-formed and PREP-backed, every default inside "
         f"its admitted values, no setting on a DLC-scoped addon, "
         f"{observable_rows} rows observable and {len(rows) - observable_rows} "
-        "rows carrying an unobservable reason"
+        "rows carrying an unobservable reason, and no addon global shares a name "
+        f"with a setting ({len(globals_by_name)} globals scanned)"
     )
     return 0
 

@@ -27,7 +27,7 @@ if (isNull player) exitWith {};
 
 if (_enabled) then {
     if (isNil "A3ACC_soundCuePlayerEH") then {
-        A3ACC_soundCues = [];
+        A3ACC_soundCueList = [];
         A3ACC_soundCuePlayerEH = ["unit", {
             params ["_newPlayer", "_oldPlayer"];
 
@@ -49,11 +49,11 @@ if (_enabled) then {
                     // Build the label here, once per cue. A sustained burst can push many
                     // cues in two seconds, and the frame handler must not format a string
                     // for each of them on every frame.
-                    A3ACC_soundCues pushBack [_firer, format ["GUNFIRE %1 m", round _distance], diag_tickTime + 2];
+                    A3ACC_soundCueList pushBack [_firer, format ["GUNFIRE %1 m", round _distance], diag_tickTime + 2];
                     // Keep the newest cues only. Several weapons at once must not grow
                     // the list without bound.
-                    if (count A3ACC_soundCues > 12) then {
-                        A3ACC_soundCues deleteAt 0;
+                    if (count A3ACC_soundCueList > 12) then {
+                        A3ACC_soundCueList deleteAt 0;
                     };
                 }]];
             };
@@ -62,7 +62,7 @@ if (_enabled) then {
             // follows the new unit across a respawn and needs no restart.
             if (isNil "A3ACC_soundCuePFH") then {
                 A3ACC_soundCuePFH = [{
-                    A3ACC_soundCues = A3ACC_soundCues select { (_x select 2) > diag_tickTime };
+                    A3ACC_soundCueList = A3ACC_soundCueList select { (_x select 2) > diag_tickTime };
                     {
                         _x params ["_firer", "_label"];
                         if (!isNull _firer) then {
@@ -83,7 +83,7 @@ if (_enabled) then {
                                 1, 0.03, "TahomaB"
                             ];
                         };
-                    } forEach A3ACC_soundCues;
+                    } forEach A3ACC_soundCueList;
                 }, 0, []] call CBA_fnc_addPerFrameHandler;
             };
         }, true] call CBA_fnc_addPlayerEventHandler;
@@ -101,6 +101,6 @@ if (_enabled) then {
     if (!isNil "A3ACC_soundCuePFH") then {
         [A3ACC_soundCuePFH] call CBA_fnc_removePerFrameHandler;
         A3ACC_soundCuePFH = nil;
-        A3ACC_soundCues = [];
+        A3ACC_soundCueList = [];
     };
 };
