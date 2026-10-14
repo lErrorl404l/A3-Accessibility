@@ -1,6 +1,7 @@
 PREP_RECOMPILE_START;
 PREP(paletteForMode);
 PREP(surfaceColourFor);
+PREP(classifyColour);
 PREP(applyVars);
 PREP(applyMode);
 PREP(cycleMode);

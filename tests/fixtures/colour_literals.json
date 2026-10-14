@@ -1,0 +1,135 @@
+{
+  "_purpose": "Hand-labelled ground truth for the pure colour classifier fnc_classifyColour.sqf. tests/verify_classifier.py parses the tolerances out of the SQF and asserts every entry below.",
+  "_extraction_root": "/ext/Development/.opencode/a3code",
+  "_labelling": "Every family label here is the shipped meaning of the property named in source_class, read from the extracted config. A label was never taken from the classifier output. A null family means the literal carries no meaning this addon owns, so the classifier must return an empty array. This file is authored and labelled by hand and no script writes it.",
+  "literals": [
+    {
+      "rgba": [0.706, 0.0745, 0.0196],
+      "family": "RED",
+      "note": "shipped OPFOR red",
+      "source_class": "CfgInGameUI/SideColors/colorEnemy",
+      "source_file": "Addons__ui_f/a3/ui_f/config.cpp",
+      "source_line": 96071
+    },
+    {
+      "rgba": [1, 0.15, 0.15],
+      "family": "RED",
+      "note": "derived optics red, a shade of the side red and not an exact literal match",
+      "source_class": "RscInGameUI/RscWeaponRangeZeroing/CA_Distance/colorText",
+      "source_file": "Addons__ui_f/a3/ui_f/config.cpp",
+      "source_line": 7075
+    },
+    {
+      "rgba": [0.7, 0.1, 0],
+      "family": "RED",
+      "note": "curator player red, the same side family as the OPFOR red",
+      "source_class": "CfgCurator/DrawPlayer/3D/color",
+      "source_file": "Curator__Addons__ui_f_curator/a3/ui_f_curator/config.cpp",
+      "source_line": 249
+    },
+    {
+      "rgba": [1, 0, 0],
+      "family": "RED",
+      "note": "pure red, the shipped flag marker colour",
+      "source_class": "CfgMarkers/Flag/color",
+      "source_file": "Addons__ui_f/a3/ui_f/config.cpp",
+      "source_line": 97221
+    },
+    {
+      "rgba": [0.863, 0.584, 0],
+      "family": "AMBER",
+      "note": "shipped amber, the unknown side colour",
+      "source_class": "CfgInGameUI/SideColors/colorUnknown",
+      "source_file": "Addons__ui_f/a3/ui_f/config.cpp",
+      "source_line": 96074
+    },
+    {
+      "rgba": [0.709, 0.972, 0.384],
+      "family": "GREEN",
+      "note": "shipped friendly green",
+      "source_class": "CfgInGameUI/SideColors/colorFriendly",
+      "source_file": "Addons__ui_f/a3/ui_f/config.cpp",
+      "source_line": 96070
+    },
+    {
+      "rgba": [0, 0.5, 0],
+      "family": "GREEN",
+      "note": "Independent green. It is the same family as the friendly green and not the same role. The fence decides the role.",
+      "source_class": "RscDisplayCurator/Controls/Add/controls/SideIndependent/colorText",
+      "source_file": "Curator__Addons__ui_f_curator/a3/ui_f_curator/config.cpp",
+      "source_line": 6195
+    },
+    {
+      "rgba": [0, 1, 0],
+      "family": "GREEN",
+      "note": "pure green, the friendly colour on the sensor panel",
+      "source_class": "RscCustomInfoSensors/targets/colorFriendly",
+      "source_file": "Addons__ui_f/a3/ui_f/config.cpp",
+      "source_line": 55178
+    },
+    {
+      "rgba": [0.606, 0.606, 0.606],
+      "family": "GREY",
+      "note": "the neutral grey",
+      "source_class": "CfgInGameUI/SideColors/colorNeutral",
+      "source_file": "Addons__ui_f/a3/ui_f/config.cpp",
+      "source_line": 96072
+    },
+    {
+      "rgba": [0.606, 0.606, 0.606],
+      "family": "GREY",
+      "note": "the civilian grey. It is the same value as the neutral grey, so no window can separate the two roles.",
+      "source_class": "CfgInGameUI/SideColors/colorCivilian",
+      "source_file": "Addons__ui_f/a3/ui_f/config.cpp",
+      "source_line": 96073
+    },
+    {
+      "rgba": [0, 0, 1],
+      "family": null,
+      "note": "marker blue, a mission author choice and no side family this addon owns",
+      "source_class": "CfgMarkerColors/ColorBlue/color",
+      "source_file": "Addons__ui_f/a3/ui_f/config.cpp",
+      "source_line": 98585
+    },
+    {
+      "rgba": [0.85, 0.85, 0],
+      "family": null,
+      "note": "marker yellow, hue 60, between no two windows",
+      "source_class": "CfgMarkerColors/ColorYellow/color",
+      "source_file": "Addons__ui_f/a3/ui_f/config.cpp",
+      "source_line": 98568
+    },
+    {
+      "rgba": [0.85, 0.4, 0],
+      "family": null,
+      "note": "marker orange, hue 28.2, above the RED ceiling and below the AMBER floor",
+      "source_class": "CfgMarkerColors/ColorOrange/color",
+      "source_file": "Addons__ui_f/a3/ui_f/config.cpp",
+      "source_line": 98563
+    },
+    {
+      "rgba": [1, 0.3, 0.4],
+      "family": null,
+      "note": "marker pink, hue 351.4, around the far side of the red sector",
+      "source_class": "CfgMarkerColors/ColorPink/color",
+      "source_file": "Addons__ui_f/a3/ui_f/config.cpp",
+      "source_line": 98591
+    },
+    {
+      "rgba": [0, 1, 1],
+      "family": null,
+      "note": "curator grouping cyan, hue 180",
+      "source_class": "CfgCurator/DrawObject/3D/colorLineGroupingUnits",
+      "source_file": "Curator__Addons__ui_f_curator/a3/ui_f_curator/config.cpp",
+      "source_line": 128
+    },
+    {
+      "rgba": [0, 0, 0],
+      "family": null,
+      "note": "black, value below every value floor",
+      "source_class": "CfgMarkerColors/Default/color",
+      "source_file": "Addons__ui_f/a3/ui_f/config.cpp",
+      "source_line": 98535
+    }
+  ]
+}
