@@ -31,12 +31,14 @@ addon converts. `tests/verify_shipped.py` checks the addon against them.
 | `13-hearing-probe.md` | The four hearing probes and what each returned |
 | `18-wiki-command-verification.md` | 37 commands checked against the wiki. The wiki does not answer when a config expression is evaluated |
 | `19-mod-survey.md` | 19 accessibility and colour mods, the technique each uses, and the pitfalls they reported |
+| `23-frame-transform.md` | The two mechanisms, why the walk does not hook each interface element, and the client run that settled what the transform reaches |
 
 ## Domain background
 
 | File | What it covers |
 |---|---|
 | `01-cvd-types.md` | The four deficiency types, and why a filter is forbidden |
+| `24-colour-blindness-in-games.md` | The accepted practice, how other games implement it, and the interface boundary a scene post-process leaves uncovered |
 | `02-cba-and-tooling.md` | The CBA facilities the addon uses |
 | `03-testing.md` | The three test tiers and what each can prove |
 | `04-accessibility-features.md` | The feature catalogue and what is feasible in Arma 3 |
