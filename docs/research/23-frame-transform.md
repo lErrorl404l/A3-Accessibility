@@ -133,3 +133,131 @@ a unique class.
 The mechanism stays documented here, so a later change that finds a qualifying
 class adds one script file, one `scriptName` and `scriptPath` pair, and one
 fence entry.
+
+## The per-mode frame parameters
+
+Method: read the wiki page `ppEffectAdjust` and the wiki page `Post Process
+Effects` through the Wayback Machine, then read every shipped template and every
+shipped call that sets a `colorCorrections` array. The engine's own values are
+the authority, because the wiki contradicts itself.
+
+### What the documentation says, and where it contradicts itself
+
+The `Post Process Effects` page gives the parameter table. Six values, in order:
+brightness, contrast, offset, the blend array, the colorize array and the
+luminance weights. The page states each one:
+
+| Parameter | Documented sentence |
+|---|---|
+| brightness | "image brightness (0 - black, 1 - unchanged, 2 - white)" |
+| contrast | "image contrast (1 - normal contrast)" |
+| offset | "image contrast offset (0 - unchanged)" |
+| blend | "color for blending (r, g, b - color, a - blend factor (0 - original color, 1 - blend color))" |
+| colorize | "color for colorization (r, g, b - color, a - saturation (0 - original color, 1 - B&W multiplied by colorize color))" |
+| weights | "color rgb weights for desaturation", default `[0.299, 0.587, 0.114, 0]` |
+
+The colorize sentence is the one that matters, and the page contradicts itself
+about it. The table says an alpha of 1 gives black and white. Four other places
+say the reverse:
+
+- the same page's fade-out line calls
+  `[1,1,0,[0,0,0,0],[1,1,1,1],[0.299,0.587,0.114,0]]` "the default values";
+- the `ppEffectAdjust` page's black-and-white example is
+  `[1,0.4,0,[0,0,0,0],[1,1,1,0],[1,1,1,0]]`, an alpha of 0;
+- the shipped `CfgPostProcessTemplates/BlackAndWhite` is
+  `{1,1,0,{1,1,1,0},{1,1,1,0},{0.75,0.25,0,1.0}}`, an alpha of 0;
+- the shipped `CfgPostProcessTemplates/Default` is
+  `{1,1,0,{0,0,0,0},{1,1,1,1},{0,0,0,0}}`, an alpha of 1, and the engine applies
+  it as the neutral baseline at the first post-process template call;
+- the debriefing script `RscDisplayDebriefing.sqf:646-650` fades from
+  `[0.4,0.4,0.4,1]` to `[0.4,0.4,0.4,0]` and calls the result "Monochromatic
+  post-process".
+
+A Default of alpha 1 cannot be black and white, or every mission would start in
+grey. The table's sentence is therefore reversed. An alpha of 1 leaves the frame
+unchanged, and an alpha of 0 replaces it with the grey the weights give, times
+the colorize colour. The weights are the luminance coefficients, so the Rec.601
+set gives a proper grey.
+
+The seventh array is documented too, as the optional Arma 3 radial ellipse. The
+addon does not use it, because an ellipse leaves the frame centre ungraded and a
+mode must reach every pixel.
+
+### The first client reading, 14 October 2026
+
+The owner ran the mod at a client and reported, in their words: "Feels like some
+is working and some isn't, not ALL colours are changing like red line, yellow
+line, blue line. PP effects seem a little strong maybe?"
+
+The client RPT is `Arma3_x64_2026-10-14_05-15-12.rpt` in the game's profile
+folder. `python3 tests/check_client_rpt.py <rpt>` exits 0. The log holds no error
+line that names the addon. It holds 18 warning lines of the form `Warning: Cannot
+evaluate '(missionnamespace getvariable ['A3ACC_Surf_...'])'`, all at 5:15:18 to
+5:15:20, before `preStart` at 5:15:21. Those name the MPTable and
+DragAndDropFont surface strings, which the engine read before the addon wrote
+the variables. That is the startup-ordering limit `18-wiki-command-verification`
+records, and it is not a frame defect. Two further warnings are the engine's
+animation noise.
+
+The run applied mode 3 at `postInit`, then the owner stepped the mode through 3,
+1, 2, 3, 4 and 0. Each step logged `frame mode N applied`, and Off logged `frame
+off destroyed`. So the transform reached the engine on every step.
+
+Every walk line reads `set=0`, for `RscDisplayMain` (319 controls), `Display3DEN`
+(144), `RscDiary` (113), `RscDisplayInterrupt` (101 and 97) and
+`RscDisplayGameOptions` (235 and 159). The walk set nothing because the fence
+declares only the two `RscDisplayCurator` side rows, and the curator display was
+never open in that session. That is the design, and it is not a defect.
+
+The owner's red, yellow and blue lines are named by the log. At 5:19:48 the
+addon logged:
+
+    [A3ACC] marker colour 'ColorRed' has no remap and stays unchanged
+    [A3ACC] marker colour 'ColorYellow' has no remap and stays unchanged
+    [A3ACC] marker colour 'ColorGreen' has no remap and stays unchanged
+    [A3ACC] marker colour 'ColorBlue' has no remap and stays unchanged
+
+So the map's generic marker palette is deliberately not remapped. The frame
+transform is the only mechanism that can move those colours, and only as
+rendered pixels. Whether it reaches a 2D control at all is the question todo 16's
+double-transform probe settles. The same block logged `applyMode 1 scope=all
+visited=13 recoloured=5 live=13`, so five live surfaces did take the mode colour
+on the later pass.
+
+### The values, corrected
+
+Two defects follow from the documented direction, and three values follow from
+the owner's reading of the strength.
+
+| Mode | Parameter | Old | New | Reason |
+|---|---|---|---|---|
+| 4 Achromatopsia | colorize alpha | 1 | 0 | The shipped `BlackAndWhite` template uses an alpha of 0. An alpha of 1 is the neutral set, so the first draft's achromatopsia mode applied no desaturation at all. |
+| 4 Achromatopsia | contrast | 0.4 | 1 | The shipped `BlackAndWhite` template uses 1. The owner reports the effect strong, and a contrast below 1 flattens the frame. |
+| 1 Protan, 2 Deutan, 3 Tritan | colorize alpha | 0.1 | 0.4 | The alpha is the desaturation, so 0.1 is a 90 percent desaturation, stronger than every shipped template except full black and white. 0.4 is the shipped `RealIsBrown` level, 60 percent, which keeps the desaturation that moves a saturated colour onto a luminance difference. |
+| 1 Protan, 2 Deutan, 3 Tritan | contrast | 1.25 | 1.15 | The owner reports the effect strong. The documented normal contrast is 1, and the shipped templates use 1, 1.08 and 1.14. |
+| 1 Protan, 2 Deutan, 3 Tritan | blend alpha | 0.15 | 0.1 | The alpha is the blend factor, so a smaller value is a lighter tint. The owner reports the effect strong. |
+
+Brightness, offset, the blend colours, the colorize colours and the weights are
+unchanged. The weights stay at the documented Rec.601 default, which
+`tests/verify_frame.py` pins in every mode.
+
+### The probe, and what the next run settles
+
+`tests/probes/probe_frame_params.sqf` is the harness. Paste its body into the
+Arma 3 debug console at a client with the mode set to Off. It draws sixteen known
+patches on the HUD, steps through the five modes' six values, then applies an
+alpha of 1 and an alpha of 0 in turn, then passes a seven-element array once. It
+writes every step to the RPT and leaves the verdict to the operator.
+
+The next run settles four things, and each costs a look, not a session:
+
+1. Does the picture change at all on each of the five modes?
+2. Which of the two alpha sets greys the picture? That closes the documentation
+   conflict above.
+3. Does the engine accept the seven-element form, and does the frame centre stay
+   ungraded?
+4. Do red, yellow and blue stay distinct on each mode, and does the picture look
+   tinted or grey?
+
+Record the answers here, with the RPT path, and then write the settled values
+into `fnc_frameParams.sqf`.
