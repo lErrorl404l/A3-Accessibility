@@ -7,16 +7,25 @@ roots this addon touches, then point GAME and GAME_ALSO at the result:
     extractpbo -P "<install>/Addons/ui_f.pbo" /tmp/opencode/vanilla/ui_f
     extractpbo -P "<install>/Curator/Addons/ui_f_curator.pbo" /tmp/opencode/gamepbo/ui_f_curator
 
-It is not part of the CI run, because CI has no game install. Run it after any
-config change, and after a game update.
+Selection rule, and why it matters. The engine loads the Core addon first,
+then every other addon. A property defined in a later addon replaces the value
+an earlier addon set, and a class a later addon reopens keeps the properties
+it does not restate. This gate therefore rebuilds the effective config in load
+order. It sorts the Core extraction first (the PBO whose CfgPatches declares
+Core), merges every later definition over the earlier ones, and checks the
+addon against the value the engine would use. The engine loads ui_f after
+Core, so ui_f supersedes Core's copy of CfgInGameUI. A gate that took the
+first definition it met read the superseded Core copy and reported 18 false
+deviations.
+
+It is not part of the CI run and not part of .githooks/pre-commit, because
+neither a checkout nor a CI runner has the game install or its extracted
+configs. Run it by hand after any config change, and after a game update.
 
 The game PBOs define the correct parent, the correct property set and the
 correct shipped value. The addon replaces some shipped values with a
 per-channel expression, and must keep the shipped value as the expression
 default. This reads both sides and reports every deviation.
-
-Base game PBOs are searched first, then the DLC and Curator folders, so the
-first definition found is the one the base game loads.
 
 Exit code 0 means every override agrees with the game.
 """
@@ -96,28 +105,43 @@ def parse(path: Path):
 
 
 def game_defs():
-    configs = sorted(GAME.rglob("config.cpp"))
-    if GAME_ALSO.is_dir():
-        configs = sorted(GAME_ALSO.rglob("config.cpp")) + configs
-    # Base game first, then the addon folders.
-    configs.sort(
-        key=lambda p: (
-            0 if "/gamepbo/" in str(p) and str(p).count("/") == 4 else 1,
-            str(p),
-        )
+    """Rebuild the effective config in engine load order.
+
+    The engine loads Core first, then every other addon. A later definition
+    replaces an earlier one, and a class a later addon reopens keeps the
+    properties it does not restate. Sorting Core first and merging later
+    definitions over earlier ones yields the value the engine would use. The
+    old rule took the first definition it met, which read Core's superseded
+    copy of CfgInGameUI and reported 18 false deviations.
+    """
+    configs: list[tuple[Path, Path]] = []
+    for root in (GAME_ALSO, GAME):
+        if root.is_dir():
+            configs += [(root, path) for path in sorted(root.rglob("config.cpp"))]
+    parsed = [(root, path, *parse(path)) for root, path in configs]
+    # Engine load order: Core first, then the rest.
+    parsed.sort(
+        key=lambda item: (0 if "CfgPatches/Core" in item[2] else 1, str(item[1]))
     )
+
     props: dict[str, dict[str, tuple[str, list[str]]]] = {}
     parents: dict[str, str] = {}
     origin: dict[str, str] = {}
-    for path in configs:
-        p, par = parse(path)
+    definitions = 0
+    superseded = 0
+    for root, path, p, par in parsed:
+        addon = path.relative_to(root).parts[0]
         for cls, entries in p.items():
-            if cls not in props:
-                props[cls] = entries
-                origin[cls] = path.parent.parent.parent.name
+            slot = props.setdefault(cls, {})
+            for prop, value in entries.items():
+                definitions += 1
+                if prop in slot:
+                    superseded += 1
+                slot[prop] = value
+            origin[cls] = addon
         for cls, parent in par.items():
-            parents.setdefault(cls, parent)
-    return props, parents, origin, len(configs)
+            parents[cls] = parent
+    return props, parents, origin, len(parsed), definitions, superseded
 
 
 def near(a: str, b: str) -> bool:
@@ -132,7 +156,7 @@ def same(values: list[str], other: list[str]) -> bool:
 
 
 def main() -> int:
-    gprops, gparents, origin, nconfigs = game_defs()
+    gprops, gparents, origin, nconfigs, definitions, superseded = game_defs()
     if not gprops:
         print("FAIL: no shipped configs found under", GAME)
         return 1
@@ -185,9 +209,10 @@ def main() -> int:
 
     print(
         f"[check_authoritative] PASS: {compared} overridden properties and "
-        f"{len(gprops)} shipped classes across {nconfigs} game configs. "
-        f"{added} properties added to a shipped class, {own_classes} own classes. "
-        "Every parent and default agrees."
+        f"{len(gprops)} effective shipped classes. Swept {definitions} definitions "
+        f"across {nconfigs} game configs, {superseded} superseded by a later "
+        f"addon. {added} properties added to a shipped class, "
+        f"{own_classes} own classes. Every parent and default agrees."
     )
     return 0
 
