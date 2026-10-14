@@ -50,3 +50,26 @@ the probe proves nothing about it. Captions need a different mechanism.
 - The semantics and safe ranges of every command above.
 - Whether any of them is client-only and therefore inert on a dedicated server.
 - The rendered result of any setting.
+
+## Walk display probe, run on the dedicated server
+
+The walk in `addons/colourblind/functions/fnc_recolourControls.sqf` calls
+`ctrlClassName`, `ctrlTextColor`, `ctrlBackgroundColor` and `ctrlForegroundColor`.
+The walk test probes those commands before it relies on them. The probe runs on the
+dedicated server through `tests/ingame`.
+
+Result: `displayNull createDisplay "RscDisplayEmpty"` returns `displayNull` on the
+dedicated server. The probe cannot build a control, so it cannot read the four
+commands. The in-engine run of this change records the line
+`[A3ACC] walk probe failed: createDisplay returned displayNull`.
+
+So on this tier:
+
+- `createDisplay` is accepted and returns `displayNull`. A dedicated server builds
+  no display, so the display capability is absent, and not merely unproven.
+- `ctrlClassName`, `ctrlTextColor`, `ctrlBackgroundColor` and `ctrlForegroundColor`
+  remain UNVERIFIED. The client record probes and asserts them, and this tier does
+  not.
+- The per-display recolour and the live re-apply after a mode change are
+  client-only. The in-engine tier cannot assert them, and the client record in
+  todo 16 carries them.

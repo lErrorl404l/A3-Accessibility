@@ -60,6 +60,14 @@
       "source_line": 6195
     },
     {
+      "rgba": [0.5, 0, 0],
+      "family": "RED",
+      "note": "curator SideOPFOR dark red, the shipped default of the second fenced surface",
+      "source_class": "RscDisplayCurator/Controls/Add/controls/SideOPFOR/colorText",
+      "source_file": "Curator__Addons__ui_f_curator/a3/ui_f_curator/config.cpp",
+      "source_line": 6182
+    },
+    {
       "rgba": [0, 1, 0],
       "family": "GREEN",
       "note": "pure green, the friendly colour on the sensor panel",

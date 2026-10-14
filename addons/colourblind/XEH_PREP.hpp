@@ -10,4 +10,7 @@ PREP(applyMode);
 PREP(cycleMode);
 PREP(logState);
 PREP(watch);
+PREP(onDisplayRegistered);
+PREP(recolourControls);
+PREP(reapplyDisplays);
 PREP_RECOMPILE_END;
