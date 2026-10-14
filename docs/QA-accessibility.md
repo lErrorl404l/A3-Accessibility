@@ -139,14 +139,21 @@ Two kinds of line appear below:
 ### How to run
 
 1. Start a client with the addon loaded and the colour blind mode at Off.
-2. Paste `tests/probes/probe_frame_params.sqf` into the debug console. Wait for
-   the `[A3ACC-PROBE] done` line. Record the four answers in
-   `docs/research/23-frame-transform.md`.
-3. Paste `tests/probes/probe_double_transform.sqf`. Follow each `LOOK` line.
+2. Paste `tests/probes/probe_frame_params.console.sqf` into the debug console.
+   The debug console does not accept comments, so paste the console copy and not
+   the readable source. Wait for the `[A3ACC-PROBE] done` line. Record the four
+   answers in `docs/research/23-frame-transform.md`.
+3. Paste `tests/probes/probe_double_transform.console.sqf`. Follow each `LOOK`
+   line.
 4. Fill every table below.
 5. Run `python3 tests/check_client_rpt.py <client rpt>`. It must exit 0.
 6. Leave the mode at a value other than Off, quit, restart, and read the
    `preStart` line. Then set the mode back to Off.
+
+The two console copies are generated from their sources by
+`tests/make_console_probes.py`. That script removes whole-line comments and blank
+lines, and refuses a trailing comment. Run it after an edit to a source, so the
+console copy cannot go stale.
 
 ### 1. The double-transformation result
 
