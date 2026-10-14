@@ -28,9 +28,12 @@ The format follows Keep a Changelog, and this project uses Semantic Versioning.
   compass, the ORBAT, the chat channel, the command bar and the airborne mini
   map altitude gradient.
 - `tests/verify_shipped.py` compares every override against the extracted game
-  configs. It reports 224 overridden properties across 18805 shipped classes,
-  with no property invented on a shipped class, and every parent and default
-  agreeing with the game.
+  configs. It reports 224 overridden properties across 25844 effective shipped
+  classes, swept from 58817 definitions across 209 game configs, with no property
+  invented on a shipped class, and every parent and default agreeing with the
+  game. The class count rose from 18805 when the Core config extraction added
+  about 7000 classes to the corpus; the gate repair left the class key set
+  identical.
 
 ### Added
 
