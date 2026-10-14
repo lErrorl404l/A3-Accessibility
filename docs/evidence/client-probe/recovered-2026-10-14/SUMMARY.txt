@@ -1,0 +1,77 @@
+# Recovered client probe reports, 2026-10-14
+
+These reports were in the Proton prefix's own report folder when the
+archiving was added. A person copied them. Each line below states the report,
+the launch command the report records, the size, and the last line of the
+report, which is where the client stopped.
+
+## arma3_x64_2026-10-14_15-55-32.rpt
+
+- bytes: 49030
+- launch: "Z:\ext\SteamLibrary\steamapps\common\Arma 3\arma3_x64.exe" -mod=@a3accp_cba;@a3accp_a3acc;@a3accp_self -connect=127.0.0.1 -port=2312 -name=A3ACCProbe -password= -noSplash -skipIntro -noPause -window
+- probe lines: 0
+- last line: 16:12:03 MovesType CfgMovesMaleSdr load time 1194.0 ms
+
+## arma3_x64_2026-10-14_15-57-50.rpt
+
+- bytes: 48872
+- launch: "Z:\ext\SteamLibrary\steamapps\common\Arma 3\arma3_x64.exe" -mod=@a3accp_cba;@a3accp_a3acc;@a3accp_self -connect=127.0.0.1 -port=2312 -name=A3ACCProbe -password= -noSplash -skipIntro -noPause -window
+- probe lines: 0
+- last line: 16:14:17 MovesType CfgMovesMaleSdr load time 1030.0 ms
+
+## arma3_x64_2026-10-14_15-59-27.rpt
+
+- bytes: 48701
+- launch: "Z:\ext\SteamLibrary\steamapps\common\Arma 3\arma3_x64.exe" -mod=@a3accp_cba;@a3accp_a3acc;@a3accp_self -connect=127.0.0.1 -port=2312 -name=A3ACCProbe -password= -noSplash -skipIntro -noPause -window
+- probe lines: 0
+- last line: 16:15:55 MovesType CfgMovesMaleSdr load time 960.0 ms
+
+## arma3_x64_2026-10-14_16-00-52.rpt
+
+- bytes: 48869
+- launch: "Z:\ext\SteamLibrary\steamapps\common\Arma 3\arma3_x64.exe" -mod=@a3accp_cba;@a3accp_a3acc;@a3accp_self -connect=127.0.0.1 -port=2312 -name=A3ACCProbe -password= -noSplash -skipIntro -noPause -window
+- probe lines: 0
+- last line: 16:17:23 MovesType CfgMovesMaleSdr load time 1610.0 ms
+
+## arma3_x64_2026-10-14_16-05-14.rpt
+
+- bytes: 48012
+- launch: "Z:\ext\SteamLibrary\steamapps\common\Arma 3\arma3_x64.exe" -mod=@a3accp_cba;@a3accp_a3acc;@a3accp_self -connect=127.0.0.1 -port=2312 -name=A3ACCProbe -password= -noSplash -skipIntro -noPause -window
+- probe lines: 0
+- last line: 16:05:21 InitSound - complete
+
+## arma3_x64_2026-10-14_16-10-20.rpt
+
+- bytes: 47944
+- launch: "Z:\ext\SteamLibrary\steamapps\common\Arma 3\arma3_x64.exe" -mod=@a3accp_cba;@a3accp_a3acc;@a3accp_self "-autotest=Z:\ext\SteamLibrary\steamapps\common\Arma 3\a3acc_autotest.cfg" -noSplash -skipIntro -noPause -window
+- probe lines: 0
+- last line: 16:10:26 InitSound - complete
+
+## arma3_x64_2026-10-14_16-13-26.rpt
+
+- bytes: 48012
+- launch: "Z:\ext\SteamLibrary\steamapps\common\Arma 3\arma3_x64.exe" -mod=@a3accp_cba;@a3accp_a3acc;@a3accp_self -connect=127.0.0.1 -port=2312 -name=A3ACCProbe -password= -noSplash -skipIntro -noPause -window
+- probe lines: 0
+- last line: 16:13:32 InitSound - complete
+
+## arma3_x64_2026-10-14_16-18-48.rpt
+
+- bytes: 47930
+- launch: "Z:\ext\SteamLibrary\steamapps\common\Arma 3\arma3_x64.exe" -mod=@a3accp_cba;@a3accp_a3acc;@a3accp_self -connect=127.0.0.1 -port=2312 -name=A3ACCProbe -noSound -noSplash -skipIntro -noPause -window
+- probe lines: 0
+- last line: 16:18:55 InitSound - complete
+
+## arma3_x64_2026-10-14_16-21-23.rpt
+
+- bytes: 48014
+- launch: "Z:\ext\SteamLibrary\steamapps\common\Arma 3\arma3_x64.exe" -mod=@a3accp_cba;@a3accp_a3acc;@a3accp_self -world=empty -connect=127.0.0.1 -port=2312 -name=A3ACCProbe -noSplash -skipIntro -noPause -window
+- probe lines: 0
+- last line: 16:21:29 InitSound - complete
+
+## arma3_x64_2026-10-14_16-24-56.rpt
+
+- bytes: 48180
+- launch: "Z:\ext\SteamLibrary\steamapps\common\Arma 3\arma3_x64.exe" -mod=@a3accp_cba;@a3accp_a3acc;@a3accp_self -connect=127.0.0.1 -port=2312 -name=A3ACCProbe -password= -noSplash -skipIntro -noPause -window
+- probe lines: 0
+- last line: 16:25:02 InitSound - complete
+

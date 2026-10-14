@@ -1,0 +1,69 @@
+version=55;
+class Mission
+{
+	addOns[]=
+	{
+		"A3_Characters_F_BLUFOR",
+		"A3_Characters_F_Common",
+		"A3_Weapons_F",
+		"A3_Structures_F"
+	};
+	class Intel
+	{
+		briefingName="A3ACC client probe";
+		startTime=12;
+		year=2035;
+		month=7;
+		day=15;
+		hour=12;
+		minute=0;
+		overviewText="A minimal mission with one playable unit, so the client probe has a player.";
+	};
+	class Entities
+	{
+		items=0;
+	};
+	class Groups
+	{
+		items=1;
+		class Item0
+		{
+			side="West";
+			class Entities
+			{
+				items=1;
+				class Item0
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						positionType="ATL";
+						position[]={2400,5300,0};
+					};
+					side="West";
+					flags=6;
+					class Attributes
+					{
+						isPlayable=1;
+					};
+					id=101;
+					type="B_Soldier_F";
+					atlOffset=0;
+				};
+			};
+			class Attributes
+			{
+			};
+			id=102;
+		};
+	};
+};
+class CfgIdentities
+{
+};
+class CfgVehicles
+{
+};
+class CfgGroups
+{
+};

@@ -1,0 +1,15 @@
+name = "A3ACC Client Probe";
+author = "lErrorl404l";
+picture = "";
+logoSmall = "";
+logo = "";
+logoOver = "";
+tooltip = "A3ACC Client Probe";
+tooltipOwned = "A3ACC Client Probe";
+overview = "TEST INSTRUMENT. Not a release addon. It is loaded only by tests/run_client_probe.sh.";
+description = "TEST INSTRUMENT. This is a test instrument, not an addon for players. It runs the A3 Accessibility client checks when a mission starts, logs every reading with the [A3ACC-PROBE] tag and writes a DONE marker. It is loaded only by tests/run_client_probe.sh, and it must never be published or shipped.";
+action = "";
+actionName = "";
+hideName = 1;
+hidePicture = 1;
+dlcColor[] = {0.4, 0.6, 0.8, 1};

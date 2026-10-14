@@ -14,3 +14,6 @@ __pycache__/
 # Tooling artefacts, not part of the addon
 .opencode/
 pyghidra_mcp_projects/
+
+# The client probe runner's generated mod set, screenshots and reports
+tests/probe_mod/run/

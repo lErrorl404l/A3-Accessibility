@@ -1,0 +1,602 @@
+=====================================================================
+== Z:\ext\SteamLibrary\steamapps\common\Arma 3\arma3_x64.exe
+== "Z:\ext\SteamLibrary\steamapps\common\Arma 3\arma3_x64.exe" -mod=@a3accp_cba;@a3accp_a3acc;@a3accp_self -connect=127.0.0.1 -port=2312 -name=A3ACCProbe -password= -noSplash -skipIntro -noPause -window
+
+Original output filename: Arma3Retail_DX11_x64
+Exe timestamp: 2026/09/29 10:26:50
+Current time:  2026/10/14 15:57:50
+
+Type: Public
+Build: Stable
+Version: 2.22.154089
+
+Allocator: Z:\ext\SteamLibrary\steamapps\common\Arma 3\Dll\tbb4malloc_bi_x64.dll [2017.0.0.0] [2017.0.0.0]
+PhysMem: 63 GiB, VirtMem : 131072 GiB, AvailPhys : 13 GiB, AvailVirt : 131072 GiB, AvailPage : 13 GiB, PageSize : 4.0 KiB/2.0 MiB/HasLockMemory, CPUCount : 16
+CPU: AMD Ryzen 9 5950X 16-Core Processor
+OS: 10.0.22000 (1)
+=====================================================================
+
+15:57:50 Warning: memory usage limited by a page file. Current limit 12982 MB, wanted 48144 MB.
+15:57:50 Increasing your page file size might improve game performance.
+15:57:50 Detected running Wine/Proton version 11.0
+15:57:50 Steam beta branch: none
+15:57:50 Detected number of DLCs: 24
+15:57:50 ---------------------------------------------------------- Game ----------------------------------------------------------
+15:57:50        name                                                         appId      owned   installed  available  isDlc  
+15:57:50        Arma 3                                                       107410     yes     yes        yes        no     
+15:57:50        Unknown                                                      -1         no      no         no         yes    
+15:57:50 ---------------------------------------------------------- Dlcs ----------------------------------------------------------
+15:57:50  index name                                                         appId      owned   installed  available  isDlc  
+15:57:50  0     Arma 3 Maps                                                  249861     no      no         no         yes    
+15:57:50  1     Arma 3 Tactical Guide                                        249862     no      no         no         yes    
+15:57:50  2     Arma 3 Zeus                                                  275700     yes     yes        yes        yes    
+15:57:50  3     Arma 3 Karts                                                 288520     yes     yes        yes        yes    
+15:57:50  4     Arma 3 Helicopters                                           304380     yes     yes        yes        yes    
+15:57:50  5     Arma 3 DLC Bundle 1                                          304400     no      no         no         yes    
+15:57:50  6     Arma 3 Marksmen                                              332350     yes     yes        yes        yes    
+15:57:50  7     Arma 3 Apex                                                  395180     yes     yes        yes        yes    
+15:57:50  8     Arma 3 Laws of War                                           571710     yes     yes        yes        yes    
+15:57:50  9     Arma 3 Jets                                                  601670     yes     yes        yes        yes    
+15:57:50  10    Arma 3 DLC Bundle 2                                          612480     no      no         no         yes    
+15:57:50  11    Arma 3 Malden                                                639600     yes     yes        yes        yes    
+15:57:50  12    Arma 3 Tac-Ops Mission Pack                                  744950     yes     yes        yes        yes    
+15:57:50  13    Arma 3 Tanks                                                 798390     yes     yes        yes        yes    
+15:57:50  14    Arma 3 Contact                                               1021790    yes     yes        yes        yes    
+15:57:50  15    Arma 3 Creator DLC: Global Mobilization - Cold War Germany   1042220    yes     yes        yes        yes    
+15:57:50  16    Arma 3 Creator DLC: Spearhead 1944                           1175380    yes     yes        yes        yes    
+15:57:50  17    Arma 3 Creator DLC: S.O.G. Prairie Fire                      1227700    yes     yes        yes        yes    
+15:57:50  18    Arma 3 Creator DLC: CSLA Iron Curtain                        1294440    yes     yes        yes        yes    
+15:57:50  19    Arma 3 Art of War                                            1325500    yes     yes        yes        yes    
+15:57:50  20    Arma 3 Creator DLC: Western Sahara                           1681170    yes     yes        yes        yes    
+15:57:50  21    Arma 3 Creator DLC: Reaction Forces                          2647760    yes     yes        yes        yes    
+15:57:50  22    Arma 3 Creator DLC: Expeditionary Forces                     2647830    yes     yes        yes        yes    
+15:57:50  23    Arma 3 Pass                                                  4198200    no      no         yes        yes    
+15:57:50 --------------------------------------------------------------------------------------------------------------------------
+15:57:51 Initializing stats manager.
+15:57:57 Cannot open C:\users\steamuser\AppData\Local\Arma 3\MonetizedServersCache\list.json
+15:57:57 Canceling the list loading process, the load of the file failed: C:\users\steamuser\AppData\Local\Arma 3\MonetizedServersCache\list.json
+15:57:57 Initializing Steam Manager
+15:57:57 unable to load cached items meta info. save and update functionality will be broken
+15:57:57 Starting initial content check.
+15:57:57 Steam Manager initialized.
+15:57:57 
+15:57:57 ==== Loaded addons ====
+15:57:57 
+15:57:57 dta\bin.pbo - 154089
+15:57:57 dta\core.pbo - 151188
+15:57:57 dta\languagecore_f.pbo - 151420
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\anims_f_aow.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\characters_f_aow.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\data_f_aow.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\dubbing_f_aow.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\editorpreviews_f_aow.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\functions_f_aow.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\languagemissions_f_aow.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\language_f_aow.pbo - 151415
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\missions_f_aow.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\missions_f_aow_data.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\missions_f_aow_video.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\props_f_aow.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\sounds_f_aow.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\structures_f_aow.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\supplies_f_aow.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow\addons\ui_f_aow.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\air_f_enoch.pbo - 151184
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\anims_f_enoch.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\armor_f_enoch.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\cargoposes_f_enoch.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\characters_f_enoch.pbo - 151255
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\data_f_enoch.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\dubbing_radio_f_enoch.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\dubbing_radio_f_enoch_data.pbo - 151272
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\editorpreviews_f_enoch.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\functions_f_enoch.pbo - 151303
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\languagemissions_f_enoch.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\language_f_enoch.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\map_enoch.pbo - 151221
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\map_enoch_data.pbo - 151432
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\map_enoch_data_layers.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\map_enoch_scenes_f.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\missions_f_enoch.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\music_f_enoch.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\music_f_enoch_music.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\props_f_enoch.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\rocks_f_enoch.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\soft_f_enoch.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\sounds_f_enoch.pbo - 151321
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\static_f_enoch.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\structures_f_enoch.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\structures_f_enoch_civilian.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\structures_f_enoch_commercial.pbo - 151221
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\structures_f_enoch_cultural.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\structures_f_enoch_data.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\structures_f_enoch_furniture.pbo - 151205
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\structures_f_enoch_industrial.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\structures_f_enoch_infrastructure.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\structures_f_enoch_military.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\supplies_f_enoch.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\ui_f_enoch.pbo - 151425
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\vegetation_f_enoch.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch\addons\weapons_f_enoch.pbo - 151255
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\armor_f_tank.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\cargoposes_f_tank.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\characters_f_tank.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\data_f_tank.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\dubbing_f_tank.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\editorpreviews_f_tank.pbo - 151315
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\functions_f_tank.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\languagemissions_f_tank.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\language_f_tank.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\missions_f_tank.pbo - 151205
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\missions_f_tank_data.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\modules_f_tank.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\music_f_tank.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\props_f_tank.pbo - 151321
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\sounds_f_tank.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\structures_f_tank.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\ui_f_tank.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank\addons\weapons_f_tank.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tacops\addons\characters_f_tacops.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tacops\addons\data_f_tacops.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tacops\addons\dubbing_f_tacops.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tacops\addons\functions_f_tacops.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tacops\addons\languagemissions_f_tacops.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tacops\addons\language_f_tacops.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tacops\addons\missions_f_tacops.pbo - 151315
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tacops\addons\modules_f_tacops.pbo - 151205
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tacops\addons\music_f_tacops.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tacops\addons\sounds_f_tacops.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\tacops\addons\ui_f_tacops.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\air_f_orange.pbo - 151205
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\cargoposes_f_orange.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\characters_f_orange.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\data_f_orange.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\dubbing_f_orange.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\editorpreviews_f_orange.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\functions_f_orange.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\languagemissions_f_orange.pbo - 151415
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\language_f_orange.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\missions_f_orange.pbo - 151216
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\modules_f_orange.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\music_f_orange.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\props_f_orange.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\soft_f_orange.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\sounds_f_orange.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\structures_f_orange.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\supplies_f_orange.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\ui_f_orange.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange\addons\weapons_f_orange.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\armor_f_argo.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\characters_f_patrol.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\data_f_argo.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\data_f_patrol.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\editorpreviews_f_argo.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\functions_f_patrol.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\languagemissions_f_patrol.pbo - 151415
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\language_f_argo.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\language_f_patrol.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\map_malden.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\map_malden_data.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\map_malden_data_layers.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\map_malden_scenes_f.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\missions_f_patrol.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\modules_f_patrol.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\music_f_argo.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\props_f_argo.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\rocks_f_argo.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\sounds_f_patrol.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\structures_f_argo.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\ui_f_patrol.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\vegetation_f_argo.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo\addons\weapons_f_patrol.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\air_f_jets.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\anims_f_jets.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\boat_f_destroyer.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\boat_f_jets.pbo - 151255
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\cargoposes_f_jets.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\characters_f_jets.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\data_f_destroyer.pbo - 151240
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\data_f_jets.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\data_f_sams.pbo - 151240
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\dubbing_f_jets.pbo - 151221
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\editorpreviews_f_destroyer.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\editorpreviews_f_jets.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\editorpreviews_f_sams.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\functions_f_destroyer.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\functions_f_jets.pbo - 151425
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\languagemissions_f_jets.pbo - 151415
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\language_f_destroyer.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\language_f_jets.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\language_f_sams.pbo - 151415
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\missions_f_jets.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\modules_f_jets.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\music_f_jets.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\props_f_destroyer.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\props_f_jets.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\sounds_f_jets.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\static_f_destroyer.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\static_f_jets.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\static_f_sams.pbo - 151240
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\ui_f_jets.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\weapons_f_destroyer.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\weapons_f_jets.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets\addons\weapons_f_sams.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\air_f_exp.pbo - 151421
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\anims_f_exp.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\armor_f_exp.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\boat_f_exp.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\cargoposes_f_exp.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\characters_f_exp.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\characters_f_oldman.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\data_f_exp.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\data_f_oldman.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\dubbing_f_exp.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\dubbing_f_oldman.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\dubbing_radio_f_exp.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\dubbing_radio_f_exp_data_chi.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\dubbing_radio_f_exp_data_engfre.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\dubbing_radio_f_exp_data_fre.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\editorpreviews_f_exp.pbo - 151374
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\editorpreviews_f_oldman.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\functions_f_exp.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\functions_f_oldman.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\languagemissions_f_exp.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\languagemissions_f_oldman.pbo - 151415
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\language_f_exp.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\language_f_oldman.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\map_data_exp.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\map_tanoabuka.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\map_tanoabuka_data.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\map_tanoabuka_data_layers.pbo - 151204
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\map_tanoabuka_data_layers_00_00.pbo - 0000
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\map_tanoa_scenes_f.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\missions_f_exp.pbo - 151420
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\missions_f_exp_data.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\missions_f_exp_video.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\missions_f_oldman.pbo - 151427
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\modules_f_exp.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\modules_f_oldman.pbo - 151205
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\music_f_exp.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\music_f_exp_music.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\music_f_oldman.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\music_f_oldman_music.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\props_f_exp.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\props_f_oldman.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\rocks_f_exp.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\soft_f_exp.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\soft_f_oldman.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\sounds_f_exp.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\sounds_f_oldman.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\static_f_exp.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\static_f_oldman.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\structures_f_exp.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\structures_f_exp_civilian.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\structures_f_exp_commercial.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\structures_f_exp_cultural.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\structures_f_exp_data.pbo - 151272
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\structures_f_exp_industrial.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\structures_f_exp_infrastructure.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\structures_f_oldman.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\supplies_f_exp.pbo - 151353
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\supplies_f_oldman.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\ui_f_exp.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\ui_f_oldman.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\vegetation_f_exp.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion\addons\weapons_f_exp.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\anims_f_mark.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\characters_f_mark.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\data_f_mark.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\dubbing_f_mark.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\dubbing_f_mp_mark.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\functions_f_mark.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\functions_f_mp_mark.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\languagemissions_f_mark.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\languagemissions_f_mp_mark.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\language_f_mark.pbo - 151415
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\language_f_mp_mark.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\missions_f_mark.pbo - 151417
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\missions_f_mark_data.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\missions_f_mark_video.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\missions_f_mp_mark.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\missions_f_mp_mark_data.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\modules_f_mark.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\modules_f_mp_mark.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\music_f_mark.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\music_f_mark_music.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\sounds_f_mark.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\static_f_mark.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\structures_f_mark.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\supplies_f_mark.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\ui_f_mark.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\ui_f_mp_mark.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark\addons\weapons_f_mark.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\air_f_heli.pbo - 151321
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\anims_f_heli.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\boat_f_heli.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\cargoposes_f_heli.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\data_f_heli.pbo - 151205
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\dubbing_f_heli.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\functions_f_heli.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\languagemissions_f_heli.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\language_f_heli.pbo - 151415
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\missions_f_heli.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\missions_f_heli_data.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\missions_f_heli_video.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\modules_f_heli.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\music_f_heli.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\music_f_heli_music.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\soft_f_heli.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\sounds_f_heli.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\structures_f_heli.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\supplies_f_heli.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli\addons\ui_f_heli.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart\addons\anims_f_kart.pbo - 151185
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart\addons\characters_f_kart.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart\addons\data_f_kart.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart\addons\languagemissions_f_kart.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart\addons\language_f_kart.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart\addons\missions_f_kart.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart\addons\missions_f_kart_data.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart\addons\modules_f_kart.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart\addons\modules_f_kart_data.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart\addons\soft_f_kart.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart\addons\sounds_f_kart.pbo - 151187
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart\addons\structures_f_kart.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart\addons\ui_f_kart.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart\addons\weapons_f_kart.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\curator\addons\data_f_curator.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\curator\addons\data_f_curator_music.pbo - 151188
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\curator\addons\functions_f_curator.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\curator\addons\language_f_curator.pbo - 151414
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\curator\addons\missions_f_curator.pbo - 151216
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\curator\addons\modules_f_curator.pbo - 151186
+15:57:57 Z:\ext\SteamLibrary\steamapps\common\Arma 3\curator\addons\ui_f_curator.pbo - 151205
+15:57:57 addons\3den.pbo - 151321
+15:57:57 addons\3den_language.pbo - 151414
+15:57:57 addons\a3.pbo - 151204
+15:57:57 addons\air_f.pbo - 151184
+15:57:57 addons\air_f_beta.pbo - 151423
+15:57:57 addons\air_f_epb.pbo - 151184
+15:57:57 addons\air_f_epc.pbo - 151185
+15:57:57 addons\air_f_gamma.pbo - 151185
+15:57:57 addons\animals_f.pbo - 151185
+15:57:57 addons\animals_f_beta.pbo - 151185
+15:57:57 addons\anims_f.pbo - 151185
+15:57:57 addons\anims_f_bootcamp.pbo - 151185
+15:57:57 addons\anims_f_data.pbo - 151185
+15:57:57 addons\anims_f_epa.pbo - 151185
+15:57:57 addons\anims_f_epc.pbo - 151185
+15:57:57 addons\anims_f_exp_a.pbo - 151185
+15:57:57 addons\anims_f_mod.pbo - 151185
+15:57:57 addons\armor_f.pbo - 151185
+15:57:57 addons\armor_f_beta.pbo - 151185
+15:57:57 addons\armor_f_decade.pbo - 151185
+15:57:57 addons\armor_f_epb.pbo - 151185
+15:57:57 addons\armor_f_epc.pbo - 151185
+15:57:57 addons\armor_f_gamma.pbo - 151185
+15:57:57 addons\baseconfig_f.pbo - 151188
+15:57:57 addons\boat_f.pbo - 151185
+15:57:57 addons\boat_f_beta.pbo - 151185
+15:57:57 addons\boat_f_epc.pbo - 151185
+15:57:57 addons\boat_f_gamma.pbo - 151185
+15:57:57 addons\cargoposes_f.pbo - 151218
+15:57:57 addons\characters_f.pbo - 151185
+15:57:57 addons\characters_f_beta.pbo - 151185
+15:57:57 addons\characters_f_bootcamp.pbo - 151185
+15:57:57 addons\characters_f_decade.pbo - 151185
+15:57:57 addons\characters_f_epa.pbo - 151188
+15:57:57 addons\characters_f_epb.pbo - 151188
+15:57:57 addons\characters_f_epc.pbo - 151188
+15:57:57 addons\characters_f_gamma.pbo - 151188
+15:57:57 addons\data_f.pbo - 151188
+15:57:57 addons\data_f_bootcamp.pbo - 151188
+15:57:57 addons\data_f_decade.pbo - 151188
+15:57:57 addons\data_f_exp_a.pbo - 151188
+15:57:57 addons\data_f_exp_b.pbo - 151188
+15:57:57 addons\data_f_mod.pbo - 151188
+15:57:57 addons\data_f_warlords.pbo - 151188
+15:57:57 addons\drones_f.pbo - 151188
+15:57:57 addons\dubbing_f.pbo - 151188
+15:57:57 addons\dubbing_f_beta.pbo - 151188
+15:57:57 addons\dubbing_f_bootcamp.pbo - 151188
+15:57:57 addons\dubbing_f_epa.pbo - 151188
+15:57:57 addons\dubbing_f_epb.pbo - 151185
+15:57:57 addons\dubbing_f_epc.pbo - 151185
+15:57:57 addons\dubbing_f_gamma.pbo - 151185
+15:57:57 addons\dubbing_f_warlords.pbo - 151186
+15:57:57 addons\dubbing_radio_f.pbo - 151186
+15:57:57 addons\dubbing_radio_f_data_eng.pbo - 151186
+15:57:57 addons\dubbing_radio_f_data_engb.pbo - 151186
+15:57:57 addons\dubbing_radio_f_data_gre.pbo - 151186
+15:57:57 addons\dubbing_radio_f_data_per.pbo - 151186
+15:57:57 addons\dubbing_radio_f_data_vr.pbo - 151186
+15:57:57 addons\editorpreviews_f.pbo - 151374
+15:57:57 addons\editorpreviews_f_decade.pbo - 151186
+15:57:57 addons\editor_f.pbo - 151249
+15:57:57 addons\functions_f.pbo - 151420
+15:57:57 addons\functions_f_bootcamp.pbo - 151430
+15:57:57 addons\functions_f_decade.pbo - 151186
+15:57:57 addons\functions_f_epa.pbo - 151186
+15:57:57 addons\functions_f_epc.pbo - 151186
+15:57:57 addons\functions_f_exp_a.pbo - 151186
+15:57:57 addons\functions_f_warlords.pbo - 151186
+15:57:57 addons\languagemissions_f.pbo - 151415
+15:57:57 addons\languagemissions_f_beta.pbo - 151414
+15:57:57 addons\languagemissions_f_bootcamp.pbo - 151414
+15:57:57 addons\languagemissions_f_epa.pbo - 151414
+15:57:57 addons\languagemissions_f_epb.pbo - 151414
+15:57:57 addons\languagemissions_f_epc.pbo - 151415
+15:57:57 addons\languagemissions_f_exp_a.pbo - 151414
+15:57:57 addons\languagemissions_f_gamma.pbo - 151414
+15:57:57 addons\language_f.pbo - 151415
+15:57:57 addons\language_f_beta.pbo - 151420
+15:57:57 addons\language_f_bootcamp.pbo - 151414
+15:57:57 addons\language_f_decade.pbo - 151414
+15:57:57 addons\language_f_epa.pbo - 151414
+15:57:57 addons\language_f_epb.pbo - 151414
+15:57:57 addons\language_f_epc.pbo - 151415
+15:57:57 addons\language_f_exp_a.pbo - 151414
+15:57:57 addons\language_f_exp_b.pbo - 151414
+15:57:57 addons\language_f_gamma.pbo - 151415
+15:57:57 addons\language_f_mod.pbo - 151414
+15:57:57 addons\language_f_warlords.pbo - 151414
+15:57:57 addons\map_altis.pbo - 151188
+15:57:57 addons\map_altis_data.pbo - 151188
+15:57:57 addons\map_altis_data_layers.pbo - 151188
+15:57:57 addons\map_altis_data_layers_00_00.pbo - 0000
+15:57:57 addons\map_altis_data_layers_00_01.pbo - 0000
+15:57:57 addons\map_altis_data_layers_01_00.pbo - 0000
+15:57:57 addons\map_altis_data_layers_01_01.pbo - 0000
+15:57:57 addons\map_altis_scenes_f.pbo - 151188
+15:57:57 addons\map_data.pbo - 151188
+15:57:57 addons\map_stratis.pbo - 151188
+15:57:57 addons\map_stratis_data.pbo - 151188
+15:57:57 addons\map_stratis_data_layers.pbo - 151188
+15:57:57 addons\map_stratis_scenes_f.pbo - 151188
+15:57:57 addons\map_vr.pbo - 151188
+15:57:57 addons\map_vr_scenes_f.pbo - 151188
+15:57:57 addons\misc_f.pbo - 151186
+15:57:57 addons\missions_f.pbo - 151240
+15:57:57 addons\missions_f_beta.pbo - 151205
+15:57:57 addons\missions_f_beta_data.pbo - 151186
+15:57:57 addons\missions_f_beta_video.pbo - 151186
+15:57:57 addons\missions_f_bootcamp.pbo - 151186
+15:57:57 addons\missions_f_bootcamp_data.pbo - 151186
+15:57:57 addons\missions_f_bootcamp_video.pbo - 151186
+15:57:57 addons\missions_f_data.pbo - 151186
+15:57:57 addons\missions_f_epa.pbo - 151205
+15:57:57 addons\missions_f_epa_data.pbo - 151186
+15:57:57 addons\missions_f_epa_video.pbo - 151186
+15:57:57 addons\missions_f_epb.pbo - 151186
+15:57:57 addons\missions_f_epc.pbo - 151186
+15:57:57 addons\missions_f_exp_a.pbo - 151186
+15:57:57 addons\missions_f_exp_a_data.pbo - 151186
+15:57:57 addons\missions_f_gamma.pbo - 151186
+15:57:57 addons\missions_f_gamma_data.pbo - 151186
+15:57:57 addons\missions_f_gamma_video.pbo - 151186
+15:57:57 addons\missions_f_video.pbo - 151186
+15:57:57 addons\missions_f_warlords.pbo - 151186
+15:57:57 addons\modules_f.pbo - 151321
+15:57:57 addons\modules_f_beta.pbo - 151219
+15:57:57 addons\modules_f_beta_data.pbo - 151186
+15:57:57 addons\modules_f_bootcamp.pbo - 151186
+15:57:57 addons\modules_f_data.pbo - 151186
+15:57:57 addons\modules_f_epb.pbo - 151186
+15:57:57 addons\modules_f_exp_a.pbo - 151186
+15:57:57 addons\modules_f_warlords.pbo - 151186
+15:57:57 addons\music_f.pbo - 151186
+15:57:57 addons\music_f_bootcamp.pbo - 151186
+15:57:57 addons\music_f_bootcamp_music.pbo - 151186
+15:57:57 addons\music_f_epa.pbo - 151186
+15:57:57 addons\music_f_epa_music.pbo - 151186
+15:57:57 addons\music_f_epb.pbo - 151186
+15:57:57 addons\music_f_epb_music.pbo - 151186
+15:57:57 addons\music_f_epc.pbo - 151186
+15:57:57 addons\music_f_epc_music.pbo - 151186
+15:57:57 addons\music_f_music.pbo - 151186
+15:57:57 addons\plants_f.pbo - 151186
+15:57:57 addons\props_f_decade.pbo - 151240
+15:57:57 addons\props_f_exp_a.pbo - 151186
+15:57:57 addons\roads_f.pbo - 151187
+15:57:57 addons\rocks_f.pbo - 151187
+15:57:57 addons\signs_f.pbo - 151187
+15:57:57 addons\soft_f.pbo - 151218
+15:57:57 addons\soft_f_beta.pbo - 151187
+15:57:57 addons\soft_f_bootcamp.pbo - 151187
+15:57:57 addons\soft_f_epc.pbo - 151187
+15:57:57 addons\soft_f_gamma.pbo - 151321
+15:57:57 addons\sounds_f.pbo - 151423
+15:57:57 addons\sounds_f_arsenal.pbo - 151187
+15:57:57 addons\sounds_f_bootcamp.pbo - 151187
+15:57:57 addons\sounds_f_characters.pbo - 151187
+15:57:57 addons\sounds_f_decade.pbo - 151343
+15:57:57 addons\sounds_f_environment.pbo - 151187
+15:57:57 addons\sounds_f_epb.pbo - 151187
+15:57:57 addons\sounds_f_epc.pbo - 151187
+15:57:57 addons\sounds_f_exp_a.pbo - 151187
+15:57:57 addons\sounds_f_mod.pbo - 151187
+15:57:57 addons\sounds_f_sfx.pbo - 151187
+15:57:57 addons\sounds_f_vehicles.pbo - 151187
+15:57:57 addons\static_f.pbo - 151187
+15:57:57 addons\static_f_beta.pbo - 151187
+15:57:57 addons\static_f_gamma.pbo - 151187
+15:57:57 addons\structures_f.pbo - 151296
+15:57:57 addons\structures_f_bootcamp.pbo - 151187
+15:57:57 addons\structures_f_data.pbo - 151187
+15:57:57 addons\structures_f_epa.pbo - 151188
+15:57:57 addons\structures_f_epb.pbo - 151188
+15:57:57 addons\structures_f_epc.pbo - 151188
+15:57:57 addons\structures_f_exp_a.pbo - 151188
+15:57:57 addons\structures_f_households.pbo - 151188
+15:57:57 addons\structures_f_ind.pbo - 151296
+15:57:57 addons\structures_f_mil.pbo - 151188
+15:57:57 addons\structures_f_wrecks.pbo - 151188
+15:57:57 addons\uifonts_f.pbo - 151430
+15:57:57 addons\uifonts_f_data.pbo - 151430
+15:57:57 addons\ui_f.pbo - 151417
+15:57:57 addons\ui_f_bootcamp.pbo - 151188
+15:57:57 addons\ui_f_data.pbo - 151387
+15:57:57 addons\ui_f_decade.pbo - 151188
+15:57:57 addons\ui_f_exp_a.pbo - 151188
+15:57:57 addons\weapons_f.pbo - 151408
+15:57:57 addons\weapons_f_beta.pbo - 151188
+15:57:57 addons\weapons_f_bootcamp.pbo - 151188
+15:57:57 addons\weapons_f_decade.pbo - 151321
+15:57:57 addons\weapons_f_epa.pbo - 151188
+15:57:57 addons\weapons_f_epb.pbo - 151188
+15:57:57 addons\weapons_f_epc.pbo - 151188
+15:57:57 addons\weapons_f_gamma.pbo - 151188
+15:57:57 addons\weapons_f_mod.pbo - 151188
+15:57:57 
+15:57:57 =======================
+15:57:57 
+15:57:57 ============================================================================================= List of mods ===============================================================================================
+15:57:57 modsReadOnly = true
+15:57:57 safeModsActivated = false
+15:57:57 customMods = true
+15:57:57 hash = '0C7CDCF1A11FF2B502999D30840010BD021ABA38'
+15:57:57 hashShort = 'bf996a12'
+15:57:57 name                                               | modDir               | default    | official   | origin               | hash                                     | hashShort | fullPath
+15:57:57 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15:57:57 @a3accp_self                                       | @a3accp_self         | false      | false      | NOT FOUND (Empty)    |                                          |           | 
+15:57:57 @a3accp_a3acc                                      | @a3accp_a3acc        | false      | false      | NOT FOUND (Empty)    |                                          |           | 
+15:57:57 @a3accp_cba                                        | @a3accp_cba          | false      | false      | NOT FOUND (Empty)    |                                          |           | 
+15:57:57 Arma 3 Art of War                                  | aow                  | true       | true       | GAME DIR             | 211e1b4cd2f62e3968e438d84980176ab817e779 | ffe0f24a  | Z:\ext\SteamLibrary\steamapps\common\Arma 3\aow
+15:57:57 Arma 3 Contact (Platform)                          | enoch                | true       | true       | GAME DIR             | dd9b0b04108ee11becbb1eee54a3613e9bddb83d | 3e1ecdf0  | Z:\ext\SteamLibrary\steamapps\common\Arma 3\enoch
+15:57:57 Arma 3 Tanks                                       | tank                 | true       | true       | GAME DIR             | 1a4f38e9d27666cb01fc89ee55c6070fe318468b | 3cfb7f5f  | Z:\ext\SteamLibrary\steamapps\common\Arma 3\tank
+15:57:57 Arma 3 Tac-Ops                                     | tacops               | true       | true       | GAME DIR             | 1f3f39fd9d68378c2b72f22c5d3452d093cc3b88 | be9266f2  | Z:\ext\SteamLibrary\steamapps\common\Arma 3\tacops
+15:57:57 Arma 3 Laws of War                                 | orange               | true       | true       | GAME DIR             | fd917fa24ba8e30fa437c1ee1de93bcc30d50100 | b5f74b01  | Z:\ext\SteamLibrary\steamapps\common\Arma 3\orange
+15:57:57 Arma 3 Malden                                      | argo                 | true       | true       | GAME DIR             | 61774ca97de063da1c6beef596ec5e8c63d662bb | 91268d12  | Z:\ext\SteamLibrary\steamapps\common\Arma 3\argo
+15:57:57 Arma 3 Jets                                        | jets                 | true       | true       | GAME DIR             | e99a23e1c11fe5c23fb91bc22a247cff77b01226 | 865dbc0d  | Z:\ext\SteamLibrary\steamapps\common\Arma 3\jets
+15:57:57 Arma 3 Apex                                        | expansion            | true       | true       | GAME DIR             | 87e59b5a05062229d2557642ad25aa4a3d06c44c | 1aa14b93  | Z:\ext\SteamLibrary\steamapps\common\Arma 3\expansion
+15:57:57 Arma 3 Marksmen                                    | mark                 | true       | true       | GAME DIR             | 0bdec639463b8faa15fcd1262a8ab4bb89bffa55 | 3b361037  | Z:\ext\SteamLibrary\steamapps\common\Arma 3\mark
+15:57:57 Arma 3 Helicopters                                 | heli                 | true       | true       | GAME DIR             | e9e4dd10400095fca7fb6e7ee0bec7e2237f193d | aaebb0ae  | Z:\ext\SteamLibrary\steamapps\common\Arma 3\heli
+15:57:57 Arma 3 Karts                                       | kart                 | true       | true       | GAME DIR             | 67d670d0d95dcfc258002b0b72dbe15ad41f36e7 | 4582456   | Z:\ext\SteamLibrary\steamapps\common\Arma 3\kart
+15:57:57 Arma 3 Zeus                                        | curator              | true       | true       | GAME DIR             | 716831621eaa4f06c490b8f89e1db6c712c6728d | 1d382734  | Z:\ext\SteamLibrary\steamapps\common\Arma 3\curator
+15:57:57 Arma 3                                             | A3                   | true       | true       | NOT FOUND (Empty)    |                                          |           | 
+15:57:57 ==========================================================================================================================================================================================================
+15:57:57 DX11 - Initializing DX11 engine.
+15:57:57 DX11 - Using DXGI adapter 0 (detected in config).
+15:57:57 DX11 - Using DXGI adapter 0.
+15:57:57     - adapter description : AMD Radeon RX 7900 XTX (RADV NAVI31)
+15:57:57     - adapter vendor ID : 4098
+15:57:57     - adapter device ID : 29772
+15:57:57     - adapter subsys ID : 0
+15:57:57     - adapter revision  : 0
+15:57:57     - dedicated video memory : 4278190080
+15:57:57     - dedicated system memory : 0
+15:57:57     - shared system memory : 3590443008
+15:57:57     - driver version : 0/Not Implemented
+15:57:57 InitSound ...
+15:57:57 Selected Audio Output: Speakers (PipeWire) - Channels: 2, Freq: 48000
+15:57:57 InitSound - complete
+16:14:13 PhysX3 SDK Init started ...
+16:14:13 PhysX3 SDK Init ended.
+16:14:16 Loading movesType CfgGesturesMale
+16:14:16 Creating action map cache
+16:14:16 MovesType CfgGesturesMale load time 20.0 ms
+16:14:16 Loading movesType CfgMovesMaleSdr
+16:14:16 Reading cached action map data
+16:14:16 Warning: looped for animation: a3\anims_f_epa\data\anim\sdr\cts\hubcleaned\briefing\hubbriefing_loop.rtm differs (looped now 0)! MoveName: hubbriefing_ext
+16:14:17 Warning: looped for animation: a3\anims_f_epa\data\anim\sdr\cts\hubcleaned\spectator\hubspectator_stand.rtm differs (looped now 1)! MoveName: hubspectator_stand_contact
+16:14:17 MovesType CfgMovesMaleSdr load time 1030.0 ms
