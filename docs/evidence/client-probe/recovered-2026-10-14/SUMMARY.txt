@@ -1,7 +1,7 @@
 # Recovered client probe reports, 2026-10-14
 
 These reports were in the Proton prefix's own report folder when the
-archiving was added. A person copied them. Each line below states the report,
+archiving was added. Each line below states the report,
 the launch command the report records, the size, and the last line of the
 report, which is where the client stopped.
 
